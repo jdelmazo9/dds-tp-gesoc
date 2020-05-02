@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RegExValidationTest {
+class ValidacionRegExTest {
 
     Validacion regexVal;
 
@@ -15,7 +15,7 @@ class RegExValidationTest {
     }
 
     @Test
-    void regexValidationTest() {
+    void validacionRegExTest() {
         assertFalse(regexVal.validar("asdas1Adasd"), "La contraseña debe contener al menos un caracter especial");
         assertFalse(regexVal.validar("aA1$"), "La contraseña debe tener al menos 8 caracteres");
         assertFalse(regexVal.validar("asda s1Adasd"), "La contraseña no puede contener espacios");

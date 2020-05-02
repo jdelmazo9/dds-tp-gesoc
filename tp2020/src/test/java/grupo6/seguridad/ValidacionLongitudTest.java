@@ -5,17 +5,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LongValidationTest {
+class ValidacionLongitudTest {
 
     Validacion minLongVal;
 
     @BeforeEach
     void setUp() {
-        minLongVal = new LongValidation(5);
+        minLongVal = new ValidacionLongitud(5);
     }
 
     @Test
-    void longValidationTest(){
+    void validacionLongitudTest(){
         assertTrue(minLongVal.validar("asdas1A#dasd"), "La contraseña es valida");
         assertTrue(minLongVal.validar("asda%"), "La contraseña es valida");
         assertTrue(minLongVal.validar("as da"), "La contraseña es valida");
