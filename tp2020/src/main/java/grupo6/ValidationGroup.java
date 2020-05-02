@@ -9,8 +9,7 @@ public class ValidationGroup implements Validation {
     @Override
     public Boolean validate(String pass) {
         return validators.stream()
-        .map(val -> val.validate(pass))
-        .allMatch(v -> v == true);
+        .allMatch(v -> v.validate(pass));
     }
     
     public void add_validator(Validation val){

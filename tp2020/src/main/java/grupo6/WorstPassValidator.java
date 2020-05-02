@@ -14,7 +14,7 @@ public class WorstPassValidator implements Validation{
         this.worst = new ArrayList<String>();
 
         try {
-            Scanner scanner = new Scanner(new File("./media/worstPass.txt"));
+            Scanner scanner = new Scanner(new File("../media/worstPass.txt"));
             while (scanner.hasNextLine()){
                 worst.add(scanner.next());
             }
