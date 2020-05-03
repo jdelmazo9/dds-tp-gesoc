@@ -10,13 +10,16 @@ public class ValidacionPeoresContraseñas implements Validacion {
 
     public ValidacionPeoresContraseñas(){
         this.peoresContraseñas = new ArrayList<>();
+        FileReader fileReader = null;
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(ConstantesSeguridad.pathArchivoPeoresContraseñas));
+            fileReader = new FileReader(ConstantesSeguridad.pathArchivoPeoresContraseñas);
+            BufferedReader reader = new BufferedReader(fileReader);
             String s;
             while ( (s = reader.readLine()) != null ){
                 peoresContraseñas.add(s);
             }
+            fileReader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
