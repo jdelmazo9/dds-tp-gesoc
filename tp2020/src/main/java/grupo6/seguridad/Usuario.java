@@ -2,6 +2,8 @@ package grupo6.seguridad;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import grupo6.seguridad.Excepciones.ContraseniaInvalidaException;
+
 public class Usuario {
     private String nombre;
     private String contraseniaHash;
@@ -25,7 +27,12 @@ public class Usuario {
         return rol;
     }
 
-    public boolean validarConstrasenia(String contrasenia){
-        return BCrypt.checkpw(contrasenia, contraseniaHash);
+    public boolean validarConstrasenia(String contrasenia) throws ContraseniaInvalidaException {
+        if(BCrypt.checkpw(contrasenia, contraseniaHash)){
+            return true;
+        }
+        else{
+            throw new ContraseniaInvalidaException("Contraseña incorrecta");
+        }
     }
 }
