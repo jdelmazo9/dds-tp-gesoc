@@ -1,7 +1,5 @@
 package grupo6.dominio;
 
-import java.util.ArrayList;
-
 public class CalculadoraTipoEmpresa {
     //private static AdaptadorClasificacionEmpresa servicio;
     static AdaptadorClasificacionEmpresa servicio = new TipoEmpresaHardcode();
@@ -10,7 +8,7 @@ public class CalculadoraTipoEmpresa {
         Actividad actividad =  servicio.obtenerActividad(actividadNombre);
         TipoEmpresa tipoEmpresa = null;
         for(int i = 0; i < TipoEmpresa.values().length ; i++) {
-            if(cantidadPersonal <= actividad.valoresMinimosCantPersonal.get(i)  || promedioVentasAnual <= actividad.valoresMinimosVentasTotales.get(i) ) {
+            if(cantidadPersonal <= actividad.valoresMaximosCantPersonal.get(i)  || promedioVentasAnual <= actividad.valoresMaximosVentasTotales.get(i) ) {
                 tipoEmpresa = TipoEmpresa.values()[i];
                 break;
             }

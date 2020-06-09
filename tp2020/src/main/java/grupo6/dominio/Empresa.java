@@ -44,7 +44,7 @@ public class Empresa extends EntidadJuridica {
     }
 
 
-    public TipoEmpresa calcularTipoEmpresa (){
+    public TipoEmpresa determinarTipoEmpresa (){
         tipoEmpresa = CalculadoraTipoEmpresa.calcularTipoEmpresa(cantidadPersonal, actividad, promedioVentasAnual);
         return tipoEmpresa;
     }

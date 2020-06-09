@@ -17,6 +17,6 @@ class EmpresaTest {
 
     @Test
     void calcularTipoEmpresaConstruccionTest() {
-        assertEquals( TipoEmpresa.MedianaTramo2  , empresa.calcularTipoEmpresa());
+        assertEquals( TipoEmpresa.MedianaTramo2  , empresa.determinarTipoEmpresa());
     }
 }

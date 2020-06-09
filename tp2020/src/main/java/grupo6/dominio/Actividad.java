@@ -1,16 +1,15 @@
 package grupo6.dominio;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class Actividad {
    String actividad;
-   ArrayList<Integer> valoresMinimosCantPersonal;
-   ArrayList<Double> valoresMinimosVentasTotales;
+   ArrayList<Integer> valoresMaximosCantPersonal;
+   ArrayList<Double> valoresMaximosVentasTotales;
 
-    public Actividad(String actividad, ArrayList<Integer> valoresMinimosCantPersonal, ArrayList<Double> valoresMinimosVentasTotales) {
+    public Actividad(String actividad, ArrayList<Integer> valoresMaximosCantPersonal, ArrayList<Double> valoresMaximosVentasTotales) {
         this.actividad = actividad;
-        this.valoresMinimosCantPersonal = valoresMinimosCantPersonal;
-        this.valoresMinimosVentasTotales = valoresMinimosVentasTotales;
+        this.valoresMaximosCantPersonal = valoresMaximosCantPersonal;
+        this.valoresMaximosVentasTotales = valoresMaximosVentasTotales;
     }
 }
