@@ -6,7 +6,7 @@ public class NotificadorValidadorLicitacion {
     private ArrayList<BandejaDeMensajes> bandejasRevisores;
 
     public NotificadorValidadorLicitacion(){
-        bandejasRevisores = new ArrayList<>();
+        bandejasRevisores = new ArrayList<BandejaDeMensajes>();
     }
 
     public void agregarRevisor(BandejaDeMensajes bandejaDeMensajes){

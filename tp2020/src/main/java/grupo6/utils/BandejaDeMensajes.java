@@ -25,4 +25,8 @@ public class BandejaDeMensajes {
     public int cantidadMensajes(){
         return mensajes.size();
     }
+
+    public String leerPrimerMensaje() {
+        return mensajes.get(0).leerMensaje();
+    }
 }
