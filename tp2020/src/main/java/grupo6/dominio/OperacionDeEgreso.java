@@ -1,11 +1,13 @@
 package grupo6.dominio;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
 public class OperacionDeEgreso {
     private ArrayList<DocumentoComercial> docsComerciales;
+    private URL docComercialExterno;
     private Proveedor proveedor;
     private Date fecha;
     private MedioDePago medioDePago;
@@ -13,6 +15,7 @@ public class OperacionDeEgreso {
     private ArrayList<String> detalleItems;
     private Double valorTotal;
     private ArrayList<Presupuesto> presupuestos;
+
     // private ValidadorLicitacion validadorLicitacion
 
 
@@ -48,6 +51,10 @@ public class OperacionDeEgreso {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public URL getDocComercialExterno() {
+        return docComercialExterno;
     }
 
     public MedioDePago getMedioDePago() {
@@ -97,6 +104,8 @@ public class OperacionDeEgreso {
     }
 
     public void adjuntar(DocumentoComercial documento){this.docsComerciales.add(documento); }
+
+    public void adjuntar(URL link){this.docComercialExterno = link;}
 
     public void calcularCosto(){
         this.valorTotal = items.stream().mapToDouble(Item::getValor).sum();

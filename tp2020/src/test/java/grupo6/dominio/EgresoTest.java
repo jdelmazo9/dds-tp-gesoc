@@ -3,6 +3,8 @@ package grupo6.dominio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,6 +16,7 @@ class EgresoTest {
     OperacionDeEgreso compraTest;
     DocumentoComercial factura;
     Date unaFecha;
+    URL link;
 
     @BeforeEach
     void setUp() {
@@ -39,5 +42,11 @@ class EgresoTest {
     void operacionDeEgresoInstanciaFechaActual() {
         unaFecha.getTime(); //Fecha de hoy
         assertEquals(unaFecha, compraTest.getFecha(),"Se comprueba que al crear una fecha de egreso se instancia la fecha del día actual.");
+    }
+    @Test
+    void docComercialExterno() throws MalformedURLException {
+        link = new URL("https://www.enersa.com.ar/wp-content/uploads/2018/02/Pago-Banelco-_2_.pdf");
+        compraTest.adjuntar(link);
+        assertEquals(link,compraTest.getDocComercialExterno());
     }
 }
