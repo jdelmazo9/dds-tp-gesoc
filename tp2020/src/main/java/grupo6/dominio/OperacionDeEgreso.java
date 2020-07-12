@@ -15,6 +15,7 @@ public class OperacionDeEgreso {
     private ArrayList<String> detalleItems;
     private Double valorTotal;
     private ArrayList<Presupuesto> presupuestos;
+    private ArrayList<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
 
@@ -25,7 +26,6 @@ public class OperacionDeEgreso {
       detalleItems = new ArrayList<String>();
       presupuestos = new ArrayList<Presupuesto>();
       fecha = new Date();
-      //Calendar today = Calendar.getInstance();
       fecha.getTime();
     }
 
@@ -115,5 +115,6 @@ public class OperacionDeEgreso {
 
     public void agregarPresupuesto(Presupuesto presupuesto){this.presupuestos.add(presupuesto);}
 
+    public void agregarCategoria(Categoria categoria){this.categorias.add(categoria); }
 }
 
