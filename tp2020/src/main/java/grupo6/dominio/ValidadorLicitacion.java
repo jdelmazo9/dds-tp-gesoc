@@ -41,7 +41,7 @@ public abstract class ValidadorLicitacion {
         return cantPresupuestos >= this.cantidadMinimaDePresupuestos;
     }
     private Boolean validarExistencia(ArrayList<Item> items, ArrayList<Presupuesto> presupuestos){
-        return presupuestos.stream().anyMatch(presu -> presu.getItems().equals(items));
+        return presupuestos.stream().anyMatch(presu -> presu.getItems().containsAll(items));
     } // Valida que el egreso corresponda a un presupuesto existente
     public abstract Boolean validarCriterio(OperacionDeEgreso operacion);
     

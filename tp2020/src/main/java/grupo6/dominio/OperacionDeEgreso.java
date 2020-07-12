@@ -126,7 +126,11 @@ public class OperacionDeEgreso {
 
     public void validarLicitacion(){
         ResultadoValidacion resultado = this.validadorLicitacion.validar(this);
-        notificador.notificar(resultado);;
+        notificador.notificar(resultado);
+    }
+
+    public ValidadorLicitacion get_validador(){
+        return this.validadorLicitacion;
     }
 
 }
