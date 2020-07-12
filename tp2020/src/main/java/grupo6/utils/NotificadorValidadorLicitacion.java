@@ -2,6 +2,8 @@ package grupo6.utils;
 
 import java.util.ArrayList;
 
+import grupo6.dominio.ResultadoValidacion;
+
 public class NotificadorValidadorLicitacion {
     private ArrayList<BandejaDeMensajes> bandejasRevisores;
 
@@ -14,7 +16,7 @@ public class NotificadorValidadorLicitacion {
     }
 
     //Hacemos un notificar simple para validar esta parte, hay que agregar el notificarResultado del diagrama
-    public void notificar(String resultado){
-        bandejasRevisores.forEach(b -> b.agregarMensaje(new Mensaje(resultado)));
+    public void notificar(ResultadoValidacion resultado){
+        bandejasRevisores.forEach(b -> b.agregarMensaje(resultado));
     }
 }

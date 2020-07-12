@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import grupo6.utils.BandejaDeMensajes;
+import grupo6.utils.NotificadorValidadorLicitacion;
+
 public class OperacionDeEgreso {
     private ArrayList<DocumentoComercial> docsComerciales;
     private URL docComercialExterno;
@@ -15,8 +18,8 @@ public class OperacionDeEgreso {
     private ArrayList<String> detalleItems;
     private Double valorTotal;
     private ArrayList<Presupuesto> presupuestos;
-
-    // private ValidadorLicitacion validadorLicitacion
+    private NotificadorValidadorLicitacion notificador;
+    private ValidadorLicitacion validadorLicitacion;
 
 
     public OperacionDeEgreso() {
@@ -27,6 +30,8 @@ public class OperacionDeEgreso {
       fecha = new Date();
       //Calendar today = Calendar.getInstance();
       fecha.getTime();
+      notificador = new NotificadorValidadorLicitacion();
+      validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
     }
 
     public ArrayList<DocumentoComercial> getDocsComerciales() {
@@ -114,6 +119,15 @@ public class OperacionDeEgreso {
     public void generarDetalle() { this.detalleItems = items.stream().map(Item::getDescripcion).collect(Collectors.toCollection(ArrayList::new)); }
 
     public void agregarPresupuesto(Presupuesto presupuesto){this.presupuestos.add(presupuesto);}
+
+    public void suscribirComoRevisor(BandejaDeMensajes bandeja){
+        notificador.agregarRevisor(bandeja);
+    }
+
+    public void validarLicitacion(){
+        ResultadoValidacion resultado = this.validadorLicitacion.validar(this);
+        notificador.notificar(resultado);;
+    }
 
 }
 
