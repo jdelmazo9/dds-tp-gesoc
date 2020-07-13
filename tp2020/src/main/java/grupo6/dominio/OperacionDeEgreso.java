@@ -18,8 +18,14 @@ public class OperacionDeEgreso {
     private ArrayList<String> detalleItems;
     private Double valorTotal;
     private ArrayList<Presupuesto> presupuestos;
+
+    private ArrayList<Categoria> categorias;
+
+    // private ValidadorLicitacion validadorLicitacion
+
     private NotificadorValidadorLicitacion notificador;
     private ValidadorLicitacion validadorLicitacion;
+
 
 
     public OperacionDeEgreso() {
@@ -28,7 +34,6 @@ public class OperacionDeEgreso {
       detalleItems = new ArrayList<String>();
       presupuestos = new ArrayList<Presupuesto>();
       fecha = new Date();
-      //Calendar today = Calendar.getInstance();
       fecha.getTime();
       notificador = new NotificadorValidadorLicitacion();
       validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
@@ -120,6 +125,8 @@ public class OperacionDeEgreso {
 
     public void agregarPresupuesto(Presupuesto presupuesto){this.presupuestos.add(presupuesto);}
 
+    public void agregarCategoria(Categoria categoria){this.categorias.add(categoria); }
+
     public void suscribirComoRevisor(BandejaDeMensajes bandeja){
         notificador.agregarRevisor(bandeja);
     }
@@ -132,6 +139,7 @@ public class OperacionDeEgreso {
     public ValidadorLicitacion get_validador(){
         return this.validadorLicitacion;
     }
+
 
 }
 

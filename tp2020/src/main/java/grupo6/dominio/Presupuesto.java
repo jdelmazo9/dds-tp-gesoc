@@ -6,6 +6,7 @@ public class Presupuesto {
     private ArrayList<Item> items;
     private double valorTotal;
     private Proveedor proveedor;
+    private ArrayList<Categoria> categorias;
 
     public Presupuesto(ArrayList<Item> items, double valorTotal, Proveedor proveedor) {
         this.items = items;
@@ -36,4 +37,7 @@ public class Presupuesto {
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
     }
+
+    public void agregarCategoria(Categoria categoria) { this.categorias.add(categoria); }
 }
+
