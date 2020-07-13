@@ -3,30 +3,32 @@ package grupo6.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import grupo6.dominio.ResultadoValidacion;
+
 public class BandejaDeMensajes {
-    private ArrayList<Mensaje> mensajes;
+    private ArrayList<ResultadoValidacion> resultados;
 
     public BandejaDeMensajes(){
-        mensajes = new ArrayList<Mensaje>();
+        resultados = new ArrayList<ResultadoValidacion>();
     }
 
-    public void agregarMensaje(Mensaje mensaje){
-        mensajes.add(mensaje);
+    public void agregarMensaje(ResultadoValidacion resultado){
+        resultados.add(resultado);
     }
 
-    public List<Mensaje> obtenerMensajes(){
-        return mensajes;
+    public List<ResultadoValidacion> obtenerMensajes(){
+        return resultados;
     }
 
-    public List<Mensaje> obtenerPagina(int pagina, int mensajesPorPagina){
-        return mensajes.subList(pagina*mensajesPorPagina, (pagina+1)*mensajesPorPagina - 1);
+    /*public List<Mensaje> obtenerPagina(int pagina, int mensajesPorPagina){
+        return resultados.subList(pagina*mensajesPorPagina, (pagina+1)*mensajesPorPagina - 1);
     }
-
+*/
     public int cantidadMensajes(){
-        return mensajes.size();
+        return resultados.size();
     }
 
     public String leerPrimerMensaje() {
-        return mensajes.get(0).leerMensaje();
+        return resultados.get(0).get_mensaje();
     }
 }

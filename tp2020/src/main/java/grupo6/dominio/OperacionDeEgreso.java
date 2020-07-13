@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import grupo6.utils.BandejaDeMensajes;
+import grupo6.utils.NotificadorValidadorLicitacion;
+
 public class OperacionDeEgreso {
     private ArrayList<DocumentoComercial> docsComerciales;
     private URL docComercialExterno;
@@ -15,9 +18,14 @@ public class OperacionDeEgreso {
     private ArrayList<String> detalleItems;
     private Double valorTotal;
     private ArrayList<Presupuesto> presupuestos;
+
     private ArrayList<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
+
+    private NotificadorValidadorLicitacion notificador;
+    private ValidadorLicitacion validadorLicitacion;
+
 
 
     public OperacionDeEgreso() {
@@ -27,6 +35,8 @@ public class OperacionDeEgreso {
       presupuestos = new ArrayList<Presupuesto>();
       fecha = new Date();
       fecha.getTime();
+      notificador = new NotificadorValidadorLicitacion();
+      validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
     }
 
     public ArrayList<DocumentoComercial> getDocsComerciales() {
@@ -116,5 +126,20 @@ public class OperacionDeEgreso {
     public void agregarPresupuesto(Presupuesto presupuesto){this.presupuestos.add(presupuesto);}
 
     public void agregarCategoria(Categoria categoria){this.categorias.add(categoria); }
+
+    public void suscribirComoRevisor(BandejaDeMensajes bandeja){
+        notificador.agregarRevisor(bandeja);
+    }
+
+    public void validarLicitacion(){
+        ResultadoValidacion resultado = this.validadorLicitacion.validar(this);
+        notificador.notificar(resultado);
+    }
+
+    public ValidadorLicitacion get_validador(){
+        return this.validadorLicitacion;
+    }
+
+
 }
 
