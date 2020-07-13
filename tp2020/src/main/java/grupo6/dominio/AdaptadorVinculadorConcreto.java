@@ -1,6 +1,5 @@
 package grupo6.dominio;
 
-import grupo6.vinculaciones.Vinculacion;
 import grupo6.vinculaciones.VinculadorExterno;
 
 import java.util.ArrayList;

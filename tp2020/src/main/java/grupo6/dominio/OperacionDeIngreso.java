@@ -16,6 +16,13 @@ public class OperacionDeIngreso {
         fecha = LocalDate.now();
     }
 
+    public OperacionDeIngreso(String desc, Double monto, LocalDate fecha){
+        this.id = ++cantidadIngresos;
+        this.desc = desc;
+        this.monto = monto;
+        this.fecha = fecha;
+    }
+
     public int getId() {
         return id;
     }

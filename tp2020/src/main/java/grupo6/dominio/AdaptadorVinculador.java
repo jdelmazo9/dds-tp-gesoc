@@ -1,7 +1,5 @@
 package grupo6.dominio;
 
-import grupo6.vinculaciones.Vinculacion;
-
 import java.util.ArrayList;
 
 public interface AdaptadorVinculador {

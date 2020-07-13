@@ -33,6 +33,18 @@ public class OperacionDeEgreso {
         //fecha.getTime();
     }
 
+    //CONSTRUCTOR PARA TESTS
+    public OperacionDeEgreso(LocalDate fecha) {
+        id =  ++operacionesCreadas;
+        docsComerciales = new ArrayList<DocumentoComercial>();
+        items = new ArrayList<Item>();
+        detalleItems = new ArrayList<String>();
+        presupuestos = new ArrayList<Presupuesto>();
+        this.fecha = fecha;
+        //Calendar today = Calendar.getInstance();
+        //fecha.getTime();
+    }
+
     public ArrayList<DocumentoComercial> getDocsComerciales() {
         return docsComerciales;
     }
