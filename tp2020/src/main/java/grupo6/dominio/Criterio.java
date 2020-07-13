@@ -26,7 +26,9 @@ public class Criterio {
     }
 
     public void agregarHijo(Criterio hijo) {
-        this.criterioHijo = hijo;
+        if(this.criterioHijo == null){
+            criterioHijo = hijo;
+        }
         if(hijo.getPadre() != this){
             hijo.agregarPadre(this);
         }
@@ -40,7 +42,8 @@ public class Criterio {
 
     public Criterio getHijo(){return this.criterioHijo;}
 
-
+      public void limpiarHijo(){ criterioHijo.criterioPadre = null;
+        this.criterioHijo = null;}
 
 }
 

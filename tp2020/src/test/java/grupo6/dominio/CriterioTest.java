@@ -16,6 +16,7 @@ public class CriterioTest {
     Categoria global;
     Categoria nacional;
     Categoria continental;
+    Criterio provincia;
 
     @BeforeEach
     void setUp() {
@@ -28,6 +29,7 @@ public class CriterioTest {
         global = new Categoria("global",alcance);
         nacional = new Categoria("nacional",alcance);
         continental = new Categoria("continental",alcance);
+        provincia = new Criterio();
     }
     @Test
     void categoriasAutoVinculadas(){
@@ -53,5 +55,21 @@ public class CriterioTest {
         grande.vincularCriterio(alcance);
         assertEquals(alcance.getCategorias().size(),4);
         assertEquals(grande.getCriterio(),alcance); //luego de limpiarlo se puede vincular a otro Criterio
+    }
+
+    @Test
+    void padreNoPuedeTenerMasDeUnHijo(){
+        alcance.agregarHijo(tamaño);
+        alcance.agregarHijo(provincia);
+        assertEquals(alcance.getHijo(),tamaño); //No se puede agregar un segundo criterio hijo, por ende se mantiene el primero asignado
+    }
+
+    @Test
+    void padreReemplazaHijo(){
+        alcance.agregarHijo(tamaño);
+        alcance.limpiarHijo();
+        alcance.agregarHijo(provincia);
+        assertEquals(alcance.getHijo(),provincia);
+        assertEquals(tamaño.getPadre(),null);//Se reemplaza el hijo. El padre tiene nuevo hijo, y el primer hijo queda sin padre
     }
 }
