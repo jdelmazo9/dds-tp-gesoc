@@ -21,7 +21,7 @@ public class CriterioTest {
     @BeforeEach
     void setUp() {
         egresoTest = new OperacionDeEgreso();
-        ingresoTest = new OperacionDeIngreso(1000, "Donacion");
+        ingresoTest = new OperacionDeIngreso("Donacion", 1000d);
         tamaño = new Criterio();
         pequeña = new Categoria("pequeña",tamaño);
         grande = new Categoria("grande",tamaño);//Al agregar el criterio tamaño a la categoria grande, se vincula en ambas entidades

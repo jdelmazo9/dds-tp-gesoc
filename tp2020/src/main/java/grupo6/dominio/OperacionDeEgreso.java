@@ -1,6 +1,7 @@
 package grupo6.dominio;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -9,10 +10,12 @@ import grupo6.utils.BandejaDeMensajes;
 import grupo6.utils.NotificadorValidadorLicitacion;
 
 public class OperacionDeEgreso {
+    static int operacionesCreadas = 0;
+    private int id;
     private ArrayList<DocumentoComercial> docsComerciales;
     private URL docComercialExterno;
     private Proveedor proveedor;
-    private Date fecha;
+    private LocalDate fecha;
     private MedioDePago medioDePago;
     private ArrayList<Item> items;
     private ArrayList<String> detalleItems;
@@ -29,14 +32,30 @@ public class OperacionDeEgreso {
 
 
     public OperacionDeEgreso() {
-      docsComerciales = new ArrayList<DocumentoComercial>();
-      items = new ArrayList<Item>();
-      detalleItems = new ArrayList<String>();
-      presupuestos = new ArrayList<Presupuesto>();
-      fecha = new Date();
-      fecha.getTime();
-      notificador = new NotificadorValidadorLicitacion();
-      validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
+        id =  ++operacionesCreadas;
+        docsComerciales = new ArrayList<DocumentoComercial>();
+        items = new ArrayList<Item>();
+        detalleItems = new ArrayList<String>();
+        presupuestos = new ArrayList<Presupuesto>();
+        fecha = LocalDate.now();
+        notificador = new NotificadorValidadorLicitacion();
+        validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
+        //Calendar today = Calendar.getInstance();
+        //fecha.getTime();
+    }
+
+    //CONSTRUCTOR PARA TESTS
+    public OperacionDeEgreso(LocalDate fecha) {
+        id =  ++operacionesCreadas;
+        docsComerciales = new ArrayList<DocumentoComercial>();
+        items = new ArrayList<Item>();
+        detalleItems = new ArrayList<String>();
+        presupuestos = new ArrayList<Presupuesto>();
+        this.fecha = fecha;
+        notificador = new NotificadorValidadorLicitacion();
+        validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
+        //Calendar today = Calendar.getInstance();
+        //fecha.getTime();
     }
 
     public ArrayList<DocumentoComercial> getDocsComerciales() {
@@ -55,11 +74,11 @@ public class OperacionDeEgreso {
         this.proveedor = proveedor;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -140,6 +159,9 @@ public class OperacionDeEgreso {
         return this.validadorLicitacion;
     }
 
+    public int getId() {
+        return id;
+    }
 
 }
 
