@@ -28,7 +28,7 @@ public class AdaptadorVinculadorConcreto implements AdaptadorVinculador {
     private ArrayList<IngresoDTO> prepararIngresos(ArrayList<OperacionDeIngreso> ingresos) {
         ArrayList<IngresoDTO> ingresosDTO = new ArrayList<>();
         for (OperacionDeIngreso i : ingresos) {
-            ingresosDTO.add(new IngresoDTO(i.getId(), i.getFecha(), i.getMonto()));
+            ingresosDTO.add(new IngresoDTO(i.getId(), i.getFecha(), i.getMonto(), i.getCriterios()));
         }
         return ingresosDTO;
     }

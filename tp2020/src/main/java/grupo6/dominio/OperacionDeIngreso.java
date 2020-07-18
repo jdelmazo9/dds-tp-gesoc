@@ -52,4 +52,14 @@ public class OperacionDeIngreso {
         this.criterios.add(criterio);
     }
 
+    public ArrayList<CriterioAceptacion> getCriterios() {
+        return criterios;
+    }
+
+    public void setearCriterioFechaDesdeHasta(LocalDate desde, LocalDate hasta){
+        CriterioAceptacion criterio = new CriterioAceptacion(TipoCriterio.FECHA_DESDE_HASTA);
+        criterio.agregarParametros("fechaDesde", desde);
+        criterio.agregarParametros("fechaHasta", hasta);
+        criterios.add(criterio);
+    }
 }

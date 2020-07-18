@@ -2,6 +2,7 @@ package grupo6.dominio;
 
 import grupo6.vinculaciones.ComparadorFecha;
 import grupo6.vinculaciones.ComparadorValor;
+import grupo6.vinculaciones.CriterioFechaDesdeHasta;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -26,8 +27,11 @@ class VinculacionTest {
     public static void init() {
         //INSTANCIO OPERACIONES DE INGRESO
         i1 = new OperacionDeIngreso("Operacion 1", 3500d, LocalDate.parse("2018-02-27"));
+        i1.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
         i2 = new OperacionDeIngreso("Operacion 2", 4000d, LocalDate.parse("2018-02-22"));
+        i2.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
         i3 = new OperacionDeIngreso("Operacion 3", 2500d, LocalDate.parse("2018-02-23"));
+        i3.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
 
         //INSTANCIO ITEMS PARA OPERACIONES DE EGRESO
         microondas = new Item(TipoItem.Articulo, "Microondas marca Samsung", 1200.0);
@@ -35,9 +39,9 @@ class VinculacionTest {
         lavarropas = new Item(TipoItem.Articulo, "Lavarropas marca Hp", 1800.00);
 
         //INSTANCIO OPERACIONES DE EGRESO
-        e1 = new OperacionDeEgreso(LocalDate.parse("2018-03-28"));
-        e2 = new OperacionDeEgreso(LocalDate.parse("2018-03-30"));
-        e3 = new OperacionDeEgreso(LocalDate.parse("2018-03-29"));
+        e1 = new OperacionDeEgreso(LocalDate.parse("2018-03-26"));
+        e2 = new OperacionDeEgreso(LocalDate.parse("2018-02-22"));
+        e3 = new OperacionDeEgreso(LocalDate.parse("2018-03-25"));
 
         e1.agregarItem(microondas);
         e2.agregarItem(heladera);
@@ -90,6 +94,26 @@ class VinculacionTest {
                 new Vinculacion(2,3,1800d),
                 new Vinculacion(2, 2, 1000d),
                 new Vinculacion(3, 2, 700d)
+            )
+        );
+
+        assertArrayEquals(vinculacionesEsperadas.toArray(), vinculaciones.toArray());
+    }
+
+    @Test
+    void vinculacionesPorValorConRestriccionTest() {
+        i1.setearCriterioFechaDesdeHasta(LocalDate.parse("2018-02-27"),LocalDate.parse("2018-03-26"));
+        i2.setearCriterioFechaDesdeHasta(LocalDate.parse("2018-02-22"),LocalDate.parse("2018-03-22"));
+        i3.setearCriterioFechaDesdeHasta(LocalDate.parse("2018-02-23"),LocalDate.parse("2018-03-23"));
+
+        AdaptadorVinculadorConcreto vinculador = new AdaptadorVinculadorConcreto();
+        ArrayList<Vinculacion> vinculaciones = vinculador.vincular(ingresos, egresos, CriteriosEnum.CRITERIO_VALOR_PRIMERO_INGRESO);
+
+        ArrayList<Vinculacion> vinculacionesEsperadas = new ArrayList<>(
+            Arrays.asList(
+                new Vinculacion(1,1, 1200d),
+                new Vinculacion(1,3,1800d),
+                new Vinculacion(2, 2, 1700d)
             )
         );
 

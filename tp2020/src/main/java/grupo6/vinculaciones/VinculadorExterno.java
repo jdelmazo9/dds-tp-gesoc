@@ -1,15 +1,10 @@
 package grupo6.vinculaciones;
 
-import grupo6.dominio.CriteriosEnum;
-import grupo6.dominio.EgresoDTO;
-import grupo6.dominio.IngresoDTO;
-import grupo6.dominio.Vinculacion;
+import grupo6.dominio.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
-
-import static java.lang.Double.min;
 
 public class VinculadorExterno {
     public ArrayList<Vinculacion> vincular(ArrayList<IngresoDTO> ingresosDTO,
@@ -18,37 +13,15 @@ public class VinculadorExterno {
 
         ArrayList<IngresoExt> ingresos = convertirIngresos(ingresosDTO);
         ArrayList<EgresoExt> egresos = convertirEgresos(egresosDTO);
-        Comparator<OperacionExt> comparador = interpretarCriterio(criterioOriginal);
+        Comparator<OperacionExt> comparador = interpretarCriterioComparador(criterioOriginal);
+        TipoVinculador vinculador = interpretarCriterioVinculador(criterioOriginal);
 
         // Ordeno ingresos y egresos
         ingresos.sort(comparador);
         egresos.sort(comparador);
 
-        Iterator<IngresoExt> ingresosIterator = ingresos.iterator();
-        Iterator<EgresoExt> egresosIterator = egresos.iterator();
+        ArrayList<Vinculacion> vinculaciones = vinculador.vincular(ingresos, egresos);
 
-        ArrayList<Vinculacion> vinculaciones = new ArrayList<>();
-
-        IngresoExt i = ingresosIterator.next();
-        EgresoExt e = egresosIterator.next();
-
-        // empezar a vincular desde ingresos
-        while (true) {
-            double montoVinculado = min(i.montoSinVincular, e.montoSinVincular);
-            vinculaciones.add(new Vinculacion(i.id, e.id, montoVinculado));
-            i.montoSinVincular -= montoVinculado;
-            e.montoSinVincular -= montoVinculado;
-            if (i.montoSinVincular == 0) {
-                if (!ingresosIterator.hasNext())
-                    break;
-                i = ingresosIterator.next();
-            }
-            if (e.montoSinVincular == 0) {
-                if (!egresosIterator.hasNext())
-                    break;
-                e = egresosIterator.next();
-            }
-        }
         return vinculaciones;
     }
 
@@ -63,13 +36,34 @@ public class VinculadorExterno {
     private ArrayList<IngresoExt> convertirIngresos(ArrayList<IngresoDTO> ingresosDTO) {
         ArrayList<IngresoExt> ingresos = new ArrayList<>();
         for (IngresoDTO o : ingresosDTO) {
-            ingresos.add(new IngresoExt(o.id, o.fecha, o.monto));
+            ingresos.add(new IngresoExt(o.id, o.fecha, o.monto, convertirCriterios(o.criterios)));
         }
         return ingresos;
     }
 
-    private Comparator<OperacionExt> interpretarCriterio(CriteriosEnum criterioEnum){
+    private ArrayList<CriterioAceptacionEgresos> convertirCriterios(ArrayList<CriterioAceptacion> criterios){
+        ArrayList <CriterioAceptacionEgresos> criteriosConv = new ArrayList<>();
+        for (CriterioAceptacion c: criterios ) {
+            switch (c.getTipoCriterio()){
+                case FECHA_DESDE_HASTA:
+                    criteriosConv.add(
+                        new CriterioFechaDesdeHasta(
+                            (LocalDate) c.getParametro("fechaDesde"),
+                            (LocalDate) c.getParametro("fechaHasta")));
+                    break;
+                case SIN_RESTRICCION:
+                    criteriosConv.add(new CriterioSinRestriccion());
+                    break;
+            }
+        }
+        return criteriosConv;
+    }
+
+    private Comparator<OperacionExt> interpretarCriterioComparador(CriteriosEnum criterioEnum){
         return TraductorCriterios.obtenerComparador(criterioEnum);
     }
 
+    private TipoVinculador interpretarCriterioVinculador(CriteriosEnum criterioEnum){
+        return TraductorCriterios.obtenerTipoVinculador(criterioEnum);
+    }
 }
