@@ -38,8 +38,8 @@ class ValidarEgresoTest {
         items2.add(heladera2);
         proovedor1 = new Proveedor("Juan Pablo Segundo", 20204523, "Calle falsa 123");
         proovedor2 = new Proveedor("Benedicto XVI", 20201919, "Vaticano 1");
-        presupuesto1 = new Presupuesto(items1, 2900, proovedor1);
-        presupuesto2 = new Presupuesto(items2, 3600, proovedor2);
+        presupuesto1 = new Presupuesto(items1, proovedor1);
+        presupuesto2 = new Presupuesto(items2, proovedor2);
         compraTest = new OperacionDeEgreso();
         compraTest.agregarItem(heladera1);
         compraTest.agregarItem(microondas1);

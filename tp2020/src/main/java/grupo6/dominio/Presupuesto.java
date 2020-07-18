@@ -8,9 +8,9 @@ public class Presupuesto {
     private Proveedor proveedor;
     private ArrayList<Categoria> categorias;
 
-    public Presupuesto(ArrayList<Item> items, double valorTotal, Proveedor proveedor) {
+    public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
         this.items = items;
-        this.valorTotal = valorTotal;
+        this.calcular_valor_total();
         this.proveedor = proveedor;
     }
 
@@ -20,6 +20,10 @@ public class Presupuesto {
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
+    }
+
+    public void calcular_valor_total(){
+        this.valorTotal = items.stream().mapToDouble(Item::getValor).sum();
     }
 
     public double getValorTotal() {
