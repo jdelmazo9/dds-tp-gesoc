@@ -1,7 +1,8 @@
 package grupo6.vinculaciones;
 
 import grupo6.dominio.CriteriosEnum;
-import grupo6.dominio.OperacionDTO;
+import grupo6.dominio.EgresoDTO;
+import grupo6.dominio.IngresoDTO;
 import grupo6.dominio.Vinculacion;
 
 import java.util.ArrayList;
@@ -11,25 +12,25 @@ import java.util.Iterator;
 import static java.lang.Double.min;
 
 public class VinculadorExterno {
-    public ArrayList<Vinculacion> vincular(ArrayList<OperacionDTO> ingresosDTO,
-                                           ArrayList<OperacionDTO> egresosDTO,
+    public ArrayList<Vinculacion> vincular(ArrayList<IngresoDTO> ingresosDTO,
+                                           ArrayList<EgresoDTO> egresosDTO,
                                            CriteriosEnum criterioOriginal) {
 
-        ArrayList<OperacionExt> ingresos = convertirOperaciones(ingresosDTO);
-        ArrayList<OperacionExt> egresos = convertirOperaciones(egresosDTO);
+        ArrayList<IngresoExt> ingresos = convertirIngresos(ingresosDTO);
+        ArrayList<EgresoExt> egresos = convertirEgresos(egresosDTO);
         Comparator<OperacionExt> comparador = interpretarCriterio(criterioOriginal);
 
         // Ordeno ingresos y egresos
         ingresos.sort(comparador);
         egresos.sort(comparador);
 
-        Iterator<OperacionExt> ingresosIterator = ingresos.iterator();
-        Iterator<OperacionExt> egresosIterator = egresos.iterator();
+        Iterator<IngresoExt> ingresosIterator = ingresos.iterator();
+        Iterator<EgresoExt> egresosIterator = egresos.iterator();
 
         ArrayList<Vinculacion> vinculaciones = new ArrayList<>();
 
-        OperacionExt i = ingresosIterator.next();
-        OperacionExt e = egresosIterator.next();
+        IngresoExt i = ingresosIterator.next();
+        EgresoExt e = egresosIterator.next();
 
         // empezar a vincular desde ingresos
         while (true) {
@@ -51,12 +52,20 @@ public class VinculadorExterno {
         return vinculaciones;
     }
 
-    private ArrayList<OperacionExt> convertirOperaciones(ArrayList<OperacionDTO> operacionesDTO) {
-        ArrayList<OperacionExt> operaciones = new ArrayList<>();
-        for (OperacionDTO o : operacionesDTO) {
-            operaciones.add(new OperacionExt(o.id, o.fecha, o.monto));
+    private ArrayList<EgresoExt> convertirEgresos(ArrayList<EgresoDTO> egresosDTO) {
+        ArrayList<EgresoExt> egresos = new ArrayList<>();
+        for (EgresoDTO o : egresosDTO) {
+            egresos.add(new EgresoExt(o.id, o.fecha, o.monto));
         }
-        return operaciones;
+        return egresos;
+    }
+
+    private ArrayList<IngresoExt> convertirIngresos(ArrayList<IngresoDTO> ingresosDTO) {
+        ArrayList<IngresoExt> ingresos = new ArrayList<>();
+        for (IngresoDTO o : ingresosDTO) {
+            ingresos.add(new IngresoExt(o.id, o.fecha, o.monto));
+        }
+        return ingresos;
     }
 
     private Comparator<OperacionExt> interpretarCriterio(CriteriosEnum criterioEnum){

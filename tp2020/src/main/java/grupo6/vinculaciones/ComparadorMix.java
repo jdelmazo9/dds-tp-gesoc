@@ -1,7 +1,6 @@
 package grupo6.vinculaciones;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class ComparadorMix implements ComparadorOperaciones{
     private ArrayList<ComparadorSimple> comparadores;

@@ -10,12 +10,15 @@ public class OperacionDeIngreso {
     private int id;
     private static int cantidadIngresos = 0;
     private LocalDate fecha;
+    private ArrayList<CriterioAceptacion> criterios;
 
     public OperacionDeIngreso(String desc, Double monto){
         this.id = ++cantidadIngresos;
         this.desc = desc;
         this.monto = monto;
         fecha = LocalDate.now();
+        categorias = new ArrayList();
+        criterios = new ArrayList();
     }
 
     public OperacionDeIngreso(String desc, Double monto, LocalDate fecha){
@@ -23,6 +26,8 @@ public class OperacionDeIngreso {
         this.desc = desc;
         this.monto = monto;
         this.fecha = fecha;
+        categorias = new ArrayList();
+        criterios = new ArrayList();
     }
 
     public void agregarCategoria(Categoria categoria) { this.categorias.add(categoria); }
@@ -41,6 +46,10 @@ public class OperacionDeIngreso {
 
     public LocalDate getFecha() {
         return fecha;
+    }
+
+    public void agregarCriterio(CriterioAceptacion criterio) {
+        this.criterios.add(criterio);
     }
 
 }

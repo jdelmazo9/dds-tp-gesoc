@@ -1,7 +1,5 @@
 package grupo6.vinculaciones;
 
-import java.util.Comparator;
-
 public class ComparadorFecha implements ComparadorSimple{
 
     @Override

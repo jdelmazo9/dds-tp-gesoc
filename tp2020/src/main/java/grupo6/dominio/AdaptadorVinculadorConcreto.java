@@ -12,23 +12,23 @@ public class AdaptadorVinculadorConcreto implements AdaptadorVinculador {
     }
 
     public ArrayList<Vinculacion> vincular(ArrayList<OperacionDeIngreso> ingresosOriginal, ArrayList<OperacionDeEgreso> egresosOriginal, CriteriosEnum criterio) {
-        ArrayList<OperacionDTO> ingresos = prepararIngresos(ingresosOriginal);
-        ArrayList<OperacionDTO> egresos = prepararEgresos(egresosOriginal);
+        ArrayList<IngresoDTO> ingresos = prepararIngresos(ingresosOriginal);
+        ArrayList<EgresoDTO> egresos = prepararEgresos(egresosOriginal);
         return vinculadorExterno.vincular(ingresos, egresos, criterio);
     }
 
-    private ArrayList<OperacionDTO> prepararEgresos(ArrayList<OperacionDeEgreso> egresos) {
-        ArrayList<OperacionDTO> egresosDTO = new ArrayList<>();
+    private ArrayList<EgresoDTO> prepararEgresos(ArrayList<OperacionDeEgreso> egresos) {
+        ArrayList<EgresoDTO> egresosDTO = new ArrayList<>();
         for (OperacionDeEgreso e : egresos) {
-            egresosDTO.add(new OperacionDTO(e.getId(), e.getFecha(), e.getValorTotal()));
+            egresosDTO.add(new EgresoDTO(e.getId(), e.getFecha(), e.getValorTotal()));
         }
         return egresosDTO;
     }
 
-    private ArrayList<OperacionDTO> prepararIngresos(ArrayList<OperacionDeIngreso> ingresos) {
-        ArrayList<OperacionDTO> ingresosDTO = new ArrayList<>();
+    private ArrayList<IngresoDTO> prepararIngresos(ArrayList<OperacionDeIngreso> ingresos) {
+        ArrayList<IngresoDTO> ingresosDTO = new ArrayList<>();
         for (OperacionDeIngreso i : ingresos) {
-            ingresosDTO.add(new OperacionDTO(i.getId(), i.getFecha(), i.getMonto()));
+            ingresosDTO.add(new IngresoDTO(i.getId(), i.getFecha(), i.getMonto()));
         }
         return ingresosDTO;
     }
