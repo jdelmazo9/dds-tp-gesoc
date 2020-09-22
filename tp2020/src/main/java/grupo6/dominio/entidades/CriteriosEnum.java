@@ -1,0 +1,9 @@
+package grupo6.dominio.entidades;
+
+public enum CriteriosEnum {
+    CRITERIO_VALOR_PRIMERO_INGRESO,
+    CRITERIO_VALOR_PRIMERO_EGRESO,
+    CRITERIO_FECHA,
+    CRITERIO_MIX_FECHA_VALOR,
+    CRITERIO_MIX_VALOR_FECHA
+}

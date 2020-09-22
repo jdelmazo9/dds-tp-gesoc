@@ -1,10 +1,12 @@
 package grupo6.dominio;
 
+import grupo6.dominio.entidades.Categoria;
+import grupo6.dominio.entidades.Criterio;
+import grupo6.dominio.entidades.OperacionDeEgreso;
+import grupo6.dominio.entidades.OperacionDeIngreso;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Date;
 
 public class CriterioTest {
     OperacionDeEgreso egresoTest;

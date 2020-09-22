@@ -1,11 +1,12 @@
 package grupo6.seguridad;
 
-import grupo6.utils.BandejaDeMensajes;
+import grupo6.dominio.entidades.EntidadPersistente;
+import grupo6.spark.utils.BandejaDeMensajes;
 import org.mindrot.jbcrypt.BCrypt;
 
 import grupo6.seguridad.Excepciones.ContraseniaInvalidaException;
 
-public class Usuario {
+public class Usuario extends EntidadPersistente {
     private String nombre;
     private String contraseniaHash;
     private RolUsuario rol;

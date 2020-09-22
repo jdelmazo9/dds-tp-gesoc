@@ -1,6 +1,6 @@
 package grupo6.vinculaciones;
 
-import grupo6.dominio.*;
+import grupo6.dominio.entidades.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

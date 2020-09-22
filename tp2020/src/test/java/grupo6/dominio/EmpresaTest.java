@@ -1,5 +1,7 @@
 package grupo6.dominio;
 
+import grupo6.dominio.entidades.Empresa;
+import grupo6.dominio.entidades.TipoEmpresa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
