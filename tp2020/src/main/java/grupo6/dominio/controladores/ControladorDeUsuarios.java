@@ -1,4 +1,4 @@
-package grupo6.seguridad;
+package grupo6.dominio.controladores;
 
 //import javax.swing.text.html.Option;
 
@@ -6,6 +6,8 @@ package grupo6.seguridad;
 import java.util.Set;
 import java.util.HashSet;
 import grupo6.seguridad.Excepciones.*;
+import grupo6.seguridad.RolUsuario;
+import grupo6.seguridad.Usuario;
 
 public class ControladorDeUsuarios {
     private Set<Usuario> usuarios = new HashSet<Usuario>();
@@ -40,7 +42,7 @@ public class ControladorDeUsuarios {
         else{
             throw new UsuarioInexistenteException("El usuario no existe");
         }
-        
+
     }
 
     public boolean  validarUsuarioContrasenia(String nombre, String contrasenia){

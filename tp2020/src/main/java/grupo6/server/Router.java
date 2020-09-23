@@ -5,6 +5,14 @@ package grupo6.server;
 //import domain.controllers.UsuarioController;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
+import grupo6.dominio.controladores.ControladorDeEgresos;
+import grupo6.dominio.controladores.ControladorDeSeguridad;
+import grupo6.dominio.controladores.ControladorDeSesion;
+import grupo6.dominio.controladores.ControladorDeUsuarios;
+import grupo6.dominio.repositorios.RepositorioEgresos;
+import grupo6.seguridad.RolUsuario;
+import grupo6.seguridad.ValidacionLongitud;
+import grupo6.seguridad.ValidacionRegEx;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -29,7 +37,28 @@ public class Router {
     }
 
     private static void configure(){
-        Spark.get("/", (request, response) -> {return "Hi Mundo";});
+        ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionRegEx(), new ValidacionLongitud(5));
+        ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
+        ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
+        ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
+
+
+        try {
+            controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Spark.get("/", controladorDeSesion::inicio, Router.engine);
+//        Spark.get("/", (request, response) -> {return "Hi Mundo";});
+        Spark.post("/login", controladorDeSesion::logIn);
+        Spark.get("/logout", controladorDeSesion::logOut);
+        Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
+        Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
+        Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
+        Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);
+        Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
+
 
 //        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();
 //        UsuarioController usuarioController = new UsuarioController();

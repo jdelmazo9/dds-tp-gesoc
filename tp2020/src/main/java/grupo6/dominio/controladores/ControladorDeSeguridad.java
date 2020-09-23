@@ -1,4 +1,6 @@
-package grupo6.seguridad;
+package grupo6.dominio.controladores;
+
+import grupo6.seguridad.Validacion;
 
 public class ControladorDeSeguridad {
     private Validacion validadorContrasenia;
