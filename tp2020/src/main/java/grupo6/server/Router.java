@@ -51,8 +51,14 @@ public class Router {
 
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
 //        Spark.get("/", (request, response) -> {return "Hi Mundo";});
+
+        // Sesion
+        Spark.get("/login", controladorDeSesion::nuevaSesion, Router.engine);
         Spark.post("/login", controladorDeSesion::logIn);
         Spark.get("/logout", controladorDeSesion::logOut);
+        Spark.before( "/egresos/*", controladorDeSesion::verificarSesion);
+
+        // Egresos
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
