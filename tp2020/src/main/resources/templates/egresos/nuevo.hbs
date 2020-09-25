@@ -16,15 +16,24 @@
 <header>
     <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
     <div class="diseniologo">
-        <img src="/img/logosolo.png" alt="diseniologo" style="">
-        <p>Diseño de Sistemas</p>
+        <img src="/img/lbu.png" alt="diseniologo" style="">
+        <p>La Banda Utniana</p>
     </div>
 </header>
 <div class="main_container">
     <a href="/" class="btn-border-blue" style="">Volver</a>
-    <form class="" action="/egresos" method="post" >
-        <input type="submit" name="" class="btn-verde" style="float:right;"  value="Crear egreso">
-    </form>
+    <div class="main_container" style="margin:40px;">
+        <form class="" action="/egresos" method="post" >
+            <input type="date" name="fecha"  class="input-datos">
+            <select class="input-select" name="proveedor">
+                <option selected disabled>Seleccionar</option>
+                {{#each proveedores}}
+                    <option value="{{nroIdentificacion}}">{{nombre}}</option>
+                {{/each}}
+            </select>
+            <input type="submit" name="" class="btn-verde" style="float:right;"  value="Crear egreso">
+        </form>
+    </div>
 <!--    <a href="/egresos/nuevo" class="btn-border-blue" style="">Guardar</a>-->
 </div>
 </body>

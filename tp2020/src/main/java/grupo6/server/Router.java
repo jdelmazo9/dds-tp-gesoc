@@ -10,6 +10,7 @@ import grupo6.dominio.controladores.ControladorDeSeguridad;
 import grupo6.dominio.controladores.ControladorDeSesion;
 import grupo6.dominio.controladores.ControladorDeUsuarios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
+import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.ValidacionLongitud;
 import grupo6.seguridad.ValidacionRegEx;
@@ -41,7 +42,8 @@ public class Router {
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
-
+        RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
+        repositorioProveedores.cargarProveedoresTest();
 
         try {
             controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
@@ -66,7 +68,7 @@ public class Router {
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
 
 //        Spark.get("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos, Router.engine);
-        Spark.post("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
+        Spark.post("/egresos/:id/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
 
         // Categorias
 

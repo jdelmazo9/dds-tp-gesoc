@@ -25,12 +25,14 @@
             <thead>
             <th><i class="fas fa-user"></i> Id Egreso </th>
             <th><i class="fas fa-envelope"></i> Fecha </th>
+            <th><i class="fas fa-envelope"></i> Proveedor </th>
             </thead>
             <tbody>
             {{#each egresos}}
                 <tr>
                     <td> {{id}} </td>
                     <td>{{fecha}}</td>
+                    <td>{{proveedor.nombre}}</td>
                 </tr>
             {{/each}}
             </tbody>

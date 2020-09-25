@@ -41,7 +41,7 @@ header{
 }
 
 .main_container{
-  width:100vw;
+  width:50vw;
   position: absolute;
   top:70px;
   z-index: -1;

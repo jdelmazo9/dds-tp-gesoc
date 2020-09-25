@@ -1,0 +1,12 @@
+{
+  presupuestos: [
+    {
+      items: [{tipo: "Articulo", descripcion: "coca", valor: 100.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 500.0 } ],
+      proveedor: {nombre: "Coto", nroIdentificacion: 123, direccionPostal: "1234"}
+    },
+    {
+      items: [{tipo: "Articulo", descripcion: "coca", valor: 150.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 475.0 } ],
+      proveedor: {nombre: "Disco", nroIdentificacion: 321, direccionPostal: "4321"}
+    }
+  ]
+}

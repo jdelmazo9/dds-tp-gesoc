@@ -27,7 +27,8 @@ public class Presupuesto {
     }
 
     public double getValorTotal() {
-        return valorTotal;
+        this.calcular_valor_total();
+        return this.valorTotal;
     }
 
     public void setValorTotal(double valorTotal) {

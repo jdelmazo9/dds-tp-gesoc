@@ -21,9 +21,21 @@
     </div>
 </header>
 <div class="main_container">
+    <br><br>
+    <div align="left">
+        <h2> Egreso: {{ egreso.id }} </h2>
+        <h2> Fecha: {{ egreso.fecha }} </h2>
+        <h2> Proveedor: {{ egreso.proveedor.nombre }} </h2>
+        <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Cargar Json</label>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+            </div>
+            <button type="submit" name="submit">Cargar Presupuestos</button>
+        </form>
+    </div>
     <a href="/egresos" class="btn-border-blue" style=""> Volver </a>
-    <h2> Egreso: {{ egreso.id }} </h2>
-    <h2> Fecha: {{ egreso.fecha }} </h2>
+
 <!--    <a href="/egresos/ egreso.id " class="btn-border-blue" style="">Borrar</a>-->
 </div>
 </body>

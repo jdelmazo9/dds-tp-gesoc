@@ -26,16 +26,16 @@ public class FileUploadHandler {
         return new Gson().fromJson(json, targetClass);
     }
 
-    public static <T> ArrayList<T> readJsonToArry(Request request, String id, Class<T> targetClass) {
-        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
-        String json = null;
-        try {
-            InputStream input = request.raw().getPart(id).getInputStream();
-            json = IOUtils.toString(input);
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
-        }
-        new Gson().f
-        return new Gson().fromJson(json);
-    }
+//    public static <T> ArrayList<T> readJsonToArry(Request request, String id, Class<T> targetClass) {
+//        request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
+//        String json = null;
+//        try {
+//            InputStream input = request.raw().getPart(id).getInputStream();
+//            json = IOUtils.toString(input);
+//        } catch (IOException | ServletException e) {
+//            e.printStackTrace();
+//        }
+//        new Gson().f
+//        return new Gson().fromJson(json);
+//    }
 }
