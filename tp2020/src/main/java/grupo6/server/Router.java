@@ -56,14 +56,19 @@ public class Router {
         Spark.get("/login", controladorDeSesion::nuevaSesion, Router.engine);
         Spark.post("/login", controladorDeSesion::logIn);
         Spark.get("/logout", controladorDeSesion::logOut);
-        Spark.before( "/egresos/*", controladorDeSesion::verificarSesion);
+//        Spark.before( "/egresos/*", controladorDeSesion::verificarSesion); //@todo: restingir el acceso a users logueados
 
         // Egresos
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
+        Spark.get("/egresos/upload-json", controladorDeEgresos::ejemploJson, Router.engine);
         Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
+        Spark.post("/egresos/upload-json", controladorDeEgresos::cargarJson);
+
+        // Categorias
+
 
 
 //        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();

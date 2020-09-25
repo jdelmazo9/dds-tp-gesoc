@@ -12,10 +12,10 @@ public class Criterio {
     }
 
     public void agregarCategoria(Categoria categoria){
-            categorias.add(categoria);
-            if(categoria.getCriterio()==null){
-                categoria.vincularCriterio(this);
-            }
+        categorias.add(categoria);
+        if(categoria.getCriterio()==null){
+            categoria.vincularCriterio(this);
+        }
     }
 
     public void agregarPadre(Criterio padre) {
@@ -42,8 +42,8 @@ public class Criterio {
 
     public Criterio getHijo(){return this.criterioHijo;}
 
-      public void limpiarHijo(){ criterioHijo.criterioPadre = null;
-        this.criterioHijo = null;}
-
+    public void limpiarHijo(){ criterioHijo.criterioPadre = null;
+        this.criterioHijo = null;
+    }
 }
 

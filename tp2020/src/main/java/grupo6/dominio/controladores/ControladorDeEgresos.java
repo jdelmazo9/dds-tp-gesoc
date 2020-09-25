@@ -1,7 +1,10 @@
 package grupo6.dominio.controladores;
 
+import grupo6.dominio.entidades.Categoria;
+import grupo6.dominio.entidades.Criterio;
 import grupo6.dominio.entidades.OperacionDeEgreso;
 import grupo6.dominio.repositorios.RepositorioEgresos;
+import grupo6.spark.utils.FileUploadHandler;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -52,5 +55,19 @@ public class ControladorDeEgresos {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
+    }
+
+    public ModelAndView ejemploJson(Request request, Response response){
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros, "egresos/ejemploJson.hbs");
+    }
+
+    public Response cargarJson(Request request, Response response){
+//        Categoria categoria = FileUploadHandler.readJsonTo(request,  "fileToUpload", Categoria.class);
+        Criterio criterio = FileUploadHandler.readJsonTo(request, "fileToUpload", Criterio.class);
+        for (Categoria cat: criterio.getCategorias()) {
+            System.out.println(cat.getNombre());
+        }
+        return response;
     }
 }
