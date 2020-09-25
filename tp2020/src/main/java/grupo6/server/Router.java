@@ -62,10 +62,11 @@ public class Router {
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
-        Spark.get("/egresos/upload-json", controladorDeEgresos::ejemploJson, Router.engine);
         Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
-        Spark.post("/egresos/upload-json", controladorDeEgresos::cargarJson);
+
+//        Spark.get("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos, Router.engine);
+        Spark.post("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
 
         // Categorias
 
