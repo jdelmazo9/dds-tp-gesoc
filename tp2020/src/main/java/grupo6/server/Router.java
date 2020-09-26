@@ -5,10 +5,8 @@ package grupo6.server;
 //import domain.controllers.UsuarioController;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
-import grupo6.dominio.controladores.ControladorDeEgresos;
-import grupo6.dominio.controladores.ControladorDeSeguridad;
-import grupo6.dominio.controladores.ControladorDeSesion;
-import grupo6.dominio.controladores.ControladorDeUsuarios;
+import grupo6.dominio.controladores.*;
+import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.seguridad.RolUsuario;
@@ -41,7 +39,10 @@ public class Router {
         ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionRegEx(), new ValidacionLongitud(5));
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
+        ControladorDeCriterios controladorDeCriterios = new ControladorDeCriterios();
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
+        RepositorioCriterios repositorioCriterios = RepositorioCriterios.getInstancia();
+        repositorioCriterios.cargarCriteriosTest();
         RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
         repositorioProveedores.cargarProveedoresTest();
 
@@ -70,7 +71,8 @@ public class Router {
 //        Spark.get("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos, Router.engine);
         Spark.post("/egresos/:id/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
 
-        // Categorias
+        // Criterios
+        Spark.get("/criterios/:id", controladorDeCriterios::obtenerCriterio);
 
 
 

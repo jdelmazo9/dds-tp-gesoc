@@ -20,6 +20,7 @@
         <p>Diseño de Sistemas</p>
       </div>
     </header>
+
     <div class="main_container">
         <table class="tabla" id="tabla">
             <thead>
@@ -40,6 +41,53 @@
 
         <a href="/" class="btn-border-blue" style="">Volver</a>
         <a href="/egresos/nuevo" class="btn-border-blue" style="">Nuevo</a>
+        <br><br>
+
+
+            <select id="input1" class="input-select"  name="criterio">
+                <option selected disabled>Seleccionar</option>
+                    {{#each repoCriterios.criterios}}
+                        <option value="{{id}}">{{nombre}}</option>
+                    {{/each}}
+            </select>
+
+             <p id="tuvieja"> </p>
+
+            <script>
+            $(function() {
+              $('#input1').change(function(){
+                var a = $(this).val();
+            
+                $.ajax({
+                  url: '/criterios/' + a,
+                  success: function(data) {
+                  console.log(a);
+                    $('#tuvieja').text(data);
+                  }
+                });
+              });
+            });
+            </script>
+            <!--
+            <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#input1").change(function () {
+                        console.log($("#repoCriterios"));
+                            $("#testeo").val($(this).val());
+                            /*
+                            var value = $("#repoCriterios").criterio($(this).val()).categorias;
+                            console.log(value);
+                            var select = document.getElementById("input2");
+                            select.options.length = 0;
+                            for(index in value) {
+                               select.options[select.options.length] = new Option(value[index].nombre, index);
+                               //select.options[0] = new Option('test', 0);
+                            }
+                            */
+                        });
+                    });
+            </script>
+            -->
     </div>
   </body>
   </html>

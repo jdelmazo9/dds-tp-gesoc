@@ -1,6 +1,7 @@
 package grupo6.dominio.controladores;
 
 import grupo6.dominio.entidades.*;
+import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.spark.utils.FileUploadHandler;
@@ -31,6 +32,8 @@ public class ControladorDeEgresos {
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionDeEgreso> egresos = repositorioEgresos.obtenerTodos();
         parametros.put("egresos", egresos);
+        parametros.put("criterios", RepositorioCriterios.getInstancia().obtenerTodos());
+        parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/indice.hbs");
     }
 

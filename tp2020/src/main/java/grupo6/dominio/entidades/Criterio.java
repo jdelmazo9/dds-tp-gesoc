@@ -3,6 +3,7 @@ package grupo6.dominio.entidades;
 import java.util.ArrayList;
 
 public class Criterio {
+    int id;
     private String nombre;
     private Criterio criterioPadre;
     private Criterio criterioHijo;
@@ -18,6 +19,15 @@ public class Criterio {
             categoria.vincularCriterio(this);
         }
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
