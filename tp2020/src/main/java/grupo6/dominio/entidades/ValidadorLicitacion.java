@@ -15,7 +15,7 @@ public abstract class ValidadorLicitacion {
     }
 
     public ResultadoValidacion validar(OperacionDeEgreso operacion){ //Este metodo después va a devolver un resultado (debería hacer un New)
-        ResultadoValidacion result = new ResultadoValidacion();
+        ResultadoValidacion result = new ResultadoValidacion(operacion.getId());
         if (!(this.validarCantidad(operacion.getPresupuestos().size()))){
             result.set_resultado(false);
             result.set_mensaje_resultado("No se satisface la cantidad de presupuestos requeridos");

@@ -1,8 +1,10 @@
 package grupo6.dominio.controladores;
 
+import com.google.gson.Gson;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
+import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.FileUploadHandler;
 import spark.ModelAndView;
 import spark.Request;
@@ -79,5 +81,21 @@ public class ControladorDeEgresos {
 
         response.redirect("/egresos/"+request.params("id"));
         return response;
+    }
+
+    public Response nuevaValidacion(Request request, Response response){
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(Integer.parseInt(request.params("id")));
+        egreso.suscribirComoRevisor(ControladorDeValidaciones.getInstancia().getBandejaDeMensajes());
+        egreso.validarLicitacion();
+        response.status(201);
+        response.type("text/xml");
+        response.body("Validacion creada. Consulte las validaciones del egreso para obtener el resultado");
+        return response;
+    }
+
+    public String obtenerValidaciones(Request request, Response response){
+        String json = ControladorDeValidaciones.getInstancia().obtenerValidacionesEgreso(Integer.parseInt(request.params("id")));
+        response.type("application/json");
+        return json;
     }
 }

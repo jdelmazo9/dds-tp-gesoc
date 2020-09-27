@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 
 public class ResultadoValidacion {
     public Boolean validacionOK;
+    public int idEgreso;
     String mensajeValidacion;
     LocalDateTime timestampValidacion;
 
-    public ResultadoValidacion(){
+    public ResultadoValidacion(int idEgreso){
+        this.idEgreso = idEgreso;
         this.timestampValidacion = LocalDateTime.now();
     }
 

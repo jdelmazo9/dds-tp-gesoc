@@ -22,8 +22,8 @@ class NotificadorValidadorLicitacionTest {
         usuario2 = new Usuario("Lionel Messi","Messi123", RolUsuario.ESTANDAR);
         notificador.agregarRevisor(usuario1.getBandejaDeMensajes());
         notificador.agregarRevisor(usuario2.getBandejaDeMensajes());
-        resultado1 = new ResultadoValidacion();
-        resultado2 = new ResultadoValidacion();
+        resultado1 = new ResultadoValidacion(0);
+        resultado2 = new ResultadoValidacion(0);
         resultado1.set_mensaje_resultado("Hola");
         resultado2.set_mensaje_resultado("Mundo");
 

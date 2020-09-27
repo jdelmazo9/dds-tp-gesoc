@@ -2,7 +2,9 @@ package grupo6.spark.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.google.common.collect.Lists;
 import grupo6.dominio.entidades.ResultadoValidacion;
 
 public class BandejaDeMensajes {
@@ -18,6 +20,10 @@ public class BandejaDeMensajes {
 
     public List<ResultadoValidacion> obtenerMensajes(){
         return resultados;
+    }
+
+    public ArrayList<ResultadoValidacion> obtenerMensajes(int idEgreso){
+        return Lists.newArrayList(resultados.stream().filter(v -> v.idEgreso == idEgreso).collect(Collectors.toList()));
     }
 
     /*public List<Mensaje> obtenerPagina(int pagina, int mensajesPorPagina){

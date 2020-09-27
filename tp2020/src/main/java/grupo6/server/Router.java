@@ -5,16 +5,11 @@ package grupo6.server;
 //import domain.controllers.UsuarioController;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
-import grupo6.dominio.controladores.ControladorDeEgresos;
-import grupo6.dominio.controladores.ControladorDeSeguridad;
-import grupo6.dominio.controladores.ControladorDeSesion;
-import grupo6.dominio.controladores.ControladorDeUsuarios;
-import grupo6.dominio.repositorios.RepositorioEgresos;
+import grupo6.dominio.controladores.*;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.ValidacionLongitud;
 import grupo6.seguridad.ValidacionRegEx;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import grupo6.spark.utils.BooleanHelper;
@@ -42,11 +37,13 @@ public class Router {
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
+        ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
         RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
         repositorioProveedores.cargarProveedoresTest();
 
         try {
             controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
+            controladorDeUsuarios.agregarUsuario("api_user", "api123456", RolUsuario.ESTANDAR);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,6 +70,11 @@ public class Router {
         // Categorias
 
 
+        // Api
+//        Spark.before("/api/*", controlador);
+        Spark.post("/api/egresos/:id/validacion", controladorDeEgresos::nuevaValidacion);
+        Spark.get("/api/egresos/:id/validacion", controladorDeEgresos::obtenerValidaciones);
+        Spark.get("/api/egresos/validacion", controladorDeValidaciones::obtenerValidaciones);
 
 //        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();
 //        UsuarioController usuarioController = new UsuarioController();
