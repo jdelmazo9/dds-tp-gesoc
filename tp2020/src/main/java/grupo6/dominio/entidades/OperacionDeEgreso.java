@@ -3,6 +3,7 @@ package grupo6.dominio.entidades;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import grupo6.spark.utils.BandejaDeMensajes;
@@ -172,14 +173,21 @@ public class OperacionDeEgreso {
         return id;
     }
 
-    public boolean esDeCategoria(String criterio, String categoria){
-        for(Categoria c: this.categorias){
-            System.out.println(c.getCriterio().getNombre()+": "+c.getNombre());
-            if(c.getNombre().equals(categoria) && c.getCriterio().getNombre().equals(criterio)) {
-                return true;
+    public boolean esDeCategorias(List<String> criterios, List<String> categorias){
+
+        for(int i = 0; i < categorias.size(); i++) {
+            Boolean pertenece = false;
+            for(Categoria c : this.categorias) {
+                if(c.getNombre().equals(categorias.get(i)) && c.getCriterio().getNombre().equals(criterios.get(i))) {
+                    pertenece = true;
+                }
+            }
+            if(!pertenece) {
+                return false;
             }
         }
-        return false;
+
+        return true;
     }
 }
 
