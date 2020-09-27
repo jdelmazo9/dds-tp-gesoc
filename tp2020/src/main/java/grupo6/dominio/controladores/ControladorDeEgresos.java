@@ -12,10 +12,7 @@ import spark.Response;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ControladorDeEgresos {
 
@@ -51,6 +48,8 @@ public class ControladorDeEgresos {
 
     public String obtenerTodos(Request request, Response response){
         String criterio = request.queryParams("criterio");
+        System.out.println(Arrays.toString(request.queryParamsValues("criterio")));
+        System.out.println(Arrays.toString(request.queryParamsValues("categoria")));
         String categoria = request.queryParams("categoria");
         List<OperacionDeEgreso> egresos;
         System.out.println(criterio);

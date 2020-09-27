@@ -40,7 +40,7 @@ function aplicarFiltro() {
         todosLosFiltros += li.textContent + "&";
     }
     todosLosFiltros = todosLosFiltros.slice(0, -1).replace(' ','%20');
-    //  console.log(todosLosFiltros);
+//      console.log(todosLosFiltros);
 
     $("#tablaOperaciones tr").not('thead tr').remove();
     var tablaOperaciones = document.getElementById("tablaOperaciones").getElementsByTagName('tbody')[0];
