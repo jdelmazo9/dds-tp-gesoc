@@ -34,6 +34,10 @@ $(document).ready(function(){
   });
 });
 
+function DoNav(url) {
+ document.location.href = url;
+}
+
 function confirmarEliminacion(id){
   document.getElementById("userId").value = id;
   document.getElementById("modalEliminar").style.display = 'block';
