@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/27517fada0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<!--    <script src="/js/generales.js"></script>-->
+    <!--    <script src="/js/generales.js"></script>-->
+    <script src="/js/criterios.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="/css/egresos.css">
     <title>Egresos - Index</title>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-      <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
-      <div class="diseniologo">
-        <img src="/img/logosolo.png" alt="diseniologo" style="">
-        <p>Diseño de Sistemas</p>
-      </div>
+        <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
+        <div class="diseniologo">
+            <img src="/img/logosolo.png" alt="diseniologo" style="">
+            <p>Diseño de Sistemas</p>
+        </div>
     </header>
 
     <div class="main_container">
-        <table class="tabla" id="tabla">
+        <br>
+        <nav>
+            <ul id="listaFiltros">
+            </ul>
+        </nav>
+
+        <select id="inputCriterio" class="input-select"  name="criterio">
+            <option selected disabled>Seleccionar</option>
+            {{#each repoCriterios.criterios}}
+                <option value="{{nombre}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+
+        <select id="inputCategoria" class="input-select"  name="categoria">
+            <option selected disabled>Seleccionar</option>
+        </select>
+
+        <button id="botonFiltro" onclick="aplicarFiltro()"> Aplicar Filtro </button>
+        <button id="botonBorrarFiltros" onclick="borrarFiltros()"> Borrar Filtros </button>
+
+
+        <table class="tabla" id="tablaOperaciones">
             <thead>
             <th><i class="fas fa-user"></i> Id Egreso </th>
             <th><i class="fas fa-envelope"></i> Fecha </th>
@@ -42,52 +65,6 @@
         <a href="/" class="btn-border-blue" style="">Volver</a>
         <a href="/egresos/nuevo" class="btn-border-blue" style="">Nuevo</a>
         <br><br>
-
-
-            <select id="input1" class="input-select"  name="criterio">
-                <option selected disabled>Seleccionar</option>
-                    {{#each repoCriterios.criterios}}
-                        <option value="{{id}}">{{nombre}}</option>
-                    {{/each}}
-            </select>
-
-             <p id="tuvieja"> </p>
-
-            <script>
-            $(function() {
-              $('#input1').change(function(){
-                var a = $(this).val();
-            
-                $.ajax({
-                  url: '/criterios/' + a,
-                  success: function(data) {
-                  console.log(a);
-                    $('#tuvieja').text(data);
-                  }
-                });
-              });
-            });
-            </script>
-            <!--
-            <script type="text/javascript">
-                    $(document).ready(function () {
-                        $("#input1").change(function () {
-                        console.log($("#repoCriterios"));
-                            $("#testeo").val($(this).val());
-                            /*
-                            var value = $("#repoCriterios").criterio($(this).val()).categorias;
-                            console.log(value);
-                            var select = document.getElementById("input2");
-                            select.options.length = 0;
-                            for(index in value) {
-                               select.options[select.options.length] = new Option(value[index].nombre, index);
-                               //select.options[0] = new Option('test', 0);
-                            }
-                            */
-                        });
-                    });
-            </script>
-            -->
-    </div>
-  </body>
-  </html>
+</div>
+</body>
+</html>

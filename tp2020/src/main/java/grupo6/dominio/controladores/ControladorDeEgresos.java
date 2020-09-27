@@ -1,5 +1,6 @@
 package grupo6.dominio.controladores;
 
+import com.google.gson.Gson;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
@@ -29,12 +30,40 @@ public class ControladorDeEgresos {
 //        List<Usuario> usuarios = this.repo.buscarTodos();
 //        parametros.put("usuarios", usuarios);
 //        asignarUsuarioSiEstaLogueado(request, parametros);
+
         Map<String, Object> parametros = new HashMap<>();
-        List<OperacionDeEgreso> egresos = repositorioEgresos.obtenerTodos();
+        List<OperacionDeEgreso> egresos;
+
+        String criterio = request.queryParams("criterio");
+        String categoria = request.queryParams("categoria");
+
+        if(criterio==null || categoria==null){
+            egresos = repositorioEgresos.obtenerTodos();
+        }
+        else{
+            egresos = repositorioEgresos.obtenerTodos(criterio, categoria);
+        }
         parametros.put("egresos", egresos);
         parametros.put("criterios", RepositorioCriterios.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/indice.hbs");
+    }
+
+    public String obtenerTodos(Request request, Response response){
+        String criterio = request.queryParams("criterio");
+        String categoria = request.queryParams("categoria");
+        List<OperacionDeEgreso> egresos;
+        System.out.println(criterio);
+        System.out.println(categoria);
+        if(criterio==null || categoria==null){
+            egresos = repositorioEgresos.obtenerTodos();
+        }
+        else{
+            egresos = repositorioEgresos.obtenerTodos(criterio, categoria);
+        }
+        String json = new Gson().toJson(egresos);
+        response.type("application/json");
+        return json;
     }
 
     public ModelAndView crearEgreso(Request request, Response response){
@@ -53,6 +82,22 @@ public class ControladorDeEgresos {
         if(!request.queryParams("fecha").equals("")){
             egreso.setFecha(LocalDate.parse(request.queryParams("fecha"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
+
+
+        // Hardcodeamos para probar filtros
+        Criterio crit = new Criterio();
+        crit.setNombre("TipoProveedor");
+        Categoria cat = new Categoria("Nacional");
+        cat.vincularCriterio(crit);
+        egreso.agregarCategoria(cat);
+
+        Criterio crit2 = new Criterio();
+        crit2.setNombre("Provincia");
+        Categoria cat2 = new Categoria("Buenos Aires");
+        cat2.vincularCriterio(crit2);
+        egreso.agregarCategoria(cat2);
+        //
+
         this.repositorioEgresos.agregar(egreso);
         response.redirect("/egresos");
         return response;

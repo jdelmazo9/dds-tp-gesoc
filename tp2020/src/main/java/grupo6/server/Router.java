@@ -63,6 +63,7 @@ public class Router {
 
         // Egresos
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
+        Spark.get("/api/egresos", controladorDeEgresos::obtenerTodos);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
         Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);

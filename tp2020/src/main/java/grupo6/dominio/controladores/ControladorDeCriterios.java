@@ -8,11 +8,14 @@ import spark.*;
 
 public class ControladorDeCriterios {
     public String obtenerCriterio(Request request, Response response){
+//        System.out.println(request.params("id"));
         Gson gson = new Gson();
-        System.out.println(RepositorioCriterios.getInstancia().getCriterio(Integer.parseInt(request.params("id"))).getNombre());
-        String json = gson.toJson(RepositorioCriterios.getInstancia().getCriterio(Integer.parseInt(request.params("id"))));
+        String nombre = RepositorioCriterios.getInstancia().getCriterio(request.params("id")).getNombre();
+//        System.out.println(nombre);
+//        System.out.println(RepositorioCriterios.getInstancia().getCriterio(Integer.parseInt(request.params("id"))).getNombre());
+        String json = gson.toJson(RepositorioCriterios.getInstancia().getCriterio(request.params("id")));
         response.type("application/json");
        // System.out.println(json);
-        return "a";//json;
+        return json;
     }
 }

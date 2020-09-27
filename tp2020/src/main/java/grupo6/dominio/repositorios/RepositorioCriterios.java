@@ -21,7 +21,7 @@ public class RepositorioCriterios {
     }
 
     private RepositorioCriterios(){
-        super();
+//        super();
         this.criterios = new ArrayList<>();
     }
 
@@ -42,12 +42,13 @@ public class RepositorioCriterios {
     }
 
     public Criterio buscar(String nombreCriterio){
-        return this.criterios.stream().filter(c -> c.getNombre() == nombreCriterio).findFirst().get();
+        return this.criterios.stream().filter(c -> c.getNombre().equals(nombreCriterio) ).findFirst().get();
     }
 
     public Criterio getCriterio(String nombreCriterio){
-        return this.criterios.stream().filter(c -> c.getNombre() == nombreCriterio).findFirst().get();
+        return this.criterios.stream().filter(c -> c.getNombre().equals(nombreCriterio) ).findFirst().get();
     }
+
     public Criterio getCriterio(int id){
         return this.criterios.stream().filter(c -> c.getId() == id).findFirst().get();
     }

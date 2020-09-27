@@ -4,6 +4,7 @@ import grupo6.dominio.entidades.OperacionDeEgreso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RepositorioEgresos {
     private List<OperacionDeEgreso> egresos ;
@@ -18,6 +19,10 @@ public class RepositorioEgresos {
 
     public List<OperacionDeEgreso> obtenerTodos(){
         return this.egresos;
+    }
+
+    public List<OperacionDeEgreso> obtenerTodos(String criterio, String categoria){
+        return this.egresos.stream().filter(e -> e.esDeCategoria(criterio, categoria)).collect(Collectors.toList());
     }
 
     public void eliminar(OperacionDeEgreso e){

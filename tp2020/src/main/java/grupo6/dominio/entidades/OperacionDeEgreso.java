@@ -15,6 +15,7 @@ public class OperacionDeEgreso {
     private URL docComercialExterno;
     private Proveedor proveedor;
     private LocalDate fecha;
+    private String fechaStr;
     private MedioDePago medioDePago;
     private ArrayList<Item> items;
     private ArrayList<String> detalleItems;
@@ -37,10 +38,12 @@ public class OperacionDeEgreso {
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         fecha = LocalDate.now();
+        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
         //fecha.getTime();
+        categorias = new ArrayList<>();
     }
 
     //CONSTRUCTOR PARA TESTS
@@ -51,10 +54,12 @@ public class OperacionDeEgreso {
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         this.fecha = fecha;
+        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
         //fecha.getTime();
+        categorias = new ArrayList<>();
     }
 
     public ArrayList<DocumentoComercial> getDocsComerciales() {
@@ -77,8 +82,13 @@ public class OperacionDeEgreso {
         return fecha;
     }
 
+    public String getFechaStr() {
+        return fechaStr;
+    }
+
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+        fechaStr = fecha.toString();
     }
 
     public URL getDocComercialExterno() {
@@ -162,5 +172,14 @@ public class OperacionDeEgreso {
         return id;
     }
 
+    public boolean esDeCategoria(String criterio, String categoria){
+        for(Categoria c: this.categorias){
+            System.out.println(c.getCriterio().getNombre()+": "+c.getNombre());
+            if(c.getNombre().equals(categoria) && c.getCriterio().getNombre().equals(criterio)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
