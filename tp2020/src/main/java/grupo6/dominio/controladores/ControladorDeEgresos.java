@@ -19,7 +19,7 @@ public class ControladorDeEgresos {
     private RepositorioEgresos repositorioEgresos;
 
     public ControladorDeEgresos(){
-        this.repositorioEgresos = new RepositorioEgresos();
+        this.repositorioEgresos = RepositorioEgresos.getInstancia();
     }
 
     public ModelAndView mostrarTodos(Request request, Response response) {
@@ -31,14 +31,18 @@ public class ControladorDeEgresos {
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionDeEgreso> egresos;
 
-        String criterio = request.queryParams("criterio");
-        String categoria = request.queryParams("categoria");
+        List<String> criterios = new ArrayList();
+        List<String> categorias = new ArrayList();
+        if(request.queryParamsValues("categoria") != null) {
+            criterios = Arrays.asList(request.queryParamsValues("criterio"));
+            categorias = Arrays.asList(request.queryParamsValues("categoria"));
+        }
 
-        if(criterio==null || categoria==null){
+        if(criterios.isEmpty() || categorias.isEmpty()){
             egresos = repositorioEgresos.obtenerTodos();
         }
         else{
-            egresos = repositorioEgresos.obtenerTodos(criterio, categoria);
+            egresos = repositorioEgresos.obtenerTodos(criterios, categorias);
         }
         parametros.put("egresos", egresos);
         parametros.put("criterios", RepositorioCriterios.getInstancia().obtenerTodos());
@@ -47,18 +51,18 @@ public class ControladorDeEgresos {
     }
 
     public String obtenerTodos(Request request, Response response){
-        String criterio = request.queryParams("criterio");
-        System.out.println(Arrays.toString(request.queryParamsValues("criterio")));
-        System.out.println(Arrays.toString(request.queryParamsValues("categoria")));
-        String categoria = request.queryParams("categoria");
+        List<String> criterios = new ArrayList();
+        List<String> categorias = new ArrayList();
+        if(request.queryParamsValues("categoria") != null) {
+            criterios = Arrays.asList(request.queryParamsValues("criterio"));
+            categorias = Arrays.asList(request.queryParamsValues("categoria"));
+        }
         List<OperacionDeEgreso> egresos;
-        System.out.println(criterio);
-        System.out.println(categoria);
-        if(criterio==null || categoria==null){
+        if(criterios.isEmpty() || categorias.isEmpty()){
             egresos = repositorioEgresos.obtenerTodos();
         }
         else{
-            egresos = repositorioEgresos.obtenerTodos(criterio, categoria);
+            egresos = repositorioEgresos.obtenerTodos(criterios, categorias);
         }
         String json = new Gson().toJson(egresos);
         response.type("application/json");

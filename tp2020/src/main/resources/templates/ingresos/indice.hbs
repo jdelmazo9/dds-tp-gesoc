@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--    <script src="/js/generales.js"></script>-->
+    <script src="/js/criterios.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="icon" href="/img/logosolo.png">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="/css/egresos.css">
+    <title>Egresos - Index</title>
+</head>
+<body>
+    <header>
+        <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
+        <div class="diseniologo">
+            <img src="/img/logosolo.png" alt="diseniologo" style="">
+            <p>Diseño de Sistemas</p>
+        </div>
+    </header>
+
+    <div class="main_container">
+        <br>
+        <nav>
+            <ul id="listaIngresos">
+                {{#each ingresos}}
+                    <li> {{fechaStr}} {{monto}} {{desc}}</li>
+                {{/each}}
+            </ul>
+        </nav>
+
+        <form action="/ingresos/upload-json" method="post" class="form-" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Cargar Json</label>
+                <input type="file" name="fileToUpload" id="fileToUpload">
+            </div>
+            <button type="submit" name="submit">Cargar</button>
+        </form>
+        <br><br>
+</div>
+</body>
+</html>
