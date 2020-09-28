@@ -6,7 +6,7 @@
     <script src="https://kit.fontawesome.com/27517fada0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <!--    <script src="/js/generales.js"></script>-->
+    <script src="/js/generales.js"></script>
     <script src="/js/criterios.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
@@ -53,14 +53,18 @@
             </thead>
             <tbody>
             {{#each egresos}}
-                <tr>
+
+                <tr onclick="DoNav('/egresos/{{id}}')" style="cursor: pointer">
                     <td> {{id}} </td>
                     <td>{{fecha}}</td>
                     <td>{{proveedor.nombre}}</td>
                 </tr>
+
             {{/each}}
             </tbody>
         </table>
+
+
 
         <a href="/" class="btn-border-blue" style="">Volver</a>
         <a href="/egresos/nuevo" class="btn-border-blue" style="">Nuevo</a>
