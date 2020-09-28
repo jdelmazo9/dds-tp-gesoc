@@ -67,6 +67,7 @@ public class Router {
         Spark.get("/api/egresos", controladorDeEgresos::obtenerTodos);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
+        Spark.post("/egresos/:id", controladorDeEgresos::guardarEgreso);
         Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
         Spark.post("/egresos/:id/items", controladorDeEgresos::agregarItem);

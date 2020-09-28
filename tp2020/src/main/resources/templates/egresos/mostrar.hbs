@@ -22,10 +22,11 @@
     </div>
 </header>
 <main id="contenedor-nuevo-egreso">
-    <div class="">
+
+
     <div class="grid-container">
 
-
+        <form class="" action="/egresos/{{egreso.id}}" method="post" >
             <!--ITEMS YA CARGADOS VISUALIZAR
             <form class="" action="/egresos" method="post" >
             </form>
@@ -44,7 +45,11 @@
             <div class="Proveedor">
                 <p>Seleccione un proovedor:</p>
                 <select class="input-select" name="proveedor">
-                    <option selected disabled>Seleccionar</option>
+                    {{#if egreso.proveedor}}
+                        <option selected disabled value="{{egreso.proveedor.nroIdentificacion}}"> {{egreso.proveedor.nombre}} </option>
+                    {{else}}
+                        <option selected disabled> Seleccionar </option>
+                    {{/if}}
                     {{#each proveedores}}
                         <option value="{{nroIdentificacion}}">{{nombre}}</option>
                     {{/each}}
@@ -52,7 +57,7 @@
             </div>
 
             <div class="Presupuestos">
-                <ul aria-label="Presupuestos cargados" class="scrollable" id="listaPresupuestos">
+                <ul aria-label="Presupuestos cargados" class="scrollable" id="listaPresupuestos" >
                     {{#each egreso.presupuestos}}
                         <li>{{proveedor.nombre}}: ${{valorTotal}}</li>
                     {{/each}}
@@ -64,7 +69,10 @@
 
             <div class="Fecha">
                 <bold>Seleccione la fecha del egreso:</bold>
-                <input type="date" name="fecha"  class="input-datos"></div>
+                <input type="date" name="fecha"  class="input-datos" value="{{egreso.fecha}}">
+            </div>
+            <input type="submit" class="unBoton" style="float:right;"  value="Guardar">
+    </form>
 
             <!--CARGAR ITEMS-->
             <form class="Items" action="/egresos/{{egreso.id}}/items" method="post" >
@@ -132,14 +140,14 @@
 
             <div class="Navegacion">
                 <a href="/" class="unBoton" style="float:left">Cancelar</a>
-                <input type="submit" class="unBoton" style="float:right;"  value="Crear egreso">
+
             </div>
 
 
 
 <!--    <a href="/egresos/nuevo" class="btn-border-blue" style="">Guardar</a>-->
     </div>
-</div>
+
 </main>
 </body>
 </html>

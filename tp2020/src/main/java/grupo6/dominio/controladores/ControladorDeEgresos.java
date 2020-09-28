@@ -77,7 +77,13 @@ public class ControladorDeEgresos {
     }
 
     public Response guardarEgreso(Request request, Response response){
-        OperacionDeEgreso egreso = new OperacionDeEgreso();
+        OperacionDeEgreso egreso;
+        if(request.params("id") == null){
+            egreso = new OperacionDeEgreso();
+        }
+        else{
+            egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        }
 //        asignarAtributosA(usuario, request);
         if(request.queryParams("proveedor") != null){
             Proveedor proveedor = RepositorioProveedores.getInstancia().buscar(new Integer(request.queryParams("proveedor")));
@@ -101,8 +107,10 @@ public class ControladorDeEgresos {
         cat2.vincularCriterio(crit2);
         egreso.agregarCategoria(cat2);
         //
+        if(request.params("id") == null){
+            this.repositorioEgresos.agregar(egreso);
+        }
 
-        this.repositorioEgresos.agregar(egreso);
         response.redirect("/egresos");
         return response;
     }
@@ -116,6 +124,7 @@ public class ControladorDeEgresos {
     public ModelAndView mostrarEgreso(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
+        parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
     }
