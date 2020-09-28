@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/generales.js"></script>
-    <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <title>Login</title>
@@ -20,22 +19,35 @@
         <p>Diseño de Sistemas</p>
     </div>
 </header>
-<div class="main_container">
-    <br><br>
-    <div align="center">
-        <form action="/login" method="post" class="form-">
-            <div class="form-group">
-                <label>Nombre de usuario</label>
-                <input class="form-control" name="nombreDeUsuario">
-            </div>
-            <div class="form-group">
-                <label>Contraseña</label>
-                <input class="form-control" name="contrasenia" type="password">
-            </div>
-            <button type="submit">Ingresar</button>
+<!--
+<main id="main_container">
+    <h1 id="login-header">Login</h1>
+        <form action="/login" method="post" class="form-" id="login-form">
+                <input class="form-control" name="nombreDeUsuario" placeholder="Usuario">
+                <input class="form-control" name="contrasenia" type="password" placeholder="Contraseña">
+            <button type="submit" id="sumbit-btn">Ingresar</button>
         </form>
-    </div>
 
+</main>-->
+<div class="login-box">
+    <h2>Ingresar</h2>
+    <form action="/login" method="post" class="form-" id="login-form">
+        <div class="user-box">
+            <input type="text" name="nombreDeUsuario" required="">
+            <label>Usuario</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="contrasenia" required="">
+            <label>Contraseña</label>
+        </div>
+        <a href="javascript:{}" onclick="document.getElementById('login-form').submit();">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Ingresar
+        </a>
+    </form>
 </div>
 </body>
 </html>

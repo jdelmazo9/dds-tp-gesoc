@@ -50,7 +50,8 @@ public class ControladorDeSesion {
         String nombre          = request.queryParams("nombreDeUsuario");
         String contrasenia     = request.queryParams("contrasenia");
 
-        System.out.println("jero puto");
+        System.out.println(nombre+contrasenia);
+
 
 //        System.out.println(request.session(false).isNew());
 

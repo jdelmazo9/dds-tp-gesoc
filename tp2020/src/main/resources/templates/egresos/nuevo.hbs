@@ -12,29 +12,137 @@
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <title>Egresos - Nuevo</title>
 </head>
-<body>
 <header>
     <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
     <div class="diseniologo">
-        <img src="/img/lbu.png" alt="diseniologo" style="">
-        <p>La Banda Utniana</p>
+        <img src="/img/logosolo.png" alt="diseniologo" style="">
+        <p>Diseño de Sistemas</p>
     </div>
 </header>
-<div class="main_container">
-    <a href="/" class="btn-border-blue" style="">Volver</a>
-    <div class="main_container" style="margin:40px;">
-        <form class="" action="/egresos" method="post" >
-            <input type="date" name="fecha"  class="input-datos">
-            <select class="input-select" name="proveedor">
-                <option selected disabled>Seleccionar</option>
-                {{#each proveedores}}
-                    <option value="{{nroIdentificacion}}">{{nombre}}</option>
-                {{/each}}
-            </select>
-            <input type="submit" name="" class="btn-verde" style="float:right;"  value="Crear egreso">
-        </form>
-    </div>
-<!--    <a href="/egresos/nuevo" class="btn-border-blue" style="">Guardar</a>-->
+<body>
+<main id="contenedor-nuevo-egreso">
+    <form class="" action="/egresos" method="post" >
+    <div class="grid-container">
+
+
+            <!--ITEMS YA CARGADOS VISUALIZAR
+            <form class="" action="/egresos" method="post" >
+            </form>
+            -->
+
+            <div class="ItemsCargados">
+                <bold><p>Items Cargados:</p></bold>
+                <ul class="scrollable">
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                    <li>Un Item</li>
+                </ul>
+            </div>
+
+            <!--PROVEDOORES-->
+
+            <div class="Proveedor">
+                <p>Seleccione un proovedor:</p>
+                <select class="chosen-value" name="proveedor">
+                    <option selected disabled>Seleccionar...</option>
+                    {{#each proveedores}}
+                        <option class="value-list" value="{{nroIdentificacion}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+
+
+
+
+            <!--FECHA-->
+
+            <div class="Fecha">
+                <bold>Seleccione la fecha del egreso:</bold>
+                <input type="date" name="fecha"  class="input-datos"></div>
+
+            <!--CARGAR ITEMS-->
+
+            <div class="Items">
+                <p>Indique la descripción del item:</p>
+                    <input class="form-presupuestos" name="Descripcion" placeholder="Descripción">
+                <p>Indique el valor del item:</p>
+                    <input class="form-presupuestos" name="Valor" placeholder="Valor">
+                <p>Indique el Tipo de Item:</p>
+                    <input class="form-presupuestos" name="Tipo" placeholder="Tipo">
+            </div>
+
+
+            <!--CATEGORIAS CARGADAS-->
+
+            <div class="CategoriasCargadas">
+                <bold><p>Categorias Asignadas:</p></bold>
+                    <ul class="scrollable">
+                        <li>text</li>
+                        <li>text</li>
+                        <li>text</li>
+                        <li>text</li>
+                        <li>text</li>
+                        <li>text</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                        <li>Un Item</li>
+                    </ul>
+            </div>
+
+            <!--CARGAR PRESPUESTO-->
+
+            <div class="Presupuesto">
+                <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Cargar Json</label>
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    </div>
+                    <button type="submit" name="submit">Cargar Presupuestos</button>
+                </form>
+            </div>
+
+            <!--CATEGORIAS NUEVAS-->
+            <div class="Categorias">
+                <p>Criterio:</p>
+                <input class="form-presupuestos" name="Tipo">
+                <p>Categoria:</p>
+                <input class="form-presupuestos" name="Tipo">
+            </div>
+<div class="Aceptar">
+    <a href="/" class="unBoton" >Cancelar</a>
 </div>
+            <!--BOTONES-->
+
+            <div class="Navegacion">
+                <a href="/" class="unBoton" style="float:left">Cancelar</a>
+                <input type="submit" class="unBoton" style="float:right;"  value="Crear egreso">
+            </div>
+
+
+
+<!--    <a href="/egresos/nuevo" class="btn-border-blue" style="">Guardar</a>-->
+    </div>
+</form>
+</main>
 </body>
 </html>
+
