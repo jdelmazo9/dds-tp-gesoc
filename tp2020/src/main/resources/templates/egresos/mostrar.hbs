@@ -21,17 +21,13 @@
 </header>
 
 <body>
-<div>
-<!--
-<main id="contenedor-nuevo-egreso">-->
-        <form action="/egresos/{{egreso.id}}" method="post" >
-            <!--ITEMS YA CARGADOS VISUALIZAR
-            <form class="" action="/egresos" method="post" >
-            </form>
-            -->
+<div class="form-modificar">
+           <!--Items Cargados-->
 
-            <div>
-                <ul>
+
+        <form action="/egresos/{{egreso.id}}" method="post" >
+            <div style="float:right;">
+                <ul class="scrollable" style="transform:translateY(-3vw); width:30vw;">
                     {{#each egreso.items}}
                         <li>{{descripcion}} ${{valor}} {{tipo}}</li>
                     {{/each}}
@@ -84,14 +80,14 @@
                                             <option value="Servicio">Servicio</option>
 
                                     </select>
-                    <input type="submit" class="btn" style="float:right;"  value="Cargar Item">
+                    <input type="submit" class="btn"  value="Cargar Item">
 
             </form>
 
             <!--CATEGORIAS CARGADAS-->
 
             <div>
-                    <ul aria-label="Descripción Categorias" class="scrollable" id="listaCategorias">
+                    <ul aria-label="Descripción Categorias" class="scrollable" style="width:20vw;">
                     {{#each egreso.categorias}}
                         <li>{{criterio.nombre}}: {{nombre}}</li>
                     {{/each}}
@@ -100,7 +96,7 @@
 
             <!--CARGAR PRESPUESTO-->
 
-            <div>
+            <div style="transform:translateY(3vw);">
                 <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
                     <div class="table-wrapper">
                         <input type="file" name="fileToUpload" id="fileToUpload">
@@ -109,9 +105,6 @@
                  </form>
             </div>
 
-    <br>
-    <br>
-    <br>
     <br>
 
             <!--CATEGORIAS NUEVAS-->
