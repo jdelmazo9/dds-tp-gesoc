@@ -32,6 +32,10 @@ dropdownMenu.addEventListener("change", ()=>{
   sendBtn.removeAttribute("disabled");
 })
 
+function DoNav(url) {
+ document.location.href = url;
+}
+
 /*
 $(document).ready(function(){
   $("#inputUsuario").on("keyup", function() {
@@ -41,6 +45,8 @@ $(document).ready(function(){
     });
   });
 });
+
+
 
 function confirmarEliminacion(id){
   document.getElementById("userId").value = id;

@@ -3,6 +3,7 @@ package grupo6.dominio.entidades;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import grupo6.spark.utils.BandejaDeMensajes;
@@ -15,6 +16,7 @@ public class OperacionDeEgreso {
     private URL docComercialExterno;
     private Proveedor proveedor;
     private LocalDate fecha;
+    private String fechaStr;
     private MedioDePago medioDePago;
     private ArrayList<Item> items;
     private ArrayList<String> detalleItems;
@@ -37,10 +39,12 @@ public class OperacionDeEgreso {
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         fecha = LocalDate.now();
+        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
         //fecha.getTime();
+        categorias = new ArrayList<>();
     }
 
     //CONSTRUCTOR PARA TESTS
@@ -51,10 +55,12 @@ public class OperacionDeEgreso {
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         this.fecha = fecha;
+        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
         //fecha.getTime();
+        categorias = new ArrayList<>();
     }
 
     public ArrayList<DocumentoComercial> getDocsComerciales() {
@@ -77,8 +83,13 @@ public class OperacionDeEgreso {
         return fecha;
     }
 
+    public String getFechaStr() {
+        return fechaStr;
+    }
+
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+        fechaStr = fecha.toString();
     }
 
     public URL getDocComercialExterno() {
@@ -117,6 +128,10 @@ public class OperacionDeEgreso {
     public Double getValorTotal() {
         this.calcularCosto();
         return valorTotal;
+    }
+
+    public ArrayList<Categoria> getCategorias() {
+        return categorias;
     }
 
     public void setValorTotal(Double valorTotal) {
@@ -162,5 +177,21 @@ public class OperacionDeEgreso {
         return id;
     }
 
+    public boolean esDeCategorias(List<String> criterios, List<String> categorias){
+
+        for(int i = 0; i < categorias.size(); i++) {
+            Boolean pertenece = false;
+            for(Categoria c : this.categorias) {
+                if(c.getNombre().equals(categorias.get(i)) && c.getCriterio().getNombre().equals(criterios.get(i))) {
+                    pertenece = true;
+                }
+            }
+            if(!pertenece) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 

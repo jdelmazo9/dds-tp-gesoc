@@ -1,0 +1,5 @@
+nav {margin-left: 30px; background-color: grey; }
+nav ul{height:30px; width:300px; padding: 5px 5px;}
+nav ul{overflow:hidden; overflow-y:scroll;}
+nav ul{color: white; font-size: 15px; font: Lato; width: 100%; }
+nav ul li{height:20px;}

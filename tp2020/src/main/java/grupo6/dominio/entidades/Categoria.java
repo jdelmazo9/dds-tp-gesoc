@@ -2,7 +2,7 @@ package grupo6.dominio.entidades;
 
 public class Categoria {
     private String nombre;
-    private Criterio criterio;
+    private transient Criterio criterio;
 
     public Categoria(String nombre) { this.nombre = nombre; }
 
