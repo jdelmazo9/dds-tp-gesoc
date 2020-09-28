@@ -81,3 +81,19 @@ function borrarFiltros() {
         }
     });
 }
+
+function agregarCategoria() {
+    var criterio = document.getElementById("inputCriterio");
+    var categoria = document.getElementById("inputCategoria");
+
+    if(criterio.selectedIndex == 0 || categoria.selectedIndex == 0){
+        return;
+    }
+
+    // Agrego el filtro a la lista
+    var listaCategorias = document.getElementById("listaCategorias");
+    var elem = document.createElement("li");
+    //  elem.appendChild(document.createTextNode(criterio.value+": "+categoria.value));
+    elem.appendChild(document.createTextNode(criterio.value+": "+categoria.value));
+    listaCategorias.appendChild(elem);
+}

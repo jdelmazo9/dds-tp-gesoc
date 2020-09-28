@@ -64,5 +64,8 @@ public class Criterio {
     public void limpiarHijo(){ criterioHijo.criterioPadre = null;
         this.criterioHijo = null;
     }
+    public Categoria buscar(String nombreCategoria){
+        return this.categorias.stream().filter(c -> c.getNombre().equals(nombreCategoria)).findFirst().get();
+    }
 }
 

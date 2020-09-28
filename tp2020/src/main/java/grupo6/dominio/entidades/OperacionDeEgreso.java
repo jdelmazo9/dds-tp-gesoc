@@ -129,6 +129,10 @@ public class OperacionDeEgreso {
         return valorTotal;
     }
 
+    public ArrayList<Categoria> getCategorias() {
+        return categorias;
+    }
+
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }

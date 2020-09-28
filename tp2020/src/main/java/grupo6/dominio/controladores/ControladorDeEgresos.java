@@ -68,6 +68,7 @@ public class ControladorDeEgresos {
     public ModelAndView crearEgreso(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
+        parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/nuevo.hbs");
     }
 
@@ -111,6 +112,7 @@ public class ControladorDeEgresos {
     public ModelAndView mostrarEgreso(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
+        parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
     }
 
@@ -125,6 +127,22 @@ public class ControladorDeEgresos {
         }
 
         response.redirect("/egresos/"+request.params("id"));
+        return response;
+    }
+    public Response agregarItem(Request request, Response response){
+        Item unItem = new Item(TipoItem.valueOf(request.queryParams("Tipo")), request.queryParams("Descripcion"), Double.parseDouble(request.queryParams("Valor")));
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        egreso.agregarItem(unItem);
+        response.redirect("/egresos/"+request.params("id"));
+        return response;
+    }
+    public Response agregarCategorias(Request request, Response response){
+        Categoria unaCategoria = RepositorioCriterios.getInstancia().buscar(request.queryParams("criterio")).buscar(request.queryParams("categoria"));
+        //        Categoria unaCategoria = new Categoria(request.queryParams("Nombre"), request.queryParams("Criterio"));
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        egreso.agregarCategoria(unaCategoria);
+        response.redirect("/egresos/"+request.params("id"));
+        System.out.println(egreso.getCategorias());
         return response;
     }
 }
