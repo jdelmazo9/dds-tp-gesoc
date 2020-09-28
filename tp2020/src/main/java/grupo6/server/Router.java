@@ -41,6 +41,7 @@ public class Router {
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeCriterios controladorDeCriterios = new ControladorDeCriterios();
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
+        ControladorDeIngresos controladorDeIngresos = new ControladorDeIngresos();
         RepositorioCriterios repositorioCriterios = RepositorioCriterios.getInstancia();
         repositorioCriterios.cargarCriteriosTest();
         RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
@@ -75,6 +76,8 @@ public class Router {
         // Criterios
         Spark.get("/criterios/:id", controladorDeCriterios::obtenerCriterio);
 
+        Spark.get("/ingresos", controladorDeIngresos::mostrarTodos, Router.engine);
+        Spark.post("/ingresos/upload-json", controladorDeIngresos::cargarIngresos);
 
 
 //        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();

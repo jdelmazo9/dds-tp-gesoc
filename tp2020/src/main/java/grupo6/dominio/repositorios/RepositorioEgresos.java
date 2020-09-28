@@ -1,15 +1,26 @@
 package grupo6.dominio.repositorios;
 
 import grupo6.dominio.entidades.OperacionDeEgreso;
+import grupo6.dominio.entidades.Proveedor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class RepositorioEgresos {
+
+    private static RepositorioEgresos yoMismo = null;
+
+    public static RepositorioEgresos getInstancia(){
+        if(yoMismo == null){
+            yoMismo = new RepositorioEgresos();
+        }
+        return yoMismo;
+    }
+
     private List<OperacionDeEgreso> egresos ;
 
-    public RepositorioEgresos(){
+    private RepositorioEgresos(){
         this.egresos = new ArrayList<>();
     }
 

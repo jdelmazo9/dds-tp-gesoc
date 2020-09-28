@@ -19,7 +19,7 @@ public class ControladorDeEgresos {
     private RepositorioEgresos repositorioEgresos;
 
     public ControladorDeEgresos(){
-        this.repositorioEgresos = new RepositorioEgresos();
+        this.repositorioEgresos = RepositorioEgresos.getInstancia();
     }
 
     public ModelAndView mostrarTodos(Request request, Response response) {
