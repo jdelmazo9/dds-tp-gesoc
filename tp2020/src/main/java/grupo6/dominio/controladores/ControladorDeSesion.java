@@ -30,7 +30,7 @@ public class ControladorDeSesion {
 
     public Response verificarSesion(Request request, Response response){
         if(request.session(false) == null || request.session(false).isNew()){
-            response.redirect("/");
+            response.redirect("/login");
         }
         return response;
     }

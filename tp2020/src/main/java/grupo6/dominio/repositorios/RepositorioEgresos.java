@@ -6,7 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepositorioEgresos {
-    private List<OperacionDeEgreso> egresos ;
+    private ArrayList<OperacionDeEgreso> egresos ;
+    private static RepositorioEgresos yoMismo = null;
+
+    public static RepositorioEgresos getInstancia(){
+        if(yoMismo == null){
+            yoMismo = new RepositorioEgresos();
+        }
+        return yoMismo;
+    }
 
     public RepositorioEgresos(){
         this.egresos = new ArrayList<>();
@@ -16,7 +24,7 @@ public class RepositorioEgresos {
         this.egresos.add(e);
     }
 
-    public List<OperacionDeEgreso> obtenerTodos(){
+    public ArrayList<OperacionDeEgreso> obtenerTodos(){
         return this.egresos;
     }
 

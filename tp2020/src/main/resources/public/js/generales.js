@@ -25,6 +25,14 @@ function includeHTML() {
     }
   }
 }
+
+const sendBtn = document.querySelector(".send");
+const dropdownMenu = document.querySelector(".select-criterio");
+dropdownMenu.addEventListener("change", ()=>{
+  sendBtn.removeAttribute("disabled");
+})
+
+/*
 $(document).ready(function(){
   $("#inputUsuario").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -53,3 +61,4 @@ function eliminarUsuario(){
 function cerrarModal(){
   document.getElementsByClassName("modal")[0].style.display = 'none';
 }
+*/

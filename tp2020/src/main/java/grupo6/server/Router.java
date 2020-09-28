@@ -1,6 +1,5 @@
 package grupo6.server;
 
-
 //import domain.controllers.LoginController;
 //import domain.controllers.UsuarioController;
 //import domain.controllers.UsuarioRestControllerEjemplo;
@@ -9,6 +8,8 @@ import grupo6.dominio.controladores.ControladorDeEgresos;
 import grupo6.dominio.controladores.ControladorDeSeguridad;
 import grupo6.dominio.controladores.ControladorDeSesion;
 import grupo6.dominio.controladores.ControladorDeUsuarios;
+import grupo6.dominio.controladores.ControladorDeVinculaciones;
+import grupo6.dominio.entidades.AdaptadorVinculadorConcreto;
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.seguridad.RolUsuario;
@@ -42,6 +43,7 @@ public class Router {
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
+        ControladorDeVinculaciones controladorDeVinculaciones = new ControladorDeVinculaciones();
         RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
         repositorioProveedores.cargarProveedoresTest();
 
@@ -58,7 +60,15 @@ public class Router {
         Spark.get("/login", controladorDeSesion::nuevaSesion, Router.engine);
         Spark.post("/login", controladorDeSesion::logIn);
         Spark.get("/logout", controladorDeSesion::logOut);
-//        Spark.before( "/egresos/*", controladorDeSesion::verificarSesion); //@todo: restingir el acceso a users logueados
+
+        //#region Before Checks
+        Spark.before("/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
+
+        //#endregion
 
         // Egresos
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
@@ -70,8 +80,17 @@ public class Router {
 //        Spark.get("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos, Router.engine);
         Spark.post("/egresos/:id/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
 
+        
+
         // Categorias
 
+        //#region Vinculación
+
+        Spark.get("/vinculacion", controladorDeVinculaciones::setUpVinculacion, Router.engine);
+        Spark.post("/vinculacion", controladorDeVinculaciones::vincularEgresos);
+        Spark.get("/vinculaciones", controladorDeVinculaciones::mostrarVinculaciones, Router.engine);
+
+        //#endregion
 
 
 //        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();

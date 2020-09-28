@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
-    <title>Egresos - Index</title>
+    <title>Vinculaciones</title>
   </head>
   <body>
     <header>
@@ -24,23 +24,22 @@
       <div class="table-wrapper">
           <table class="tabla" id="tabla">
               <thead>
+              <th><i class="fas fa-fingerprint"></i> Id Ingreso </th>
               <th><i class="fas fa-fingerprint"></i> Id Egreso </th>
-              <th><i class="far fa-calendar-alt"></i> Fecha </th>
-              <th><i class="fas fa-people-carry"></i> Proveedor </th>
+              <th><i class="fas fa-dollar-sign"></i> Monto Vinculado </th>
               </thead>
               <tbody>
-              {{#each egresos}}
+              {{#each vinculaciones}}
                   <tr>
-                      <td> {{id}} </td>
-                      <td>{{fecha}}</td>
-                      <td>{{proveedor.nombre}}</td>
+                      <td> {{operacionIngresoID}} </td>
+                      <td>{{operacionEgresoID}}</td>
+                      <td>{{montoVinculado}}</td>
                   </tr>
               {{/each}}
               </tbody>
           </table>
           <div class="btn-wrapper">
             <a href="/" class="btn" style="">Volver</a>
-            <a href="/egresos/nuevo" class="btn" style="">Nuevo</a>
           </div>
         </div>
     </div>
