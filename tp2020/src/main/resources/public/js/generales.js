@@ -25,6 +25,18 @@ function includeHTML() {
     }
   }
 }
+
+const sendBtn = document.querySelector(".send");
+const dropdownMenu = document.querySelector(".select-criterio");
+dropdownMenu.addEventListener("change", ()=>{
+  sendBtn.removeAttribute("disabled");
+})
+
+function DoNav(url) {
+ document.location.href = url;
+}
+
+/*
 $(document).ready(function(){
   $("#inputUsuario").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -33,6 +45,8 @@ $(document).ready(function(){
     });
   });
 });
+
+
 
 function confirmarEliminacion(id){
   document.getElementById("userId").value = id;
@@ -53,3 +67,4 @@ function eliminarUsuario(){
 function cerrarModal(){
   document.getElementsByClassName("modal")[0].style.display = 'none';
 }
+*/

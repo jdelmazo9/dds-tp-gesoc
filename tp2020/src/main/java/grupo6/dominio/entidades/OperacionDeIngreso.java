@@ -1,5 +1,6 @@
 package grupo6.dominio.entidades;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
@@ -44,8 +45,22 @@ public class OperacionDeIngreso {
         return desc;
     }
 
+    public void setFechaStr(String fecha){
+        System.out.println(fecha);
+        this.setFecha(LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        System.out.println(this.fecha);
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
     public LocalDate getFecha() {
         return fecha;
+    }
+
+    public String getFechaStr() {
+        return fecha.toString();
     }
 
     public void agregarCriterio(CriterioAceptacion criterio) {

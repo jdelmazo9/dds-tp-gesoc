@@ -1,6 +1,8 @@
 package grupo6.dominio.controladores;
 
+import com.google.gson.Gson;
 import grupo6.dominio.entidades.*;
+import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.spark.utils.FileUploadHandler;
@@ -10,17 +12,18 @@ import spark.Response;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ControladorDeEgresos {
 
     private RepositorioEgresos repositorioEgresos;
 
     public ControladorDeEgresos(){
-        this.repositorioEgresos = new RepositorioEgresos();
+        this.repositorioEgresos = RepositorioEgresos.getInstancia();
+    }
+
+    public RepositorioEgresos getRepositorioEgresos() {
+        return repositorioEgresos;
     }
 
     public ModelAndView mostrarTodos(Request request, Response response) {
@@ -28,20 +31,63 @@ public class ControladorDeEgresos {
 //        List<Usuario> usuarios = this.repo.buscarTodos();
 //        parametros.put("usuarios", usuarios);
 //        asignarUsuarioSiEstaLogueado(request, parametros);
+
         Map<String, Object> parametros = new HashMap<>();
-        List<OperacionDeEgreso> egresos = repositorioEgresos.obtenerTodos();
+        List<OperacionDeEgreso> egresos;
+
+        List<String> criterios = new ArrayList();
+        List<String> categorias = new ArrayList();
+        if(request.queryParamsValues("categoria") != null) {
+            criterios = Arrays.asList(request.queryParamsValues("criterio"));
+            categorias = Arrays.asList(request.queryParamsValues("categoria"));
+        }
+
+        if(criterios.isEmpty() || categorias.isEmpty()){
+            egresos = repositorioEgresos.obtenerTodos();
+        }
+        else{
+            egresos = repositorioEgresos.obtenerTodos(criterios, categorias);
+        }
         parametros.put("egresos", egresos);
+        parametros.put("criterios", RepositorioCriterios.getInstancia().obtenerTodos());
+        parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/indice.hbs");
+    }
+
+    public String obtenerTodos(Request request, Response response){
+        List<String> criterios = new ArrayList();
+        List<String> categorias = new ArrayList();
+        if(request.queryParamsValues("categoria") != null) {
+            criterios = Arrays.asList(request.queryParamsValues("criterio"));
+            categorias = Arrays.asList(request.queryParamsValues("categoria"));
+        }
+        List<OperacionDeEgreso> egresos;
+        if(criterios.isEmpty() || categorias.isEmpty()){
+            egresos = repositorioEgresos.obtenerTodos();
+        }
+        else{
+            egresos = repositorioEgresos.obtenerTodos(criterios, categorias);
+        }
+        String json = new Gson().toJson(egresos);
+        response.type("application/json");
+        return json;
     }
 
     public ModelAndView crearEgreso(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
+        parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/nuevo.hbs");
     }
 
     public Response guardarEgreso(Request request, Response response){
-        OperacionDeEgreso egreso = new OperacionDeEgreso();
+        OperacionDeEgreso egreso;
+        if(request.params("id") == null){
+            egreso = new OperacionDeEgreso();
+        }
+        else{
+            egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        }
 //        asignarAtributosA(usuario, request);
         if(request.queryParams("proveedor") != null){
             Proveedor proveedor = RepositorioProveedores.getInstancia().buscar(new Integer(request.queryParams("proveedor")));
@@ -50,7 +96,11 @@ public class ControladorDeEgresos {
         if(!request.queryParams("fecha").equals("")){
             egreso.setFecha(LocalDate.parse(request.queryParams("fecha"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
-        this.repositorioEgresos.agregar(egreso);
+
+        if(request.params("id") == null){
+            this.repositorioEgresos.agregar(egreso);
+        }
+
         response.redirect("/egresos");
         return response;
     }
@@ -64,6 +114,8 @@ public class ControladorDeEgresos {
     public ModelAndView mostrarEgreso(Request request, Response response){
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
+        parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
+        parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
     }
 
@@ -78,6 +130,22 @@ public class ControladorDeEgresos {
         }
 
         response.redirect("/egresos/"+request.params("id"));
+        return response;
+    }
+    public Response agregarItem(Request request, Response response){
+        Item unItem = new Item(TipoItem.valueOf(request.queryParams("Tipo")), request.queryParams("Descripcion"), Double.parseDouble(request.queryParams("Valor")));
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        egreso.agregarItem(unItem);
+        response.redirect("/egresos/"+request.params("id"));
+        return response;
+    }
+    public Response agregarCategorias(Request request, Response response){
+        Categoria unaCategoria = RepositorioCriterios.getInstancia().buscar(request.queryParams("criterio")).buscar(request.queryParams("categoria"));
+        //        Categoria unaCategoria = new Categoria(request.queryParams("Nombre"), request.queryParams("Criterio"));
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        egreso.agregarCategoria(unaCategoria);
+        response.redirect("/egresos/"+request.params("id"));
+        System.out.println(egreso.getCategorias());
         return response;
     }
 }

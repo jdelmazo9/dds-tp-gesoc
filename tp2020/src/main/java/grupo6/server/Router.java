@@ -1,15 +1,15 @@
 package grupo6.server;
 
-
 //import domain.controllers.LoginController;
 //import domain.controllers.UsuarioController;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
-import grupo6.dominio.controladores.ControladorDeEgresos;
-import grupo6.dominio.controladores.ControladorDeSeguridad;
-import grupo6.dominio.controladores.ControladorDeSesion;
-import grupo6.dominio.controladores.ControladorDeUsuarios;
-import grupo6.dominio.controladores.ControladorDeIngresos;
+
+import grupo6.dominio.controladores.*;
+import grupo6.dominio.entidades.AdaptadorVinculadorConcreto;
+
+import grupo6.dominio.repositorios.RepositorioCriterios;
+
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioIngresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
@@ -43,10 +43,21 @@ public class Router {
         ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionRegEx(), new ValidacionLongitud(5));
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
+        ControladorDeCriterios controladorDeCriterios = new ControladorDeCriterios();
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
+
+
+        ControladorDeVinculaciones controladorDeVinculaciones = new ControladorDeVinculaciones();
+
         ControladorDeIngresos controladorDeIngresos = new ControladorDeIngresos();
+        RepositorioCriterios repositorioCriterios = RepositorioCriterios.getInstancia();
+        repositorioCriterios.cargarCriteriosTest();
+
         RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
         repositorioProveedores.cargarProveedoresTest();
+
+        RepositorioEgresos.getInstancia().cargarDatosTest();
+        RepositorioIngresos.getInstancia().cargarDatosTest();
 
         try {
             controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
@@ -61,22 +72,59 @@ public class Router {
         Spark.get("/login", controladorDeSesion::nuevaSesion, Router.engine);
         Spark.post("/login", controladorDeSesion::logIn);
         Spark.get("/logout", controladorDeSesion::logOut);
-//        Spark.before( "/egresos/*", controladorDeSesion::verificarSesion); //@todo: restingir el acceso a users logueados
+
+        //#region Before Checks
+        Spark.before("/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
+
+        //#endregion
 
         // Egresos
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
+        Spark.get("/api/egresos", controladorDeEgresos::obtenerTodos);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
+        Spark.post("/egresos/:id", controladorDeEgresos::guardarEgreso);
         Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
+        Spark.post("/egresos/:id/items", controladorDeEgresos::agregarItem);
+        Spark.post("/egresos/:id/categorias", controladorDeEgresos::agregarCategorias);
+
 
 //        Spark.get("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos, Router.engine);
         Spark.post("/egresos/:id/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
 
+
         // Categorias
 
-        // Ingresos
-        Spark.get("/ingresos", controladorDeIngresos::mostrarTodos,Router.engine);
+
+        //#region Vinculación
+
+        Spark.get("/vinculacion", controladorDeVinculaciones::setUpVinculacion, Router.engine);
+        Spark.post("/vinculacion", controladorDeVinculaciones::vincularEgresos);
+        Spark.get("/vinculaciones", controladorDeVinculaciones::mostrarVinculaciones, Router.engine);
+
+
+        // Criterios
+        Spark.get("/criterios/:id", controladorDeCriterios::obtenerCriterio);
+
+        Spark.get("/ingresos", controladorDeIngresos::mostrarTodos, Router.engine);
+        Spark.post("/ingresos/upload-json", controladorDeIngresos::cargarIngresos);
+
+        //el Before
+        Spark.before("/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/api/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/ingresos",controladorDeSesion::verificarSesion);
+        Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/criterios",controladorDeSesion::verificarSesion);
+        Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
+        Spark.before("/",controladorDeSesion::verificarSesion);
+        //Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+        //Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
 
 
 
