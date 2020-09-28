@@ -21,12 +21,12 @@
         <img src="..\img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
     </div>
 </header>
-    <div class="main_container">
-        <br>
-        <nav>
-            <ul id="listaFiltros">
+    <div class="main-container">
+        <div class="table-wrapper">
+        <p>Filtros Aplicados:</p>
+            <ul id="listaFiltros" class="scrollable">
             </ul>
-        </nav>
+
 
         <select id="inputCriterio" class="input-select"  name="criterio">
             <option selected disabled>Seleccionar</option>
@@ -41,7 +41,7 @@
 
         <button id="botonFiltro" onclick="aplicarFiltro()"> Aplicar Filtro </button>
         <button id="botonBorrarFiltros" onclick="borrarFiltros()"> Borrar Filtros </button>
-
+        </div>
         <div class="table-wrapper">
         <table class="tabla" id="tablaOperaciones">
             <thead>
@@ -64,8 +64,8 @@
         </div>
 
         <div class="btn-wrapper">
-        <a href="/" class="btn-border-blue" style="">Volver</a>
-        <a href="/egresos/nuevo" class="btn-border-blue" style="">Nuevo</a>
+        <a href="/" class="btn" style="">Volver</a>
+        <a href="/egresos/nuevo" class="btn" style="">Nuevo</a>
         </div>
 
 </div>

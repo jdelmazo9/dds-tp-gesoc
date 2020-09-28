@@ -16,7 +16,7 @@ height: 100%;
 
 body{
   font-family: 'Lato', sans-serif;
-  font-color:white;
+  font-color:black;
 
   line-height: 1.5;
   font-size: 0.875rem;
@@ -764,7 +764,7 @@ font-size: 17px;
 .grid-container {
     width:95%;
     height:95%;
-  color:white;
+  color:black;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(8, 1fr);

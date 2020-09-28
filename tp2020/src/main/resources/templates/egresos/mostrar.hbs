@@ -9,40 +9,38 @@
     <script src="/js/egresos.js"></script>
     <script src="/js/criterios.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
-    <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <title>Egresos - Nuevo</title>
 </head>
-<body>
+
 <header>
     <div class="image-container">
-        <img src="..\img\utn svg.png" alt="utn logo" class="logo-utn">
-        <img src="..\img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
+        <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
+        <img src="\img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
     </div>
 </header>
 
-<main id="contenedor-nuevo-egreso">
-
-
-    <div class="grid-container">
-
-        <form class="" action="/egresos/{{egreso.id}}" method="post" >
+<body>
+<div>
+<!--
+<main id="contenedor-nuevo-egreso">-->
+        <form action="/egresos/{{egreso.id}}" method="post" >
             <!--ITEMS YA CARGADOS VISUALIZAR
             <form class="" action="/egresos" method="post" >
             </form>
             -->
 
-            <input class="ItemsCargados">
-                <ul aria-label="Items Cargados" class="scrollable" id="listaItemsCargados">
+            <div>
+                <ul>
                     {{#each egreso.items}}
                         <li>{{descripcion}} ${{valor}} {{tipo}}</li>
                     {{/each}}
                 </ul>
-            </input>
+            </div>
 
             <!--PROVEDOORES-->
 
-            <div class="Proveedor">
+            <div>
                 <p>Seleccione un proovedor:</p>
                 <select class="input-select" name="proveedor">
                     {{#if egreso.proveedor}}
@@ -56,7 +54,7 @@
                 </select>
             </div>
 
-            <div class="Presupuestos">
+            <div>
                 <ul aria-label="Presupuestos cargados" class="scrollable" id="listaPresupuestos" >
                     {{#each egreso.presupuestos}}
                         <li>{{proveedor.nombre}}: ${{valorTotal}}</li>
@@ -67,11 +65,11 @@
 
             <!--FECHA-->
 
-            <div class="Fecha">
+            <div>
                 <bold>Seleccione la fecha del egreso:</bold>
                 <input type="date" name="fecha"  class="input-datos" value="{{egreso.fecha}}">
             </div>
-            <input type="submit" class="unBoton" style="float:right;"  value="Guardar">
+            <input type="submit" class="btn" style="float:right;"  value="Guardar">
     </form>
 
             <!--CARGAR ITEMS-->
@@ -86,13 +84,13 @@
                                             <option value="Servicio">Servicio</option>
 
                                     </select>
-                    <input type="submit" class="unBoton" style="float:right;"  value="Cargar Item">
+                    <input type="submit" class="btn" style="float:right;"  value="Cargar Item">
 
             </form>
 
             <!--CATEGORIAS CARGADAS-->
 
-            <div class="CategoriasCargadas">
+            <div>
                     <ul aria-label="Descripción Categorias" class="scrollable" id="listaCategorias">
                     {{#each egreso.categorias}}
                         <li>{{criterio.nombre}}: {{nombre}}</li>
@@ -102,22 +100,22 @@
 
             <!--CARGAR PRESPUESTO-->
 
-            <div class="Presupuesto">
+            <div>
                 <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label>Cargar Json</label>
+                    <div class="table-wrapper">
                         <input type="file" name="fileToUpload" id="fileToUpload">
                     </div>
-                    <button type="submit" name="submit">Cargar Presupuestos</button>
+                    <button type="submit" class="btn" name="submit">Cargar Presupuestos</button>
                  </form>
             </div>
 
+    <br>
+    <br>
+    <br>
+    <br>
 
             <!--CATEGORIAS NUEVAS-->
-            <div class="Categorias">
-                <input class="form-presupuestos" name="Tipo">
-
-            </div>
+<div>
         <form class="Categorias" action="/egresos/{{egreso.id}}/categorias" method="post" id="formCategorias">
         <select id="inputCriterio" class="input-select"  name="criterio" form="formCategorias">
             <option selected disabled>Seleccionar</option>
@@ -129,9 +127,9 @@
         <select id="inputCategoria" class="input-select"  name="categoria" form="formCategorias">
             <option selected disabled>Seleccionar</option>
         </select>
-        <input type="submit" class="unBoton" style="float:right;"  value="Agregar categoria">
+        <input type="submit" class="btn" style="float:right;"  value="Agregar categoria">
         </form>
-
+</div>
 
 
 
@@ -139,15 +137,12 @@
             <!--BOTONES-->
 
             <div class="Navegacion">
-                <a href="/" class="unBoton" style="float:left">Cancelar</a>
-
+                <a href="/" class="btn" style="float:left">Cancelar</a>
             </div>
 
 
-
-<!--    <a href="/egresos/nuevo" class="btn-border-blue" style="">Guardar</a>-->
-    </div>
-
-</main>
+</div>
+<!--
+</main>-->
 </body>
 </html>

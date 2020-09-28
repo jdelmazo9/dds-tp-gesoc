@@ -32,7 +32,6 @@
 
 <body>
     <div class="main-container">
-        <a href="/" class="btn-border-blue" style="">Volver</a>
         <div class="main-container" style="margin:40px;">
             <form class="" action="/egresos" method="post" >
                 <div class="grid-container">
@@ -55,7 +54,7 @@
                             <bold>Seleccione la fecha del egreso:</bold>
                             <input type="date" name="fecha"  class="input-datos"></div>
 
-                        <!--CARGAR PRESPUESTO-->
+                        <!--CARGAR PRESPUESTO
 
                         <div class="Presupuesto">
                             <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
@@ -63,14 +62,15 @@
                                     <label>Cargar Json</label>
                                     <input type="file" name="fileToUpload" id="fileToUpload">
                                 </div>
-                                <button type="submit" name="submit">Cargar Presupuestos</button>
-                        </div>
+                                <button class="btn" type="submit" name="submit">Cargar Presupuestos</button>
 
+                        </div>
+-->
                         <!--BOTONES-->
 
                         <div class="Navegacion">
-                            <a href="/" class="unBoton" style="float:left">Cancelar</a>
-                            <input type="submit" class="unBoton" style="float:right;"  value="Crear egreso">
+                            <a href="/" class="btn" style="float:left">Volver</a>
+                            <input type="submit" class="btn" style="float:right;"  value="Crear egreso">
                         </div>
                 </div>
             </form>
