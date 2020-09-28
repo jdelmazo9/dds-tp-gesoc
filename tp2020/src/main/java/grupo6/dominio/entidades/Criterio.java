@@ -3,6 +3,7 @@ package grupo6.dominio.entidades;
 import java.util.ArrayList;
 
 public class Criterio {
+    private String nombre;
     private Criterio criterioPadre;
     private Criterio criterioHijo;
     private ArrayList<Categoria> categorias;
@@ -16,6 +17,14 @@ public class Criterio {
         if(categoria.getCriterio()==null){
             categoria.vincularCriterio(this);
         }
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void agregarPadre(Criterio padre) {
