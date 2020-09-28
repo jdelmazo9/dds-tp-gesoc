@@ -83,6 +83,18 @@ public class Router {
         Spark.get("/ingresos", controladorDeIngresos::mostrarTodos, Router.engine);
         Spark.post("/ingresos/upload-json", controladorDeIngresos::cargarIngresos);
 
+        //el Before
+        Spark.before("/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/api/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/ingresos",controladorDeSesion::verificarSesion);
+        Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/criterios",controladorDeSesion::verificarSesion);
+        Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
+        Spark.before("/",controladorDeSesion::verificarSesion);
+        //Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+        //Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
+
 
 //        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();
 //        UsuarioController usuarioController = new UsuarioController();

@@ -30,7 +30,7 @@ public class ControladorDeSesion {
 
     public Response verificarSesion(Request request, Response response){
         if(request.session(false) == null || request.session(false).isNew()){
-            response.redirect("/");
+            response.redirect("/login");
         }
         return response;
     }
@@ -49,8 +49,6 @@ public class ControladorDeSesion {
 
         String nombre          = request.queryParams("nombreDeUsuario");
         String contrasenia     = request.queryParams("contrasenia");
-
-        System.out.println("jero puto");
 
 //        System.out.println(request.session(false).isNew());
 
@@ -72,7 +70,7 @@ public class ControladorDeSesion {
 //            System.out.println((String)request.session().attribute("id"));
 
             horaInicioSesion = LocalTime.now();
-            response.redirect("/egresos");
+            response.redirect("/");
 //            hayUsuarioLogueado = true;
         }
 
