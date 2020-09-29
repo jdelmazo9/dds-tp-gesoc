@@ -60,6 +60,7 @@ public class ControladorDeSesion {
         }
         else if( !controladorDeUsuarios.validarUsuarioContrasenia(nombre, contrasenia) ){
             System.out.println("El usuario y/o la contraseña ingresados no son correctos");
+            response.redirect("/login");
         }
         else{
             System.out.println("lo estoy haciendo");
