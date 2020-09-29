@@ -1,13 +1,8 @@
 package grupo6.dominio.controladores;
 
-import com.google.gson.Gson;
-import grupo6.dominio.entidades.OperacionDeEgreso;
 import grupo6.dominio.entidades.OperacionDeIngreso;
-import grupo6.dominio.entidades.Presupuesto;
-import grupo6.dominio.repositorios.RepositorioCriterios;
-import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioIngresos;
-import grupo6.dominio.repositorios.daos.OperacionDeIngresoAux;
+import grupo6.dominio.repositorios.daos.OperacionDTO;
 import grupo6.spark.utils.FileUploadHandler;
 import spark.ModelAndView;
 import spark.Request;
@@ -28,7 +23,7 @@ public class ControladorDeIngresos {
 //    }
 
     public Response cargarIngresos(Request request, Response response){
-        OperacionDeIngresoAux temp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDeIngresoAux.class);
+        OperacionDTO temp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
 //        OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id")));
 //        egreso.setPresupuestos(egresoTmp.getPresupuestos());
         for(OperacionDeIngreso i: temp.getIngresos()){

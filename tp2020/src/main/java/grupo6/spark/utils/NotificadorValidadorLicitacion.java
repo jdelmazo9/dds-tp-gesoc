@@ -12,7 +12,9 @@ public class NotificadorValidadorLicitacion {
     }
 
     public void agregarRevisor(BandejaDeMensajes bandejaDeMensajes){
-        bandejasRevisores.add(bandejaDeMensajes);
+        if(!bandejasRevisores.contains(bandejaDeMensajes)) {
+            bandejasRevisores.add(bandejaDeMensajes);
+        }
     }
 
     //Hacemos un notificar simple para validar esta parte, hay que agregar el notificarResultado del diagrama

@@ -5,6 +5,8 @@ import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioProveedores;
+import grupo6.dominio.repositorios.daos.OperacionDTO;
+import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.FileUploadHandler;
 import spark.ModelAndView;
 import spark.Request;
@@ -120,7 +122,7 @@ public class ControladorDeEgresos {
     }
 
     public Response cargarPresupuestos(Request request, Response response){
-        OperacionDeEgreso egresoTmp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDeEgreso.class);
+        OperacionDTO egresoTmp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(Integer.parseInt(request.params("id")));
         egreso.setPresupuestos(egresoTmp.getPresupuestos());
 
@@ -132,6 +134,7 @@ public class ControladorDeEgresos {
         response.redirect("/egresos/"+request.params("id"));
         return response;
     }
+
     public Response agregarItem(Request request, Response response){
         Item unItem = new Item(TipoItem.valueOf(request.queryParams("Tipo")), request.queryParams("Descripcion"), Double.parseDouble(request.queryParams("Valor")));
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
@@ -139,13 +142,30 @@ public class ControladorDeEgresos {
         response.redirect("/egresos/"+request.params("id"));
         return response;
     }
-    public Response agregarCategorias(Request request, Response response){
+
+    public Response agregarCategorias(Request request, Response response) {
         Categoria unaCategoria = RepositorioCriterios.getInstancia().buscar(request.queryParams("criterio")).buscar(request.queryParams("categoria"));
         //        Categoria unaCategoria = new Categoria(request.queryParams("Nombre"), request.queryParams("Criterio"));
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
         egreso.agregarCategoria(unaCategoria);
-        response.redirect("/egresos/"+request.params("id"));
+        response.redirect("/egresos/" + request.params("id"));
         System.out.println(egreso.getCategorias());
         return response;
+    }
+
+    public String nuevaValidacion(Request request, Response response){
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(Integer.parseInt(request.params("id")));
+        egreso.suscribirComoRevisor(ControladorDeValidaciones.getInstancia().getBandejaDeMensajes());
+        egreso.validarLicitacion();
+        response.status(201);
+        response.type("text/xml");
+        response.body("Validacion creada. Consulte las validaciones del egreso para obtener el resultado");
+        return response.body();
+    }
+
+    public String obtenerValidaciones(Request request, Response response){
+        String json = ControladorDeValidaciones.getInstancia().obtenerValidacionesEgreso(Integer.parseInt(request.params("id")));
+        response.type("application/json");
+        return json;
     }
 }

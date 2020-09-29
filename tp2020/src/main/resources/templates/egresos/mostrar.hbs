@@ -9,9 +9,13 @@
     <script src="/js/egresos.js"></script>
     <script src="/js/criterios.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
+    <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="/css/egresos.css">
     <title>Egresos - Nuevo</title>
 </head>
+
+<body>
 
 <header>
     <div class="image-container">
@@ -20,19 +24,13 @@
     </div>
 </header>
 
-<body>
+<div class="main-container">
+
 <div class="form-modificar">
            <!--Items Cargados-->
 
-
+        <div class="padding-container">
         <form action="/egresos/{{egreso.id}}" method="post" >
-            <div style="float:right;">
-                <ul class="scrollable" style="transform:translateY(-3vw); width:30vw;">
-                    {{#each egreso.items}}
-                        <li>{{descripcion}} ${{valor}} {{tipo}}</li>
-                    {{/each}}
-                </ul>
-            </div>
 
             <!--PROVEDOORES-->
 
@@ -50,15 +48,6 @@
                 </select>
             </div>
 
-            <div>
-                <ul aria-label="Presupuestos cargados" class="scrollable" id="listaPresupuestos" >
-                    {{#each egreso.presupuestos}}
-                        <li>{{proveedor.nombre}}: ${{valorTotal}}</li>
-                    {{/each}}
-                </ul>
-            </div>
-
-
             <!--FECHA-->
 
             <div>
@@ -67,22 +56,46 @@
             </div>
             <input type="submit" class="btn" style="float:right;"  value="Guardar">
     </form>
+        </div>
 
-            <!--CARGAR ITEMS-->
-            <form class="Items" action="/egresos/{{egreso.id}}/items" method="post" >
+    <!--CARGAR ITEMS-->
+    <div class="padding-container">
+        <div >
+            <p> Items: </p>
+            <ul class="ul-without-space">
+                <div class="scrollable">
+                {{#each egreso.items}}
+                    <li>{{descripcion}} ${{valor}} {{tipo}}</li>
+                {{/each}}
+                </div>
+            </ul>
+        </div>
+    <form class="Items" action="/egresos/{{egreso.id}}/items" method="post" >
 
-                    <input class="form-presupuestos" name="Descripcion" id="inputDescripcion">
-                    <input class="form-presupuestos" name="Valor" id="inputValor" type="number">
-                     <select class="input-select" name="Tipo" id="inputTipo">
-                                        <option selected disabled>Tipo de item</option>
+        <input class="form-presupuestos" name="Descripcion" id="inputDescripcion">
+        <input class="form-presupuestos" name="Valor" id="inputValor" type="number">
+        <select class="input-select" name="Tipo" id="inputTipo">
+            <option selected disabled>Tipo de item</option>
 
-                                            <option value="Articulo">Articulo</option>
-                                            <option value="Servicio">Servicio</option>
+            <option value="Articulo">Articulo</option>
+            <option value="Servicio">Servicio</option>
 
-                                    </select>
-                    <input type="submit" class="btn"  value="Cargar Item">
+        </select>
+        <input type="submit" class="btn"  value="Cargar Item">
 
-            </form>
+    </form>
+
+
+    </div>
+
+    <div>
+        <ul aria-label="Presupuestos cargados" class="scrollable" id="listaPresupuestos" >
+            {{#each egreso.presupuestos}}
+                <li>{{proveedor.nombre}}: ${{valorTotal}}</li>
+            {{/each}}
+        </ul>
+    </div>
+
 
             <!--CATEGORIAS CARGADAS-->
 
@@ -134,6 +147,7 @@
             </div>
 
 
+</div>
 </div>
 <!--
 </main>-->

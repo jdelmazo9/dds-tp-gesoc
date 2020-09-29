@@ -12,11 +12,11 @@ import grupo6.dominio.repositorios.RepositorioCriterios;
 
 import grupo6.dominio.repositorios.RepositorioEgresos;
 import grupo6.dominio.repositorios.RepositorioIngresos;
+
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.ValidacionLongitud;
 import grupo6.seguridad.ValidacionRegEx;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import grupo6.spark.utils.BooleanHelper;
@@ -53,6 +53,7 @@ public class Router {
         RepositorioCriterios repositorioCriterios = RepositorioCriterios.getInstancia();
         repositorioCriterios.cargarCriteriosTest();
 
+        ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
         RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
         repositorioProveedores.cargarProveedoresTest();
 
@@ -61,30 +62,27 @@ public class Router {
 
         try {
             controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
+            controladorDeUsuarios.agregarUsuario("api_user", "api123456", RolUsuario.ESTANDAR);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+        // Welcome to Tomorrowland
+
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
-//        Spark.get("/", (request, response) -> {return "Hi Mundo";});
+
 
         // Sesion
+
         Spark.get("/login", controladorDeSesion::nuevaSesion, Router.engine);
         Spark.post("/login", controladorDeSesion::logIn);
         Spark.get("/logout", controladorDeSesion::logOut);
 
-        //#region Before Checks
-        Spark.before("/egresos",controladorDeSesion::verificarSesion);
-        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
-        Spark.before("/",controladorDeSesion::verificarSesion);
-        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
-        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
-
-        //#endregion
 
         // Egresos
+
         Spark.get("/egresos", controladorDeEgresos::mostrarTodos, Router.engine);
-        Spark.get("/api/egresos", controladorDeEgresos::obtenerTodos);
         Spark.get("/egresos/nuevo", controladorDeEgresos::crearEgreso, Router.engine);
         Spark.post("/egresos", controladorDeEgresos::guardarEgreso);
         Spark.post("/egresos/:id", controladorDeEgresos::guardarEgreso);
@@ -92,16 +90,16 @@ public class Router {
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
         Spark.post("/egresos/:id/items", controladorDeEgresos::agregarItem);
         Spark.post("/egresos/:id/categorias", controladorDeEgresos::agregarCategorias);
-
-
-//        Spark.get("/egresos/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos, Router.engine);
         Spark.post("/egresos/:id/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
 
 
-        // Categorias
+        // Ingresos
+
+        Spark.get("/ingresos", controladorDeIngresos::mostrarTodos, Router.engine);
+        Spark.post("/ingresos/upload-json", controladorDeIngresos::cargarIngresos);
 
 
-        //#region Vinculación
+        // Vinculaciones
 
         Spark.get("/vinculacion", controladorDeVinculaciones::setUpVinculacion, Router.engine);
         Spark.post("/vinculacion", controladorDeVinculaciones::vincularEgresos);
@@ -109,50 +107,29 @@ public class Router {
 
 
         // Criterios
+
         Spark.get("/criterios/:id", controladorDeCriterios::obtenerCriterio);
 
-        Spark.get("/ingresos", controladorDeIngresos::mostrarTodos, Router.engine);
-        Spark.post("/ingresos/upload-json", controladorDeIngresos::cargarIngresos);
 
-        //el Before
+        // Api
+
+        Spark.before("/api/egresos",controladorDeSesion::verificarSesion);
+        Spark.get("/api/egresos", controladorDeEgresos::obtenerTodos);
+        Spark.post("/api/egresos/:id/validacion", controladorDeEgresos::nuevaValidacion);
+        Spark.get("/api/egresos/:id/validacion", controladorDeEgresos::obtenerValidaciones);
+        Spark.get("/api/egresos/validacion", controladorDeValidaciones::obtenerValidaciones);
+
+
+        // Before Checks
+
+        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
         Spark.before("/egresos",controladorDeSesion::verificarSesion);
         Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
-        Spark.before("/api/egresos",controladorDeSesion::verificarSesion);
         Spark.before("/ingresos",controladorDeSesion::verificarSesion);
         Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
         Spark.before("/criterios",controladorDeSesion::verificarSesion);
         Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
         Spark.before("/",controladorDeSesion::verificarSesion);
-        //Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
-        //Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
-
-
-
-//        UsuarioRestControllerEjemplo usuarioRestControllerEjemplo = new UsuarioRestControllerEjemplo();
-//        UsuarioController usuarioController = new UsuarioController();
-//        LoginController loginController     = new LoginController();
-//        AuthMiddleware authMiddleware       = new AuthMiddleware();
-
-//        Spark.get("/", loginController::inicio, Router.engine);
-//
-//        Spark.before("/", authMiddleware::verificarSesion);
-//
-//        Spark.post("/login", loginController::login);
-//
-//        Spark.get("/logout", loginController::logout);
-//
-//        Spark.get("/usuarios", usuarioController::mostrarTodos, Router.engine);
-//
-//        Spark.get("/usuario/:id", usuarioController::mostrar, Router.engine);
-//
-//        Spark.get("/usuario", usuarioController::crear, Router.engine);
-//
-//        Spark.post("/usuario/:id", usuarioController::modificar);
-//
-//        Spark.post("/usuario", usuarioController::guardar);
-//
-//        Spark.delete("/usuario/:id", usuarioController::eliminar);
-//
-//        Spark.get("/api/usuario/:id", usuarioRestControllerEjemplo::mostrar);
     }
 }

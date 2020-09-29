@@ -2,15 +2,15 @@
   presupuestos: [
     {
       items: [{tipo: "Articulo", descripcion: "coca", valor: 100.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 500.0 } ],
-      proveedor: {nombre: "Coto", nroIdentificacion: 1}
+      proveedor: {nombre: "Coto", nroIdentificacion: 1, direccionPostal: "Calle Falsa 123"}
     },
     {
       items: [{tipo: "Articulo", descripcion: "coca", valor: 150.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 475.0 } ],
-      proveedor: {nombre: "Disco", nroIdentificacion: 2}
+      proveedor: {nombre: "Disco", nroIdentificacion: 2, direccionPostal: "Siempre Muerta 69"}
     },
     {
       items: [{tipo: "Articulo", descripcion: "aaaa", valor: 150.0 }, {tipo: "Articulo", descripcion: "nnn", valor: 475.0 } ],
-      proveedor: {nombre: "My Crosoft", nroIdentificacion: 3}
+      proveedor: {nombre: "My Crosoft", nroIdentificacion: 3, direccionPostal: "Wachin Ton 433"}
     }
   ]
 }

@@ -1,5 +1,7 @@
 package grupo6.dominio.entidades;
 
+import java.util.Objects;
+
 public class Item {
     private TipoItem tipo;
     private String descripcion;
@@ -33,5 +35,19 @@ public class Item {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return tipo == item.tipo &&
+            Objects.equals(descripcion, item.descripcion) ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(tipo, descripcion);
     }
 }
