@@ -160,7 +160,7 @@ h4 {
   font-size: 22px;
   /* background-color: rgb(220, 230, 245); */
   background-color: rgb(245, 245, 245);
-  height: 100vh;
+  height: 100%;
 }
 @media screen and (min-width: 800px) {
     h1 {
@@ -805,11 +805,14 @@ transform:translateY(-5vw);}
 
 .scrollable{
   list-style:none;
-  max-height:100px;
+  height:5rem;
   margin:0;
   overflow:auto;
   padding:0;
+  border: 1px;
+  border-style: solid;
   text-indent:10px;
+  background-color: white;
 }
 
 .scrollable:before{

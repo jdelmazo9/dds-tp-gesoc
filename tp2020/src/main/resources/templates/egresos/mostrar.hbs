@@ -14,142 +14,135 @@
     <link rel="stylesheet" href="/css/egresos.css">
     <title>Egresos - Nuevo</title>
 </head>
-
 <body>
 
-<header>
-    <div class="image-container">
-        <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
-        <img src="\img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
-    </div>
-</header>
-
-<div class="main-container">
-
-<div class="form-modificar">
-           <!--Items Cargados-->
-
-        <div class="padding-container">
-        <form action="/egresos/{{egreso.id}}" method="post" >
-
-            <!--PROVEDOORES-->
-
-            <div>
-                <p>Seleccione un proovedor:</p>
-                <select class="input-select" name="proveedor">
-                    {{#if egreso.proveedor}}
-                        <option selected disabled value="{{egreso.proveedor.nroIdentificacion}}"> {{egreso.proveedor.nombre}} </option>
-                    {{else}}
-                        <option selected disabled> Seleccionar </option>
-                    {{/if}}
-                    {{#each proveedores}}
-                        <option value="{{nroIdentificacion}}">{{nombre}}</option>
-                    {{/each}}
-                </select>
-            </div>
-
-            <!--FECHA-->
-
-            <div>
-                <bold>Seleccione la fecha del egreso:</bold>
-                <input type="date" name="fecha"  class="input-datos" value="{{egreso.fecha}}">
-            </div>
-            <input type="submit" class="btn" style="float:right;"  value="Guardar">
-    </form>
+    <header>
+        <div class="image-container">
+            <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
+            <img src="\img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
         </div>
+    </header>
 
-    <!--CARGAR ITEMS-->
-    <div class="padding-container">
-        <div >
-            <p> Items: </p>
-            <ul class="ul-without-space">
-                <div class="scrollable">
-                {{#each egreso.items}}
-                    <li>{{descripcion}} ${{valor}} {{tipo}}</li>
-                {{/each}}
-                </div>
-            </ul>
-        </div>
-    <form class="Items" action="/egresos/{{egreso.id}}/items" method="post" >
-
-        <input class="form-presupuestos" name="Descripcion" id="inputDescripcion">
-        <input class="form-presupuestos" name="Valor" id="inputValor" type="number">
-        <select class="input-select" name="Tipo" id="inputTipo">
-            <option selected disabled>Tipo de item</option>
-
-            <option value="Articulo">Articulo</option>
-            <option value="Servicio">Servicio</option>
-
-        </select>
-        <input type="submit" class="btn"  value="Cargar Item">
-
-    </form>
+    <div class="main-container">
 
 
-    </div>
+        <div class="form-modificar">
+            <div class="padding-container">
 
-    <div>
-        <ul aria-label="Presupuestos cargados" class="scrollable" id="listaPresupuestos" >
-            {{#each egreso.presupuestos}}
-                <li>{{proveedor.nombre}}: ${{valorTotal}}</li>
-            {{/each}}
-        </ul>
-    </div>
+            <p> Proveedor: </p>
+            <!--Items Cargados-->
 
+                <form action="/egresos/{{egreso.id}}" method="post" >
 
-            <!--CATEGORIAS CARGADAS-->
-
-            <div>
-                    <ul aria-label="Descripción Categorias" class="scrollable" style="width:20vw;">
-                    {{#each egreso.categorias}}
-                        <li>{{criterio.nombre}}: {{nombre}}</li>
-                    {{/each}}
-                    </ul>
-            </div>
-
-            <!--CARGAR PRESPUESTO-->
-
-            <div style="transform:translateY(3vw);">
-                <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
-                    <div class="table-wrapper">
-                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    <!--PROVEDOORES-->
+                    <div>
+                        <p style="font-size:14px">Seleccione un proovedor:</p>
+                        <select class="input-select" name="proveedor" style="float:right;">
+                            {{#if egreso.proveedor}}
+                                <option selected disabled value="{{egreso.proveedor.nroIdentificacion}}"> {{egreso.proveedor.nombre}} </option>
+                            {{else}}
+                                <option selected disabled> Seleccionar </option>
+                            {{/if}}
+                            {{#each proveedores}}
+                                <option value="{{nroIdentificacion}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
                     </div>
-                    <button type="submit" class="btn" name="submit">Cargar Presupuestos</button>
-                 </form>
+
+                    <!--FECHA-->
+
+                    <div>
+                        <bold style="font-size:14px">Seleccione la fecha del egreso:</bold>
+                        <input type="date" name="fecha"  class="input-datos" value="{{egreso.fecha}}" style="float:right;">
+                    </div>
+                    <input type="submit" class="btn" style="float:right;"  value="Guardar">
+                </form>
             </div>
 
-    <br>
-
-            <!--CATEGORIAS NUEVAS-->
-<div>
-        <form class="Categorias" action="/egresos/{{egreso.id}}/categorias" method="post" id="formCategorias">
-        <select id="inputCriterio" class="input-select"  name="criterio" form="formCategorias">
-            <option selected disabled>Seleccionar</option>
-            {{#each repoCriterios.criterios}}
-                <option value="{{nombre}}">{{nombre}}</option>
-            {{/each}}
-        </select>
-
-        <select id="inputCategoria" class="input-select"  name="categoria" form="formCategorias">
-            <option selected disabled>Seleccionar</option>
-        </select>
-        <input type="submit" class="btn" style="float:right;"  value="Agregar categoria">
-        </form>
-</div>
-
-
-
-
-            <!--BOTONES-->
-
-            <div class="Navegacion">
-                <a href="/" class="btn" style="float:left">Cancelar</a>
+        <!--CARGAR ITEMS-->
+            <div class="padding-container">
+                <div >
+                    <p> Items: </p>
+                </div>
+                <form class="Items" action="/egresos/{{egreso.id}}/items" method="post" >
+                    <div style="padding:0 0 1em 0">
+                        <input class="form-presupuestos" name="Descripcion" id="inputDescripcion">
+                        <input class="form-presupuestos" name="Valor" id="inputValor" type="number">
+                        <select class="input-select" name="Tipo" id="inputTipo">
+                            <option selected disabled>Tipo de item</option>
+                            <option value="Articulo">Articulo</option>
+                            <option value="Servicio">Servicio</option>
+                        </select>
+                        <input type="submit" class="btn"  value="Cargar Item" style="float:right;">
+                    </div>
+                    <ul class="ul-without-space">
+                        <div class="scrollable">
+                            {{#each egreso.items}}
+                                <li>{{descripcion}} ${{valor}} {{tipo}}</li>
+                            {{/each}}
+                        </div>
+                    </ul>
+                </form>
             </div>
 
+            <div class="padding-container">
+                <div>
+                    <p> Presupuestos: </p>
+                </div>
+                    <!--CARGAR PRESPUESTO-->
+                <div style="padding:0 0 1em 0">
+                    <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                        <button type="submit" class="btn" name="submit" style="float:right;">Cargar Presupuestos</button>
+                    </form>
+                </div>
+                <ul class="ul-without-space">
+                    <div class="scrollable">
+                        {{#each egreso.presupuestos}}
+                             <li>{{proveedor.nombre}}: ${{valorTotal}}</li>
+                        {{/each}}
+                    </div>
+                </ul>
+            </div>
 
-</div>
-</div>
-<!--
-</main>-->
+            <div class="padding-container">
+                <div>
+                    <p> Categorías: </p>
+                </div>
+
+                <!--CATEGORIAS NUEVAS-->
+                <div style="padding:0 0 1em 0">
+                        <form  action="/egresos/{{egreso.id}}/categorias" method="post" id="formCategorias">
+                            <select id="inputCriterio" class="input-select"  name="criterio" form="formCategorias">
+                                <option selected disabled>Seleccionar</option>
+                                {{#each repoCriterios.criterios}}
+                                    <option value="{{nombre}}">{{nombre}}</option>
+                                {{/each}}
+                            </select>
+                            <select id="inputCategoria" class="input-select"  name="categoria" form="formCategorias">
+                                <option selected disabled>Seleccionar</option>
+                            </select>
+                            <input type="submit" class="btn" style="float:right;"  value="Agregar categoria">
+                        </form>
+                </div>
+                <!--CATEGORIAS CARGADAS-->
+                <div>
+                     <ul class="ul-without-space">
+                        <div class="scrollable">
+                            {{#each egreso.categorias}}
+                                <li>{{criterio.nombre}}: {{nombre}}</li>
+                            {{/each}}
+                        </div>
+                      </ul>
+                </div>
+            </div>
+
+                <!--BOTONES-->
+            <div>
+                <a href="/" class="btn" style="float:right">Volver</a>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
