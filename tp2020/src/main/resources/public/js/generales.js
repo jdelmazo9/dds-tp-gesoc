@@ -25,12 +25,12 @@ function includeHTML() {
     }
   }
 }
-
+/*
 const sendBtn = document.querySelector(".send");
 const dropdownMenu = document.querySelector(".select-criterio");
 dropdownMenu.addEventListener("change", ()=>{
   sendBtn.removeAttribute("disabled");
-})
+})*/
 
 function DoNav(url) {
  document.location.href = url;

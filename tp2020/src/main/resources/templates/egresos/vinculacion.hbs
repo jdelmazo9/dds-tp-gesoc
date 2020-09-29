@@ -10,13 +10,15 @@
     <title>Vinculacion</title>
 </head>
 <body>
-    <header>
-      <div class="image-container">
-        <img src="img\utn svg.png" alt="utn logo" class="logo-utn">
-        <img src="img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
-      </div>
-    </header>
-<div class="main-container" style="">
+<header>
+    <a href="/">
+        <div class="image-container-ingresos" >
+            <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
+            <img src="\img\dieño svg.png" alt="diseniologo" class="logo-sist">
+        </div>
+    </a>
+</header>
+<div class="main-container" style="position: absolute; top: 6rem;">
     <div style="width: 50%; margin-top:15px;">
         <form class="" action="/vinculacion" method="post" >
             <div class="btn-wrapper">
@@ -26,13 +28,13 @@
                     <option value="CRITERIO_VALOR_PRIMERO_EGRESO">Primero Egresos</option>
                     <option value="CRITERIO_FECHA">Por Fecha</option>
                     <option value="CRITERIO_MIX_FECHA_VALOR">Mix Fecha Valor</option>
-                    <option value="CRITERIO_MIX_VALOR_FECHA">Mix Valor Fecha</option>  
+                    <option value="CRITERIO_MIX_VALOR_FECHA">Mix Valor Fecha</option>
                 </select>
                 <input disabled type="submit" name="" class="btn send" style="float:right;"  value="Vincular">
             </div>
         </form>
         <div class="btn-wrapper">
-            <a href="/" class="btn" style="">Volver</a>
+            <a href="/vinculaciones" class="btn" style="">Volver</a>
         </div>
     </div>
 </div>

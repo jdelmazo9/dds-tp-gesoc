@@ -196,6 +196,16 @@ h4 {
 .image-container{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.image-container-ingresos{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 1rem;
+    left: 40vw;
+    align-items: center;
 }
 
 .table-wrapper {

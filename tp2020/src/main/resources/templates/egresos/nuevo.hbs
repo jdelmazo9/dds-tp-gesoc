@@ -23,60 +23,42 @@
 </header>
 -->
 
-<header>
-    <div class="image-container">
-        <img src="..\img\utn svg.png" alt="utn logo" class="logo-utn">
-        <img src="..\img\dieño svg.png" alt="diseniologo" style="" class="logo-sist">
-    </div>
-</header>
-
 <body>
-    <div class="main-container">
-        <div class="main-container" style="margin:40px;">
-            <form class="" action="/egresos" method="post" >
-                <div class="grid-container">
-
-                        <!--PROVEDOORES-->
-
-                        <div class="Proveedor">
-                            <p>Seleccione un proovedor:</p>
-                            <select class="input-select" name="proveedor">
-                                <option selected disabled>Seleccionar</option>
-                                {{#each proveedores}}
-                                    <option value="{{nroIdentificacion}}">{{nombre}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-
-                        <!--FECHA-->
-
-                        <div class="Fecha">
-                            <bold>Seleccione la fecha del egreso:</bold>
-                            <input type="date" name="fecha"  class="input-datos"></div>
-
-                        <!--CARGAR PRESPUESTO
-
-                        <div class="Presupuesto">
-                            <form action="/egresos/{{ egreso.id }}/cargar-json-presupuestos" method="post" class="form-" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label>Cargar Json</label>
-                                    <input type="file" name="fileToUpload" id="fileToUpload">
-                                </div>
-                                <button class="btn" type="submit" name="submit">Cargar Presupuestos</button>
-
-                        </div>
--->
-                        <!--BOTONES-->
-
-                        <div class="Navegacion">
-                            <a href="/" class="btn" style="float:left">Volver</a>
-                            <input type="submit" class="btn" style="float:right;"  value="Crear egreso">
-                        </div>
-                </div>
-            </form>
+<header>
+    <a href="/">
+        <div class="image-container-ingresos" >
+            <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
+            <img src="\img\dieño svg.png" alt="diseniologo" class="logo-sist">
         </div>
+    </a>
+</header>
+<div class="main-container" style="position: absolute; top: 6rem;">
+    <div class="form-modificar">
+    <div class="padding-container">
+        <form class="" action="/egresos" method="post" >
+            <!--PROVEDOORES-->
+            <div>
+                <p style="font-size:14px">Seleccione un proovedor:</p>
+                <select class="input-select" name="proveedor" style="float:right;">
+                    <option selected disabled> Seleccionar </option>
+                    {{#each proveedores}}
+                        <option value="{{nroIdentificacion}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div>
+                <bold style="font-size:14px">Seleccione la fecha del egreso:</bold>
+                <input type="date" name="fecha"  class="input-datos" style="float:right;">
+            </div>
+
+            <a href="/egresos" class="btn" style="float:left">Volver</a>
+            <input type="submit" class="btn" style="float:right;"  value="Crear">
+        </form>
 
     </div>
+
+</div>
+</div>
 </body>
 </html>
 

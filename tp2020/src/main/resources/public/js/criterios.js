@@ -26,6 +26,9 @@ function aplicarFiltro() {
         return;
     }
 
+    console.log(criterio.value);
+    console.log(categoria.value);
+
     // Agrego el filtro a la lista
     var listaFiltros = document.getElementById("listaFiltros");
     var elem = document.createElement("li");
@@ -50,9 +53,13 @@ function aplicarFiltro() {
         success: function(data) {
             for(index in data){
                 var newRow = tablaOperaciones.insertRow();
+                newRow.onclick = function() { DoNav('/egresos/'+data[index].id ); };
                 newRow.insertCell(0).appendChild(document.createTextNode(data[index].id));
                 newRow.insertCell(1).appendChild(document.createTextNode(data[index].fechaStr));
-                newRow.insertCell(2).appendChild(document.createTextNode(data[index].proveedor.nombre));
+                if(data[index].proveedor)
+                    newRow.insertCell(2).appendChild(document.createTextNode(data[index].proveedor.nombre));
+                else
+                    newRow.insertCell(2).appendChild(document.createTextNode(""));
             }
         }
     });
@@ -74,9 +81,13 @@ function borrarFiltros() {
         success: function(data) {
             for(index in data){
                 var newRow = tablaOperaciones.insertRow();
+                newRow.onclick = function() { DoNav('/egresos/'+data[index].id ); };
                 newRow.insertCell(0).appendChild(document.createTextNode(data[index].id));
                 newRow.insertCell(1).appendChild(document.createTextNode(data[index].fechaStr));
-                newRow.insertCell(2).appendChild(document.createTextNode(data[index].proveedor.nombre));
+                if(data[index].proveedor)
+                    newRow.insertCell(2).appendChild(document.createTextNode(data[index].proveedor.nombre));
+                else
+                    newRow.insertCell(2).appendChild(document.createTextNode(""));
             }
         }
     });
