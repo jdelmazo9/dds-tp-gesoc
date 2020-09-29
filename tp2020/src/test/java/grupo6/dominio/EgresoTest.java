@@ -1,11 +1,12 @@
 package grupo6.dominio;
 
+import grupo6.dominio.entidades.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +16,7 @@ class EgresoTest {
     Proveedor juancito;
     OperacionDeEgreso compraTest;
     DocumentoComercial factura;
-    Date unaFecha;
+    LocalDate unaFecha;
     URL link;
 
     @BeforeEach
@@ -29,7 +30,8 @@ class EgresoTest {
         compraTest.agregarItem(heladera);
         compraTest.agregarItem(microondas);
         compraTest.setProveedor(juancito);
-        unaFecha = new Date();
+        //unaFecha = new Date();
+        unaFecha = LocalDate.now();
     }
 
     @Test
@@ -40,7 +42,7 @@ class EgresoTest {
     }
     @Test
     void operacionDeEgresoInstanciaFechaActual() {
-        unaFecha.getTime(); //Fecha de hoy
+        //unaFecha.getTime(); //Fecha de hoy
         assertEquals(unaFecha, compraTest.getFecha(),"Se comprueba que al crear una fecha de egreso se instancia la fecha del día actual.");
     }
     @Test

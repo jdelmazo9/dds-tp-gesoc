@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/egresos.js"></script>
+    <script src="/js/criterios.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="icon" href="/img/logosolo.png">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <title>Egresos - Nuevo</title>
+</head>
+<!--
+<header>
+    <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
+    <div class="diseniologo">
+        <img src="/img/logosolo.png" alt="diseniologo" style="">
+        <p>Diseño de Sistemas</p>
+    </div>
+</header>
+-->
+
+<body>
+<header>
+    <a href="/">
+        <div class="image-container-ingresos" >
+            <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
+            <img src="\img\dieño svg.png" alt="diseniologo" class="logo-sist">
+        </div>
+    </a>
+</header>
+<div class="main-container" style="position: absolute; top: 6rem;">
+    <div class="form-modificar">
+    <div class="padding-container">
+        <form class="" action="/egresos" method="post" >
+            <!--PROVEDOORES-->
+            <div>
+                <p style="font-size:14px">Seleccione un proovedor:</p>
+                <select class="input-select" name="proveedor" style="float:right;">
+                    <option selected disabled> Seleccionar </option>
+                    {{#each proveedores}}
+                        <option value="{{nroIdentificacion}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div>
+                <bold style="font-size:14px">Seleccione la fecha del egreso:</bold>
+                <input type="date" name="fecha"  class="input-datos" style="float:right;">
+            </div>
+
+            <a href="/egresos" class="btn" style="float:left">Volver</a>
+            <input type="submit" class="btn" style="float:right;"  value="Crear">
+        </form>
+
+    </div>
+
+</div>
+</div>
+</body>
+</html>
+

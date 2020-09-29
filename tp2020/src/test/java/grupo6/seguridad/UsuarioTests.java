@@ -1,5 +1,8 @@
 package grupo6.seguridad;
 
+import grupo6.dominio.controladores.ControladorDeSeguridad;
+import grupo6.dominio.controladores.ControladorDeSesion;
+import grupo6.dominio.controladores.ControladorDeUsuarios;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import grupo6.seguridad.Excepciones.*;
@@ -26,23 +29,23 @@ class UsuarioTests {
         controlador_usuario.agregarUsuario(user.getNombre(), "asdas1Adasd#", user.getRol());
     }
 
-    @Test
-    void LogInTest() throws Exception {
-        assertThrows(ContraseniaInvalidaException.class, () -> {
-            user.validarConstrasenia("contraseniaErronea");}
-            );
-        assertThrows(UsuarioInexistenteException.class, () -> {
-            controlador_usuario.getUsuario("Carla");}
-            );
-        assertThrows(NombreRepetidoException.class, () -> {
-            controlador_usuario.agregarUsuario("Carlos", "asdas1Adasd#", RolUsuario.ESTANDAR);});
-        
-        controlador_sesion.logIn("Carlos", "asdas1Adasd#");
-        assertTrue(controlador_sesion.hayUsuarioLogueado());
-
-        controlador_sesion.logOut();
-        assertFalse(controlador_sesion.hayUsuarioLogueado());
-
-    }
+//    @Test
+//    void LogInTest() throws Exception {
+//        assertThrows(ContraseniaInvalidaException.class, () -> {
+//            user.validarConstrasenia("contraseniaErronea");}
+//            );
+//        assertThrows(UsuarioInexistenteException.class, () -> {
+//            controlador_usuario.getUsuario("Carla");}
+//            );
+//        assertThrows(NombreRepetidoException.class, () -> {
+//            controlador_usuario.agregarUsuario("Carlos", "asdas1Adasd#", RolUsuario.ESTANDAR);});
+//
+//        controlador_sesion.logIn("Carlos", "asdas1Adasd#");
+//        assertTrue(controlador_sesion.hayUsuarioLogueado());
+//
+//        controlador_sesion.logOut();
+//        assertFalse(controlador_sesion.hayUsuarioLogueado());
+//
+//    }
 
 }

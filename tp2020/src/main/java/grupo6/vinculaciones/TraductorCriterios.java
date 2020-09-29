@@ -1,6 +1,6 @@
 package grupo6.vinculaciones;
 
-import grupo6.dominio.CriteriosEnum;
+import grupo6.dominio.entidades.CriteriosEnum;
 
 import java.util.ArrayList;
 import java.util.Arrays;

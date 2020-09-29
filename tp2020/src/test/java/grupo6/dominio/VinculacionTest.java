@@ -1,11 +1,6 @@
 package grupo6.dominio;
 
-import grupo6.vinculaciones.ComparadorFecha;
-import grupo6.vinculaciones.ComparadorValor;
-import grupo6.vinculaciones.CriterioFechaDesdeHasta;
-import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import grupo6.dominio.entidades.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +18,8 @@ class VinculacionTest {
     static ArrayList<OperacionDeIngreso> ingresos;
     static ArrayList<OperacionDeEgreso> egresos;
 
-    @BeforeAll
-    public static void init() {
+    @BeforeEach
+    void setUp() {
         //INSTANCIO OPERACIONES DE INGRESO
         i1 = new OperacionDeIngreso("Operacion 1", 3500d, LocalDate.parse("2018-02-27"));
         i1.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
@@ -39,9 +34,9 @@ class VinculacionTest {
         lavarropas = new Item(TipoItem.Articulo, "Lavarropas marca Hp", 1800.00);
 
         //INSTANCIO OPERACIONES DE EGRESO
-        e1 = new OperacionDeEgreso(LocalDate.parse("2018-03-26"));
-        e2 = new OperacionDeEgreso(LocalDate.parse("2018-02-22"));
-        e3 = new OperacionDeEgreso(LocalDate.parse("2018-03-25"));
+        e1 = new OperacionDeEgreso(LocalDate.parse("2018-03-28"));
+        e2 = new OperacionDeEgreso(LocalDate.parse("2018-03-30"));
+        e3 = new OperacionDeEgreso(LocalDate.parse("2018-03-29"));
 
         e1.agregarItem(microondas);
         e2.agregarItem(heladera);
@@ -96,6 +91,15 @@ class VinculacionTest {
                 new Vinculacion(3, 2, 700d)
             )
         );
+
+//        ArrayList<Vinculacion> vinculacionesEsperadas = new ArrayList<>(
+//            Arrays.asList(
+//                new Vinculacion(2,2, 1700d),
+//                new Vinculacion(2,3,1800d),
+//                new Vinculacion(2, 1, 500d),
+//                new Vinculacion(3, 1, 700d)
+//            )
+//        );
 
         assertArrayEquals(vinculacionesEsperadas.toArray(), vinculaciones.toArray());
     }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://kit.fontawesome.com/27517fada0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="/js/egresos.js"></script>
+    <script src="/js/criterios.js"></script>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="icon" href="/img/logosolo.png">
+    <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link rel="stylesheet" href="/css/egresos.css">
+    <title>Egresos - Nuevo</title>
+</head>
+<body>
+
+<header>
+    <a href="/">
+    <div class="image-container-ingresos" >
+        <img src="\img\utn svg.png" alt="utn logo" class="logo-utn">
+        <img src="\img\dieño svg.png" alt="diseniologo" class="logo-sist">
+    </div>
+    </a>
+</header>
+
+<div class="main-container" style="position: absolute; top: 6rem;">
+    <div class="table-wrapper">
+        <table class="tabla" id="tablaIngresos">
+            <thead>
+            <th><i class="fas fa-fingerprint"></i> Id Ingreso </th>
+            <th><i class="fas fa-calendar-alt"></i> Fecha </th>
+            <th><i class="fas fa-people-carry"></i> Monto </th>
+            <th><i class="fas fa-people-carry"></i> Descripcion </th>
+            </thead>
+            <tbody>
+            {{#each ingresos}}
+
+                <tr style="cursor: pointer">
+                    <td> {{id}} </td>
+                    <td>{{fecha}}</td>
+                    <td>{{monto}}</td>
+                    <td>{{desc}}</td>
+                </tr>
+
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="padding-container">
+        <div style="float: left;  ">
+            <p> Cargar ingresos: </p>
+        </div>
+        <div style="padding:0 0 1em 0">
+            <form action="/ingresos/upload-json" method="post" class="form-" enctype="multipart/form-data">
+                <input type="file" name="fileToUpload" id="fileToUpload">
+                <button type="submit" class="btn" name="submit" style="float:right;">Cargar</button>
+            </form>
+        </div>
+        <div class="btn-wrapper">
+            <a href="/" class="btn" style="">Volver</a>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
