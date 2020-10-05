@@ -29,18 +29,23 @@ public class ControladorDeVinculaciones {
         switch (criterio) {
             case "CRITERIO_VALOR_PRIMERO_INGRESO":
                 crit = CriteriosEnum.CRITERIO_VALOR_PRIMERO_INGRESO;
+                break;
 
             case "CRITERIO_VALOR_PRIMERO_EGRESO":
                 crit =CriteriosEnum.CRITERIO_VALOR_PRIMERO_EGRESO;
+                break;
 
             case "CRITERIO_FECHA":
                 crit = CriteriosEnum.CRITERIO_FECHA;
+                break;
 
             case "CRITERIO_MIX_FECHA_VALOR":
                 crit = CriteriosEnum.CRITERIO_MIX_FECHA_VALOR;
-            
+                break;
+
             case "CRITERIO_MIX_VALOR_FECHA":
                 crit = CriteriosEnum.CRITERIO_MIX_VALOR_FECHA;
+                break;
         }
         return crit;
     }
@@ -58,7 +63,7 @@ public class ControladorDeVinculaciones {
         response.redirect("/vinculacion");
         return response;
     }
-    
+
     public ModelAndView mostrarVinculaciones(Request request, Response response) {
                 Map<String, Object> parametros = new HashMap<>();
                 parametros.put("vinculaciones", vinculaciones);

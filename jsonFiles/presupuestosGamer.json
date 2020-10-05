@@ -1,0 +1,22 @@
+{
+  presupuestos: [
+    {
+      items: [{tipo: "Articulo", descripcion: "mouse", valor: 1700.0 },
+              {tipo: "Articulo", descripcion: "teclado mecanico", valor: 12500.0 },
+              {tipo: "Servicio", descripcion: "garantia extendida 6 meses", valor: 2000.0 } ],
+      proveedor: {nombre: "Coto", nroIdentificacion: 1}
+    },
+    {
+      items: [{tipo: "Articulo", descripcion: "mouse", valor: 2000.0 },
+              {tipo: "Articulo", descripcion: "teclado mecanico", valor: 15000.0 },
+              {tipo: "Servicio", descripcion: "garantia extendida 6 meses", valor: 3000.0 } ],
+      proveedor: {nombre: "Disco", nroIdentificacion: 2}
+    },
+    {
+      items: [{tipo: "Articulo", descripcion: "mouse", valor: 1400.0 },
+              {tipo: "Articulo", descripcion: "teclado mecanico", valor: 12500.0 },
+              {tipo: "Servicio", descripcion: "garantia extendida 6 meses", valor: 2000.0 } ],
+      proveedor: {nombre: "My Crosoft", nroIdentificacion: 3}
+    }
+  ]
+}
