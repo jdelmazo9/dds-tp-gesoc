@@ -2,6 +2,7 @@ package grupo6.dominio.entidades;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
 
 public class OperacionDeIngreso {
@@ -11,13 +12,14 @@ public class OperacionDeIngreso {
     private int id;
     private static int cantidadIngresos = 0;
     private LocalDate fecha;
+    private String fechaStr;
     private ArrayList<CriterioAceptacion> criterios;
 
     public OperacionDeIngreso(String desc, Double monto){
         this.id = ++cantidadIngresos;
         this.desc = desc;
         this.monto = monto;
-        fecha = LocalDate.now();
+        this.setFecha(LocalDate.now());
         categorias = new ArrayList();
         criterios = new ArrayList();
     }
@@ -26,7 +28,7 @@ public class OperacionDeIngreso {
         this.id = ++cantidadIngresos;
         this.desc = desc;
         this.monto = monto;
-        this.fecha = fecha;
+        this.setFecha(fecha);
         categorias = new ArrayList();
         criterios = new ArrayList();
     }
@@ -45,14 +47,10 @@ public class OperacionDeIngreso {
         return desc;
     }
 
-    public void setFechaStr(String fecha){
-        System.out.println(fecha);
-        this.setFecha(LocalDate.parse(fecha, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        System.out.println(this.fecha);
-    }
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+        this.fechaStr = fecha.toString();
     }
 
     public LocalDate getFecha() {
@@ -60,7 +58,7 @@ public class OperacionDeIngreso {
     }
 
     public String getFechaStr() {
-        return fecha.toString();
+        return this.fechaStr;
     }
 
     public void agregarCriterio(CriterioAceptacion criterio) {
@@ -76,5 +74,22 @@ public class OperacionDeIngreso {
         criterio.agregarParametros("fechaDesde", desde);
         criterio.agregarParametros("fechaHasta", hasta);
         criterios.add(criterio);
+    }
+
+    public boolean esDeCategorias(List<String> criterios, List<String> categorias){
+
+        for(int i = 0; i < categorias.size(); i++) {
+            Boolean pertenece = false;
+            for(Categoria c : this.categorias) {
+                if(c.getNombre().equals(categorias.get(i)) && c.getCriterio().getNombre().equals(criterios.get(i))) {
+                    pertenece = true;
+                }
+            }
+            if(!pertenece) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

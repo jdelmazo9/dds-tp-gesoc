@@ -118,6 +118,7 @@ public class Router {
         Spark.post("/api/egresos/:id/validacion", controladorDeEgresos::nuevaValidacion);
         Spark.get("/api/egresos/:id/validacion", controladorDeEgresos::obtenerValidaciones);
         Spark.get("/api/egresos/validacion", controladorDeValidaciones::obtenerValidaciones);
+        Spark.get("/api/ingresos", controladorDeIngresos::obtenerTodos);
 
 
         // Before Checks

@@ -6,7 +6,7 @@
     <script src="https://kit.fontawesome.com/27517fada0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="/js/egresos.js"></script>
+    <script src="/js/generales.js"></script>
     <script src="/js/criterios.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
@@ -27,12 +27,30 @@
 
 <div class="main-container" style="position: absolute; top: 6rem;">
     <div class="table-wrapper">
+        <p>Filtros Aplicados:</p>
+            <ul id="listaFiltros" class="scrollable"></ul>
+
+        <select id="inputCriterio" class="input-select"  name="criterio">
+            <option selected disabled>Seleccionar</option>
+            {{#each repoCriterios.criterios}}
+                <option value="{{nombre}}">{{nombre}}</option>
+            {{/each}}
+        </select>
+
+        <select id="inputCategoria" class="input-select"  name="categoria">
+            <option selected disabled>Seleccionar</option>
+        </select>
+
+        <button id="botonFiltro" onclick="aplicarFiltroIngresos()"> Aplicar Filtro </button>
+        <button id="botonBorrarFiltros" onclick="borrarFiltrosIngresos()"> Borrar Filtros </button>
+    </div>
+    <div class="table-wrapper">
         <table class="tabla" id="tablaIngresos">
             <thead>
             <th><i class="fas fa-fingerprint"></i> Id Ingreso </th>
             <th><i class="fas fa-calendar-alt"></i> Fecha </th>
-            <th><i class="fas fa-people-carry"></i> Monto </th>
-            <th><i class="fas fa-people-carry"></i> Descripcion </th>
+            <th><i class="fas fa-dollar-sign"></i> Monto </th>
+            <th><i class="fas fa-pen-fancy"></i> Descripcion </th>
             </thead>
             <tbody>
             {{#each ingresos}}

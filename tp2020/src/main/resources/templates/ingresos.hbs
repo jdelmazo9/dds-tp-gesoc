@@ -13,31 +13,32 @@
     <title>Egresos - Index</title>
 </head>
 <body>
-<header>
-    <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
-    <div class="diseniologo">
-        <img src="/img/logosolo.png" alt="diseniologo" style="">
-        <p>Diseño de Sistemas</p>
+    <header>
+        <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
+        <div class="diseniologo">
+            <img src="/img/logosolo.png" alt="diseniologo" style="">
+            <p>Diseño de Sistemas</p>
+        </div>
+    </header>
+    
+    <div class="main_container">
+        <table class="tabla" id="tabla">
+            <thead>
+            <th><i class="fas fa-user"></i> Id Ingreso </th>
+            <th><i class="fas fa-calendar-alt"></i> Fecha </th>
+            <th><i class="fas fa-question-circle"></i> Descripción </th>
+            <th><i class="fas fa-hand-holding-usd"></i> Monto </th>
+            </thead>
+            <tbody>
+            {{#each egresos}}
+                <tr>
+                    <td> {{id}} </td>
+                    <td>{{fecha}}</td>
+                    <td>{{proveedor.nombre}}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
     </div>
-</header>
-<div class="main_container">
-    <table class="tabla" id="tabla">
-        <thead>
-        <th><i class="fas fa-user"></i> Id Ingreso </th>
-        <th><i class="fas fa-calendar-alt"></i> Fecha </th>
-        <th><i class="fas fa-question-circle"></i> Descripción </th>
-        <th><i class="fas fa-hand-holding-usd"></i> Monto </th>
-        </thead>
-        <tbody>
-        {{#each egresos}}
-            <tr>
-                <td> {{id}} </td>
-                <td>{{fecha}}</td>
-                <td>{{proveedor.nombre}}</td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
-</div>
 </body>
 </html>
