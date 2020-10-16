@@ -1,3 +1,13 @@
+$('#medioDePagoDiv').ddslick({
+    data: ddData,
+    width: 300,
+    imagePosition: "left",
+    selectText: "Seleccione medio de pago",
+    onSelected: function (data) {
+        console.log(data);
+    }
+});
+
 //
 //function agregarItem() {
 //    var descripcion = document.getElementById("inputDescripcion");

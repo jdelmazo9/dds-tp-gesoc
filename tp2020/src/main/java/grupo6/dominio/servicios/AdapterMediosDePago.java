@@ -5,5 +5,5 @@ import grupo6.dominio.entidades.MedioDePago;
 import java.util.List;
 
 public interface AdapterMediosDePago {
-    List<MedioDePagoMP> getMediosDePago();
+    List<MedioDePago> getMediosDePago();
 }

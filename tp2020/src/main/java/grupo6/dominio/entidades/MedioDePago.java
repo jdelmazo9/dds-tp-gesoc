@@ -2,11 +2,15 @@ package grupo6.dominio.entidades;
 
 public class MedioDePago {
     private TipoPago medio;
-    private int numeroId;
+    private String id;
+    private String nombre;
+    private String imagen;
 
-    public MedioDePago(TipoPago medio, int numeroId) {
+    public MedioDePago(TipoPago medio, String id, String nombre, String imagen) {
         this.medio = medio;
-        this.numeroId = numeroId;
+        this.id = id;
+        this.nombre = nombre;
+        this.imagen = imagen;
     }
 
     public TipoPago getMedio() {
@@ -17,11 +21,27 @@ public class MedioDePago {
         this.medio = medio;
     }
 
-    public int getNumeroId() {
-        return numeroId;
+    public String getId() {
+        return id;
     }
 
-    public void setNumeroId(int numeroId) {
-        this.numeroId = numeroId;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

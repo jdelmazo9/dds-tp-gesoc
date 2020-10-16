@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
+import grupo6.dominio.repositorios.RepositorioMediosDePago;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.dominio.repositorios.daos.OperacionDTO;
+import grupo6.dominio.servicios.AdapterMediosDePagoMP;
 import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.FileUploadHandler;
 import spark.ModelAndView;
@@ -79,6 +81,7 @@ public class ControladorDeEgresos {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
+        parametros.put("mediosDePago", RepositorioMediosDePago.getInstancia().getMedioDePagos());
         return new ModelAndView(parametros, "egresos/nuevo.hbs");
     }
 

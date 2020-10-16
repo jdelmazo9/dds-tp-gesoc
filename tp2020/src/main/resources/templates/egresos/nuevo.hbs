@@ -8,10 +8,25 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/egresos.js"></script>
     <script src="/js/criterios.js"></script>
+    <script src="/js/magic.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <title>Egresos - Nuevo</title>
+    <style>
+        figure {
+            margin: 0;
+        }
+
+        .tmblr-iframe {
+            position: absolute;
+        }
+
+            .tmblr-iframe.hide {
+                display: none;
+            }
+    </style>
+    <style>figure{margin:0}.tmblr-iframe{position:absolute}.tmblr-iframe.hide{display:none}.tmblr-iframe--amp-cta-button{visibility:hidden;position:fixed;bottom:10px;left:50%;transform:translateX(-50%);z-index:100}.tmblr-iframe--amp-cta-button.tmblr-iframe--loaded{visibility:visible;animation:iframe-app-cta-transition .2s ease-out}</style>
 </head>
 <!--
 <header>
@@ -46,10 +61,38 @@
                     {{/each}}
                 </select>
             </div>
+
+            <!--FECHA-->
             <div>
                 <bold style="font-size:14px">Seleccione la fecha del egreso:</bold>
                 <input type="date" name="fecha"  class="input-datos" style="float:right;">
             </div>
+
+            <!--MEDIO DE PAGO-->
+            <div id="medioDePagoDiv" class="dd-container" style="width: 260px;">
+                <div class="dd-select" style="width: 260px; background: rgb(238, 238, 238);">
+                <p style="font-size:14px">Seleccione un medio de pago:</p>
+                <input class="dd-selected-value" name="medioDePago" type="hidden">
+                    <a class="dd-selected"> Seleccionar</a>
+                    <span class="dd-pointer dd-pointer-down dd-pointer-up"></span>
+<!--                    <option selected disabled> Seleccionar </option>-->
+                    <ul class="dd-options dd-click-off-close" style="width: 260px; display: block;">
+                        {{#each mediosDePago}}
+                        <li>
+                         <a class="dd-option">
+                             <input class="dd-option-value" type="hidden" value="{{id}}">
+<!--                             <img class="dd-option-image" src="https://i.imgur.com/XkuTj3B.png">-->
+                             <img class="dd-option-image" src="{{imagen}}">
+                             <label class="dd-option-text"> {{nombre}} </label>
+<!--                             <small class="dd-option-description dd-desc">Description with Facebook</small>-->
+                         </a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </input>
+                </div>
+            </div>
+            <img id="imagenMP" src="http://img.mlstatic.com/org-img/MP3/API/logos/visa.gif" alt="MedioDePagoElegido">
 
             <a href="/egresos" class="btn" style="float:left">Volver</a>
             <input type="submit" class="btn" style="float:right;"  value="Crear">
