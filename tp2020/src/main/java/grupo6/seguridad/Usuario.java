@@ -6,10 +6,23 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import grupo6.seguridad.Excepciones.ContraseniaInvalidaException;
 
+import javax.persistence.*;
+
+@Entity
 public class Usuario extends EntidadPersistente {
+
+    @Id
+    @GeneratedValue
+    private int id;
+
     private String nombre;
+
     private String contraseniaHash;
+
+    @Enumerated(EnumType.STRING)
     private RolUsuario rol;
+
+    @Transient
     private BandejaDeMensajes bandejaDeMensajes;
 
     public Usuario(String nombre, String contrasenia, RolUsuario rol){
@@ -26,6 +39,7 @@ public class Usuario extends EntidadPersistente {
     public String getNombre() {
         return nombre;
     }
+
 
     public RolUsuario getRol() {
         return rol;
