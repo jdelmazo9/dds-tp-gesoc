@@ -30,6 +30,11 @@ public class ControladorDeEgresos {
         return repositorioEgresos;
     }
 
+    public ModelAndView prueba(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros, "egresos/ejemplo.hbs");
+    }
+
     public ModelAndView mostrarTodos(Request request, Response response) {
 //        Map<String, Object> parametros = new HashMap<>();
 //        List<Usuario> usuarios = this.repo.buscarTodos();
