@@ -1,6 +1,13 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.*;
+
+@Entity
 public class MedioDePago {
+    @Id
+    @GeneratedValue
+    private int id;
+    @Enumerated(EnumType.STRING)
     private TipoPago medio;
     private int numeroId;
 

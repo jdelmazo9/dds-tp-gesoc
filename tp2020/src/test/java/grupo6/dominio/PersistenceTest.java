@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
 
+import grupo6.dominio.entidades.*;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.Usuario;
 import org.junit.Before;
@@ -13,16 +14,23 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class PersistenceTest {
 
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager = null;
-    private Usuario usuario = new Usuario("Cosme", "1234", RolUsuario.ADMIN);
+    private Usuario operacionDeEgreso = new Usuario("Cosme", "1234", RolUsuario.ADMIN);
+    OperacionDeEgreso compraTest;
+    Presupuesto presupuestoTest;
 
     @BeforeClass
     public static void setUpClass() {
         entityManagerFactory = Persistence.createEntityManagerFactory("db");
         //hbm2ddl.auto - create | update | validate | create-drop
+
     }
 
     /*
@@ -49,9 +57,24 @@ public class PersistenceTest {
 
     @Test
     public void testGuardarCasa() {
+        Item microondas = new Item(TipoItem.Articulo, "Microondas marca Samsung", 1200.0);
+        Item microondas2 = new Item(TipoItem.Articulo, "Microondas marca Samsung", 1200.0);
+        Item heladera = new Item(TipoItem.Articulo, "Heladera marca Hp", 1700.00);
+        Proveedor juancito = new Proveedor("Juan Pablo Segundo", 20204523, "Calle falsa 123");
+        DocumentoComercial factura = new DocumentoComercial(TipoDocumento.Factura, 420423042);
+        compraTest = new OperacionDeEgreso();
+        compraTest.adjuntar(factura);
+        compraTest.agregarItem(heladera);
+        compraTest.agregarItem(microondas);
+        compraTest.setProveedor(juancito);
+
+        presupuestoTest = new Presupuesto(new ArrayList<Item>(Arrays.asList(microondas2)),juancito );
+
+        compraTest.agregarPresupuesto(presupuestoTest);
+
         this.entityManager = entityManagerFactory.createEntityManager();
         this.entityManager.getTransaction().begin();
-        this.entityManager.persist(usuario);
+        this.entityManager.persist(compraTest);
         this.entityManager.getTransaction().commit();
         //Guardar la casa y ver que se genero una fila en la base de datos
 

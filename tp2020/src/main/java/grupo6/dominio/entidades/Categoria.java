@@ -1,7 +1,17 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+
+@Entity
 public class Categoria {
+    @Id
+    @GeneratedValue
+    private int id;
     private String nombre;
+    @Transient
     private transient Criterio criterio;
 
     public Categoria(String nombre) { this.nombre = nombre; }

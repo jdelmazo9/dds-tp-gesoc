@@ -1,11 +1,25 @@
 package grupo6.dominio.entidades;
 
-import java.util.ArrayList;
+import org.hibernate.annotations.Where;
 
-public class Presupuesto {
-    private ArrayList<Item> items;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Presupuesto implements DocumentoItems {
+    @Id
+    @GeneratedValue
+    private int id;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="documentoItemID")
+    @Where(clause="documentoItemTipo='Presupuesto'")
+    private List<Item> items;
     private double valorTotal;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Proveedor proveedor;
+    //@ManyToMany
+    @Transient
     private ArrayList<Categoria> categorias;
 
     public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
@@ -15,7 +29,7 @@ public class Presupuesto {
     }
 
     public ArrayList<Item> getItems() {
-        return items;
+        return (ArrayList<Item>) items;
     }
 
     public void setItems(ArrayList<Item> items) {

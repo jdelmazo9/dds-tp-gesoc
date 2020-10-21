@@ -8,38 +8,53 @@ import java.util.stream.Collectors;
 
 import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.NotificadorValidadorLicitacion;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Where;
 
-public class OperacionDeEgreso {
-    static int operacionesCreadas = 0;
+import javax.persistence.*;
+
+@Entity
+public class OperacionDeEgreso implements DocumentoItems {
+    @Id
+    @GeneratedValue
     private int id;
+    @Transient
     private ArrayList<DocumentoComercial> docsComerciales;
+    @Transient
     private URL docComercialExterno;
+    @ManyToOne
     private Proveedor proveedor;
     private LocalDate fecha;
-    private String fechaStr;
+    @ManyToOne
     private MedioDePago medioDePago;
-    private ArrayList<Item> items;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="documentoItemID")
+    @Where(clause="documentoItemTipo='Egreso'")
+    private List<Item> items;
+
     private ArrayList<String> detalleItems;
     private Double valorTotal;
-    private ArrayList<Presupuesto> presupuestos;
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "operacionDeEgresoID")
+    private List<Presupuesto> presupuestos;
+    //@ManyToMany
+    @Transient
     private ArrayList<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
-
+    @Transient
     private NotificadorValidadorLicitacion notificador;
+    @Transient
     private ValidadorLicitacion validadorLicitacion;
 
 
 
     public OperacionDeEgreso() {
-        id =  ++operacionesCreadas;
         docsComerciales = new ArrayList<DocumentoComercial>();
         items = new ArrayList<Item>();
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         fecha = LocalDate.now();
-        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
@@ -49,13 +64,11 @@ public class OperacionDeEgreso {
 
     //CONSTRUCTOR PARA TESTS
     public OperacionDeEgreso(LocalDate fecha) {
-        id =  ++operacionesCreadas;
         docsComerciales = new ArrayList<DocumentoComercial>();
         items = new ArrayList<Item>();
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         this.fecha = fecha;
-        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
@@ -84,12 +97,11 @@ public class OperacionDeEgreso {
     }
 
     public String getFechaStr() {
-        return fechaStr;
+        return fecha.toString();
     }
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
-        fechaStr = fecha.toString();
     }
 
     public URL getDocComercialExterno() {
@@ -105,7 +117,7 @@ public class OperacionDeEgreso {
     }
 
     public ArrayList<Item> getItems() {
-        return items;
+        return (ArrayList<Item>) items;
     }
 
     public void setItems(ArrayList<Item> items) {
@@ -139,7 +151,7 @@ public class OperacionDeEgreso {
     }
 
     public ArrayList<Presupuesto> getPresupuestos() {
-        return presupuestos;
+        return (ArrayList<Presupuesto>) presupuestos;
     }
 
     public void setPresupuestos(ArrayList<Presupuesto> presupuestos) {
