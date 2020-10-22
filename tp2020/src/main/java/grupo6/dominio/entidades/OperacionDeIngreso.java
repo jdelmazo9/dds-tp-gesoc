@@ -1,20 +1,25 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
 public class OperacionDeIngreso {
-    private ArrayList<Categoria> categorias;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+    @ManyToMany
+    private List<Categoria> categorias;
     private String desc;
     private Double monto;
-    private int id;
-    private static int cantidadIngresos = 0;
     private LocalDate fecha;
-    private ArrayList<CriterioAceptacion> criterios;
+    @Transient
+    private List<CriterioAceptacion> criterios;
 
     public OperacionDeIngreso(String desc, Double monto){
-        this.id = ++cantidadIngresos;
         this.desc = desc;
         this.monto = monto;
         fecha = LocalDate.now();
@@ -23,7 +28,6 @@ public class OperacionDeIngreso {
     }
 
     public OperacionDeIngreso(String desc, Double monto, LocalDate fecha){
-        this.id = ++cantidadIngresos;
         this.desc = desc;
         this.monto = monto;
         this.fecha = fecha;
@@ -68,7 +72,7 @@ public class OperacionDeIngreso {
     }
 
     public ArrayList<CriterioAceptacion> getCriterios() {
-        return criterios;
+        return (ArrayList<CriterioAceptacion>) criterios;
     }
 
     public void setearCriterioFechaDesdeHasta(LocalDate desde, LocalDate hasta){

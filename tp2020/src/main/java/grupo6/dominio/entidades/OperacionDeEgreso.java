@@ -8,37 +8,36 @@ import java.util.stream.Collectors;
 
 import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.NotificadorValidadorLicitacion;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 
 @Entity
-public class OperacionDeEgreso implements DocumentoItems {
-    @Id
-    @GeneratedValue
-    private int id;
-    @Transient
-    private ArrayList<DocumentoComercial> docsComerciales;
-    @Transient
+@DiscriminatorValue("OperacionDeEgreso")
+public class OperacionDeEgreso extends DocumentoItems {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "documentoItemID")
+    private List<DocumentoComercial> docsComerciales;
+
     private URL docComercialExterno;
     @ManyToOne
     private Proveedor proveedor;
     private LocalDate fecha;
     @ManyToOne
     private MedioDePago medioDePago;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="documentoItemID")
-    @Where(clause="documentoItemTipo='Egreso'")
     private List<Item> items;
-
+    @Transient
     private ArrayList<String> detalleItems;
     private Double valorTotal;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "operacionDeEgresoID")
     private List<Presupuesto> presupuestos;
-    //@ManyToMany
-    @Transient
+    @ManyToMany
     private ArrayList<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
@@ -77,7 +76,7 @@ public class OperacionDeEgreso implements DocumentoItems {
     }
 
     public ArrayList<DocumentoComercial> getDocsComerciales() {
-        return docsComerciales;
+        return (ArrayList<DocumentoComercial>) docsComerciales;
     }
 
     public void setDocsComerciales(ArrayList<DocumentoComercial> docsComerciales) {
@@ -183,10 +182,6 @@ public class OperacionDeEgreso implements DocumentoItems {
 
     public ValidadorLicitacion get_validador(){
         return this.validadorLicitacion;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public boolean esDeCategorias(List<String> criterios, List<String> categorias){

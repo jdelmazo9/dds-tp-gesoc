@@ -1,6 +1,13 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.*;
+
+@Entity
 public class DocumentoComercial {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+    @Enumerated(EnumType.STRING)
     private TipoDocumento tipo;
     private int numero;
 

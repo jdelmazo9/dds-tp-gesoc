@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Usuario extends EntidadPersistente {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     private String nombre;

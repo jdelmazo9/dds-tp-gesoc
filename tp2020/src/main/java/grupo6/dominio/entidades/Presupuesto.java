@@ -1,5 +1,8 @@
 package grupo6.dominio.entidades;
 
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.hibernate.annotations.JoinFormula;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -7,16 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Presupuesto implements DocumentoItems {
-    @Id
-    @GeneratedValue
-    private int id;
+@DiscriminatorValue("Presupuesto")
+public class Presupuesto extends DocumentoItems {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="documentoItemID")
-    @Where(clause="documentoItemTipo='Presupuesto'")
+//    @Where(clause="documentoItemTipo='Presupuesto'")
+
     private List<Item> items;
     private double valorTotal;
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Proveedor proveedor;
     //@ManyToMany
     @Transient

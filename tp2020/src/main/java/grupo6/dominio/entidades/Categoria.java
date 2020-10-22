@@ -1,9 +1,6 @@
 package grupo6.dominio.entidades;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class Categoria {
@@ -11,8 +8,9 @@ public class Categoria {
     @GeneratedValue
     private int id;
     private String nombre;
-    @Transient
-    private transient Criterio criterio;
+    @ManyToOne
+    @JoinColumn(name = "CriterioID", referencedColumnName = "id")
+    private Criterio criterio;
 
     public Categoria(String nombre) { this.nombre = nombre; }
 

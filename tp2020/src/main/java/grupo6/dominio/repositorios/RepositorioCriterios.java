@@ -57,7 +57,7 @@ public class RepositorioCriterios {
         //criterio TipoProveedor / Categorias: Nacional, Internacional
         Criterio criterioTipoProveedor = new Criterio();
         criterioTipoProveedor.setNombre("TipoProveedor");
-        criterioTipoProveedor.setId(0);
+        //criterioTipoProveedor.setId(0);
         new Categoria("Nacional", criterioTipoProveedor);
         new Categoria("Internacional", criterioTipoProveedor);
         this.criterios.add(criterioTipoProveedor);
@@ -65,7 +65,7 @@ public class RepositorioCriterios {
         //criterio Provincia / Categorias: Buenos Aires, Entre Ríos, Córdoba
         Criterio criterioProvincia = new Criterio();
         criterioProvincia.setNombre("Provincia");
-        criterioProvincia.setId(1);
+        //criterioProvincia.setId(1);
         new Categoria("Buenos Aires", criterioProvincia);
         new Categoria("Entre Ríos", criterioProvincia);
         new Categoria("Córdoba", criterioProvincia);

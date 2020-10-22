@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class MedioDePago {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     @Enumerated(EnumType.STRING)
     private TipoPago medio;

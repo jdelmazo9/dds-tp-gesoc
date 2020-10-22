@@ -1,5 +1,6 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.Entity;
 import java.util.HashMap;
 
 public class CriterioAceptacion {

@@ -1,18 +1,17 @@
 package grupo6.dominio.entidades;
 
-import org.hibernate.annotations.Any;
-import org.hibernate.annotations.AnyMetaDef;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.MetaValue;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Objects;
 
 @Entity
+
 public class Item {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     @Enumerated(EnumType.STRING)
@@ -20,24 +19,6 @@ public class Item {
 
     private String descripcion;
     private Double valor;
-
-
-    @Any(metaColumn = @Column(name = "documentoItemTipo"))
-    @AnyMetaDef(idType = "int", metaType = "string",
-
-        metaValues = {
-
-        @MetaValue(targetEntity = OperacionDeEgreso.class, value = "Egreso"),
-
-        @MetaValue(targetEntity = Presupuesto.class, value = "Presupuesto")
-
-    })
-//    @Cascade( { org.hibernate.annotations.CascadeType.ALL})
-//
-    @JoinColumn(name = "documentoItemID")
-
-    private DocumentoItems documentoItem;
-
 
     public Item(TipoItem tipo, String descripcion, Double valor) {
         this.tipo = tipo;
