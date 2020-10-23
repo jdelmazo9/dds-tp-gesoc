@@ -20,6 +20,8 @@ public class Item {
     private String descripcion;
     private Double valor;
 
+    public Item() {}
+
     public Item(TipoItem tipo, String descripcion, Double valor) {
         this.tipo = tipo;
         this.descripcion = descripcion;

@@ -1,6 +1,7 @@
 package grupo6.spark.utils;
 
 import com.google.gson.*;
+import grupo6.dominio.entidades.HiddenAnnotationExclusionStrategy;
 import grupo6.dominio.entidades.Presupuesto;
 import spark.Request;
 import spark.utils.IOUtils;
@@ -19,7 +20,7 @@ public class FileUploadHandler {
         public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
             return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
         }
-    }).create();
+    }).setExclusionStrategies( new HiddenAnnotationExclusionStrategy() ).create();
 
     public static <T> T readJsonTo(Request request, String id, Class<T> targetClass) {
         request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));

@@ -11,6 +11,8 @@ public class MedioDePago {
     private TipoPago medio;
     private int numeroId;
 
+    public MedioDePago() {}
+
     public MedioDePago(TipoPago medio, int numeroId) {
         this.medio = medio;
         this.numeroId = numeroId;

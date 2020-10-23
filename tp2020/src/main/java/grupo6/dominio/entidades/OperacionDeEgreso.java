@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.NotificadorValidadorLicitacion;
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.CascadeType;
@@ -38,7 +36,7 @@ public class OperacionDeEgreso extends DocumentoItems {
     @JoinColumn(name = "operacionDeEgresoID")
     private List<Presupuesto> presupuestos;
     @ManyToMany
-    private ArrayList<Categoria> categorias;
+    private List<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
     @Transient
@@ -142,7 +140,7 @@ public class OperacionDeEgreso extends DocumentoItems {
     }
 
     public ArrayList<Categoria> getCategorias() {
-        return categorias;
+        return (ArrayList<Categoria>) categorias;
     }
 
     public void setValorTotal(Double valorTotal) {

@@ -4,6 +4,9 @@ import grupo6.dominio.entidades.CriterioAceptacion;
 import grupo6.dominio.entidades.OperacionDeIngreso;
 import grupo6.dominio.entidades.TipoCriterio;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,7 +14,7 @@ import java.util.ArrayList;
 
 public class RepositorioIngresos {
     private ArrayList<OperacionDeIngreso> ingresos ;
-
+    private EntityManagerFactory entityManagerFactory;
     private static RepositorioIngresos yoMismo = null;
 
     public static RepositorioIngresos getInstancia(){
@@ -33,11 +36,16 @@ public class RepositorioIngresos {
 
 
     private RepositorioIngresos(){
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("db");
         this.ingresos = new ArrayList<>();
     }
 
     public void agregar(OperacionDeIngreso i){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         this.ingresos.add(i);
+        entityManager.getTransaction().begin();
+        entityManager.persist(i);
+        entityManager.getTransaction().commit();
     }
 
     public void eliminar(OperacionDeIngreso i){
@@ -54,9 +62,9 @@ public class RepositorioIngresos {
         i3 = new OperacionDeIngreso("Operacion 3", 2500d, LocalDate.parse("2018-02-23"));
         i3.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
 
-        this.ingresos.add(i1);
-        this.ingresos.add(i2);
-        this.ingresos.add(i3);
+        agregar(i1);
+        agregar(i2);
+        agregar(i3);
     }
 
 }

@@ -1,12 +1,23 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+@Entity
 public class ResultadoValidacion {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+
     public Boolean validacionOK;
     public int idEgreso;
     String mensajeValidacion;
     LocalDateTime timestampValidacion;
+
+    public ResultadoValidacion(){}
 
     public ResultadoValidacion(int idEgreso){
         this.idEgreso = idEgreso;

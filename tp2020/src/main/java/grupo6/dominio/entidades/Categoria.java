@@ -8,9 +8,12 @@ public class Categoria {
     @GeneratedValue
     private int id;
     private String nombre;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CriterioID", referencedColumnName = "id")
+//    @Hidden
     private Criterio criterio;
+
+    public Categoria() {}
 
     public Categoria(String nombre) { this.nombre = nombre; }
 

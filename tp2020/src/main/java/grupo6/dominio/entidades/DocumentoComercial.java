@@ -11,6 +11,8 @@ public class DocumentoComercial {
     private TipoDocumento tipo;
     private int numero;
 
+    public DocumentoComercial(){}
+
     public DocumentoComercial(TipoDocumento tipo, int numero) {
         this.tipo = tipo;
         this.numero = numero;

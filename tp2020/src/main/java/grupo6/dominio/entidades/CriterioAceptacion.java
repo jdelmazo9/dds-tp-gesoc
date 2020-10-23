@@ -1,11 +1,20 @@
 package grupo6.dominio.entidades;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.HashMap;
 
+@Entity
 public class CriterioAceptacion {
     private HashMap<String, Object> parametros;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
+
+    @Enumerated(EnumType.STRING)
     private TipoCriterio tipoCriterio;
+
+    public CriterioAceptacion() {}
 
     public CriterioAceptacion (TipoCriterio tipoCriterio) {
         this.tipoCriterio = tipoCriterio;

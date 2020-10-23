@@ -12,10 +12,9 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("Presupuesto")
 public class Presupuesto extends DocumentoItems {
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name="documentoItemID")
-//    @Where(clause="documentoItemTipo='Presupuesto'")
-
     private List<Item> items;
     private double valorTotal;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -23,6 +22,8 @@ public class Presupuesto extends DocumentoItems {
     //@ManyToMany
     @Transient
     private ArrayList<Categoria> categorias;
+
+    public Presupuesto(){}
 
     public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
         this.items = items;
