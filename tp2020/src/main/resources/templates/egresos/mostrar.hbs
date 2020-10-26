@@ -103,7 +103,7 @@
             <ul class="ul-without-space">
                 <div class="scrollable">
                     {{#each egreso.presupuestos}}
-                        <li>{{proveedor.nombre}}: ${{valorTotal}} <a onclick="eliminarPresupuesto({{egreso.id}}, {{id}})"><i class="fas fa-times"></i></a></li>
+                        <li>{{proveedor.nombre}}: ${{valorTotal}}. Presu id: {{id}}<a onclick="eliminarPresupuesto({{egreso.id}}, {{id}})"><i class="fas fa-times"></i></a></li>
                     {{/each}}
                 </div>
             </ul>
@@ -134,7 +134,7 @@
                 <ul class="ul-without-space">
                     <div class="scrollable">
                         {{#each egreso.categorias}}
-                            <li>{{criterio.nombre}}: {{nombre}} <a onclick="eliminarCategoria({{egreso.id}}, {{id_categoria}})"><i class="fas fa-times"></i></a></li>
+                            <li>{{criterio.nombre}}: {{nombre}} <a onclick="eliminarCategoria({{egreso.id}}, {{id}})"><i class="fas fa-times"></i></a></li>
                         {{/each}}
                     </div>
                 </ul>

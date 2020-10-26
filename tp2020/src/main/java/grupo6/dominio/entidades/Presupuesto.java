@@ -10,6 +10,11 @@ public class Presupuesto {
     private Proveedor proveedor;
     private ArrayList<Categoria> categorias;
 
+    public Presupuesto() {
+        this.id = id_count;
+        id_count += 1;
+    }
+
     public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
         this.id = id_count;
         id_count += 1;

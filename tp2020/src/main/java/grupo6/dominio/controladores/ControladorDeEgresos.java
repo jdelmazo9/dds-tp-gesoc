@@ -115,11 +115,11 @@ public class ControladorDeEgresos {
 
     public Response eliminarItem(Request request, Response response){
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
-        System.out.println(egreso.getItems().size());
+//        System.out.println(egreso.getItems().size());
         Item item = egreso.buscarItem(new Integer(request.params("id_item")));
-        System.out.println(item.getDescripcion());
+//        System.out.println(item.getDescripcion());
         egreso.eliminarItem(item);
-        System.out.println(egreso.getItems().size());
+//        System.out.println(egreso.getItems().size());
         return response;
     }
 
@@ -137,10 +137,11 @@ public class ControladorDeEgresos {
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(Integer.parseInt(request.params("id")));
         egreso.setPresupuestos(egresoTmp.getPresupuestos());
 
-        for (Presupuesto p: egreso.getPresupuestos()) {
-            System.out.println(p.getValorTotal());
-            System.out.println(p.getProveedor().getNombre());
-        }
+//        for (Presupuesto p: egreso.getPresupuestos()) {
+//            System.out.println(p.getValorTotal());
+//            System.out.println(p.getProveedor().getNombre());
+//            System.out.println(p.getId());
+//        }
 
         response.redirect("/egresos/"+request.params("id"));
         return response;
@@ -167,7 +168,7 @@ public class ControladorDeEgresos {
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
         egreso.agregarCategoria(unaCategoria);
         response.redirect("/egresos/" + request.params("id"));
-        System.out.println(egreso.getCategorias());
+//        System.out.println(egreso.getCategorias());
         return response;
     }
 
