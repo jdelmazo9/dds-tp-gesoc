@@ -73,8 +73,8 @@ public class OperacionDeEgreso extends DocumentoItems {
         categorias = new ArrayList<>();
     }
 
-    public ArrayList<DocumentoComercial> getDocsComerciales() {
-        return (ArrayList<DocumentoComercial>) docsComerciales;
+    public List<DocumentoComercial> getDocsComerciales() {
+        return docsComerciales;
     }
 
     public void setDocsComerciales(ArrayList<DocumentoComercial> docsComerciales) {
@@ -113,8 +113,8 @@ public class OperacionDeEgreso extends DocumentoItems {
         this.medioDePago = medioDePago;
     }
 
-    public ArrayList<Item> getItems() {
-        return (ArrayList<Item>) items;
+    public List<Item> getItems() {
+        return items;
     }
 
     public void setItems(ArrayList<Item> items) {
@@ -139,19 +139,19 @@ public class OperacionDeEgreso extends DocumentoItems {
         return valorTotal;
     }
 
-    public ArrayList<Categoria> getCategorias() {
-        return (ArrayList<Categoria>) categorias;
+    public List<Categoria> getCategorias() {
+        return categorias;
     }
 
     public void setValorTotal(Double valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public ArrayList<Presupuesto> getPresupuestos() {
-        return (ArrayList<Presupuesto>) presupuestos;
+    public List<Presupuesto> getPresupuestos() {
+        return presupuestos;
     }
 
-    public void setPresupuestos(ArrayList<Presupuesto> presupuestos) {
+    public void setPresupuestos(List<Presupuesto> presupuestos) {
         this.presupuestos = presupuestos;
     }
 
@@ -205,7 +205,7 @@ public class OperacionDeEgreso extends DocumentoItems {
                 System.out.println(i.getId().toString());
                 return i;
             }
-            
+
         }
         System.out.println("Estoy Fallando");
 		return null;
@@ -218,7 +218,7 @@ public class OperacionDeEgreso extends DocumentoItems {
             }
         }
         return null;
-        
+
     }
 
 	public Categoria getCategoria(Integer entero) {

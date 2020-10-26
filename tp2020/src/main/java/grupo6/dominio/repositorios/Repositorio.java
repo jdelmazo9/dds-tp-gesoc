@@ -2,6 +2,7 @@ package grupo6.dominio.repositorios;
 
 import db.EntityManagerHelper;
 import grupo6.dominio.repositorios.daos.DAO;
+import grupo6.dominio.servicios.AdapterMediosDePago;
 
 
 import javax.persistence.criteria.CriteriaBuilder;

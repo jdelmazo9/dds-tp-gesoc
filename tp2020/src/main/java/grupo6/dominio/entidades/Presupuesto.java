@@ -22,21 +22,21 @@ public class Presupuesto extends DocumentoItems {
     private Proveedor proveedor;
     //@ManyToMany
     @Transient
-    private ArrayList<Categoria> categorias;
+    private List<Categoria> categorias;
 
     public Presupuesto(){}
 
-    public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
+    public Presupuesto(List<Item> items, Proveedor proveedor) {
         this.items = items;
         this.calcular_valor_total();
         this.proveedor = proveedor;
     }
 
-    public ArrayList<Item> getItems() {
-        return (ArrayList<Item>) items;
+    public List<Item> getItems() {
+        return (List<Item>) items;
     }
 
-    public void setItems(ArrayList<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 

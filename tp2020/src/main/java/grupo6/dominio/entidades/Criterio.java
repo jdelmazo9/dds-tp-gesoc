@@ -57,8 +57,8 @@ public class Criterio {
         }
     }
 
-    public ArrayList<Categoria> getCategorias() {
-        return (ArrayList<Categoria>) categorias;
+    public List<Categoria> getCategorias() {
+        return (List<Categoria>) categorias;
     }
 
     public Criterio getPadre(){return this.criterioPadre; }

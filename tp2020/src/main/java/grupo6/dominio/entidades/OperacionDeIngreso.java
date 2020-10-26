@@ -80,8 +80,8 @@ public class OperacionDeIngreso {
         this.criterios.add(criterio);
     }
 
-    public ArrayList<CriterioAceptacion> getCriterios() {
-        return (ArrayList<CriterioAceptacion>) criterios;
+    public List<CriterioAceptacion> getCriterios() {
+        return criterios;
     }
 
     public CriterioAceptacion obtenerCriterioAceptacion(int index){
