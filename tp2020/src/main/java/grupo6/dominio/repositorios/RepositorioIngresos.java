@@ -1,8 +1,11 @@
 package grupo6.dominio.repositorios;
 
 import grupo6.dominio.entidades.CriterioAceptacion;
+import grupo6.dominio.entidades.OperacionDeEgreso;
 import grupo6.dominio.entidades.OperacionDeIngreso;
 import grupo6.dominio.entidades.TipoCriterio;
+import grupo6.dominio.repositorios.daos.DAO;
+import grupo6.dominio.repositorios.daos.DAOHibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,44 +15,37 @@ import java.util.ArrayList;
 
 
 
-public class RepositorioIngresos {
-    private ArrayList<OperacionDeIngreso> ingresos ;
+public class RepositorioIngresos extends Repositorio<OperacionDeIngreso> {
+
     private EntityManagerFactory entityManagerFactory;
     private static RepositorioIngresos yoMismo = null;
 
     public static RepositorioIngresos getInstancia(){
         if(yoMismo == null){
-            yoMismo = new RepositorioIngresos();
+            yoMismo = new RepositorioIngresos(new DAOHibernate<>(OperacionDeIngreso.class));
         }
         return yoMismo;
     }
 
-
-
     public ArrayList<OperacionDeIngreso> obtenerTodos(){
-        return this.ingresos;
+        return (ArrayList<OperacionDeIngreso>) this.dao.buscarTodos();
     }
 
     public OperacionDeIngreso buscar(int id){
-        return this.ingresos.stream().filter(e -> e.getId() == id).findFirst().get();
+//        return this.ingresos.stream().filter(e -> e.getId() == id).findFirst().get();
+        return this.dao.buscar(id);
     }
 
-
-    private RepositorioIngresos(){
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("db");
-        this.ingresos = new ArrayList<>();
+    private RepositorioIngresos(DAO<OperacionDeIngreso> dao) {
+        super(dao);
     }
 
     public void agregar(OperacionDeIngreso i){
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        this.ingresos.add(i);
-        entityManager.getTransaction().begin();
-        entityManager.persist(i);
-        entityManager.getTransaction().commit();
+        this.dao.agregar(i);
     }
 
     public void eliminar(OperacionDeIngreso i){
-        this.ingresos.remove(i);
+        this.dao.eliminar(i);
     }
 
     public void cargarDatosTest() {
@@ -62,9 +58,9 @@ public class RepositorioIngresos {
         i3 = new OperacionDeIngreso("Operacion 3", 2500d, LocalDate.parse("2018-02-23"));
         i3.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
 
-        agregar(i1);
-        agregar(i2);
-        agregar(i3);
+        this.agregar(i1);
+        this.agregar(i2);
+        this.agregar(i3);
     }
 
 }
