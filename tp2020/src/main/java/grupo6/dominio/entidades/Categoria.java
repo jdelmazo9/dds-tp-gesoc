@@ -1,5 +1,7 @@
 package grupo6.dominio.entidades;
 
+import com.google.gson.annotations.Expose;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,9 +10,9 @@ public class Categoria {
     @GeneratedValue
     private int id;
     private String nombre;
+    @Hidden
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CriterioID", referencedColumnName = "id")
-//    @Hidden
     private Criterio criterio;
 
     public Categoria() {}
