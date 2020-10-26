@@ -50,14 +50,16 @@
             <th><i class="fas fa-fingerprint"></i> Id Egreso </th>
             <th><i class="fas fa-calendar-alt"></i> Fecha </th>
             <th><i class="fas fa-people-carry"></i> Proveedor </th>
+            <th><i class="fas fa-people-carry"></i> Medio De Pago </th>
             </thead>
             <tbody>
             {{#each egresos}}
 
                 <tr onclick="DoNav('/egresos/{{id}}')" style="cursor: pointer">
-                    <td> {{id}} </td>
+                    <td>{{id}}</td>
                     <td>{{fecha}}</td>
                     <td>{{proveedor.nombre}}</td>
+                    <td>{{medioDePago.nombre}} {{#if medioDePago.imagen}} <img class="medioDePagoLogo" src="{{medioDePago.imagen}}" border=3/> {{/if}}</td>
                 </tr>
 
             {{/each}}

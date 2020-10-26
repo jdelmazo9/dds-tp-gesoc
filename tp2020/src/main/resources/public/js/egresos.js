@@ -23,7 +23,7 @@ $(document).ready(function(){
   }
   else{
       var $state = $(
-       '<span>' + state.text + '<img class="option-img" sytle="display: inline-block; width: 10px; height: 10px; " src="'+state.element.value+'" />  </span>'
+       '<span>' + state.text + '<img class="option-img" sytle="display: inline-block; width: 10px; height: 10px; " src="'+state.element.getAttribute("src")+'" />  </span>'
       );
   }
   return $state;

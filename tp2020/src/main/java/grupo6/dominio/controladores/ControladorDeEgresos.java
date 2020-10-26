@@ -103,6 +103,11 @@ public class ControladorDeEgresos {
             Proveedor proveedor = RepositorioProveedores.getInstancia().buscar(new Integer(request.queryParams("proveedor")));
             egreso.setProveedor(proveedor);
         }
+        System.out.println(request.queryParams("medioDePago"));
+        if(request.queryParams("medioDePago") != null){
+            MedioDePago medioDePago = RepositorioMediosDePago.getInstancia().buscar(request.queryParams("medioDePago"));
+            egreso.setMedioDePago(medioDePago);
+        }
         if(!request.queryParams("fecha").equals("")){
             egreso.setFecha(LocalDate.parse(request.queryParams("fecha"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
@@ -126,6 +131,7 @@ public class ControladorDeEgresos {
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
+        parametros.put("mediosDePago", RepositorioMediosDePago.getInstancia().getMedioDePagos());
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
     }
 
