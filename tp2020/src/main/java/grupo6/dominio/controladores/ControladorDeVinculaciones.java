@@ -18,10 +18,12 @@ public class ControladorDeVinculaciones {
 
     AdaptadorVinculadorConcreto vinculador;
     ArrayList<Vinculacion> vinculaciones;
+    String criterioUsado;
 
     public ControladorDeVinculaciones(){
         this.vinculador = new AdaptadorVinculadorConcreto();
         this.vinculaciones = new ArrayList<>();
+        this.criterioUsado = "No hay vinculacion";
     }
 
     public CriteriosEnum convertirCriterio(String criterio){
@@ -29,22 +31,27 @@ public class ControladorDeVinculaciones {
         switch (criterio) {
             case "CRITERIO_VALOR_PRIMERO_INGRESO":
                 crit = CriteriosEnum.CRITERIO_VALOR_PRIMERO_INGRESO;
+                this.criterioUsado = "Primero Ingreso";
                 break;
 
             case "CRITERIO_VALOR_PRIMERO_EGRESO":
                 crit =CriteriosEnum.CRITERIO_VALOR_PRIMERO_EGRESO;
+                this.criterioUsado = "Primero Egreso";
                 break;
 
             case "CRITERIO_FECHA":
                 crit = CriteriosEnum.CRITERIO_FECHA;
+                this.criterioUsado = "Por Fecha";
                 break;
 
             case "CRITERIO_MIX_FECHA_VALOR":
                 crit = CriteriosEnum.CRITERIO_MIX_FECHA_VALOR;
+                this.criterioUsado = "Mix Fecha y Valor";
                 break;
 
             case "CRITERIO_MIX_VALOR_FECHA":
                 crit = CriteriosEnum.CRITERIO_MIX_VALOR_FECHA;
+                this.criterioUsado = "Mix Valor y Fecha";
                 break;
         }
         return crit;
@@ -60,13 +67,14 @@ public class ControladorDeVinculaciones {
         ArrayList <OperacionDeIngreso> ingresos = RepositorioIngresos.getInstancia().obtenerTodos();
         this.vinculaciones = this.vinculador.vincular(ingresos, egresos, convertirCriterio(request.queryParams("criterio")));
         System.out.println(vinculaciones);
-        response.redirect("/vinculacion");
+        response.redirect("/vinculaciones");
         return response;
     }
 
     public ModelAndView mostrarVinculaciones(Request request, Response response) {
                 Map<String, Object> parametros = new HashMap<>();
                 parametros.put("vinculaciones", vinculaciones);
+                parametros.put("criterio", criterioUsado);
                 return new ModelAndView(parametros, "egresos/vinculaciones.hbs");
             }
 }

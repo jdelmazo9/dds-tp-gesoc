@@ -103,7 +103,7 @@ public class ControladorDeEgresos {
             this.repositorioEgresos.agregar(egreso);
         }
 
-        response.redirect("/egresos");
+        response.redirect("/egresos/" + egreso.getId());
         return response;
     }
 
@@ -113,7 +113,18 @@ public class ControladorDeEgresos {
         return response;
     }
 
-    public ModelAndView mostrarEgreso(Request request, Response response){
+    public Response eliminarItem(Request request, Response response){
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        System.out.println(egreso.getItems().size());
+        Item item = egreso.buscarItem(new Integer(request.params("id_item")));
+        System.out.println(item.getDescripcion());
+        egreso.eliminarItem(item);
+        System.out.println(egreso.getItems().size());
+        return response;
+    }
+
+
+    public ModelAndView mostrarEgreso(Request request, Response response) {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
@@ -135,6 +146,13 @@ public class ControladorDeEgresos {
         return response;
     }
 
+    public Response eliminarPresupuesto(Request request, Response response){
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        Presupuesto presu = egreso.getPresupuesto(new Integer(request.params("id_presupuesto")));
+        egreso.getPresupuestos().remove(presu);
+        return response;
+    }
+
     public Response agregarItem(Request request, Response response){
         Item unItem = new Item(TipoItem.valueOf(request.queryParams("Tipo")), request.queryParams("Descripcion"), Double.parseDouble(request.queryParams("Valor")));
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
@@ -150,6 +168,13 @@ public class ControladorDeEgresos {
         egreso.agregarCategoria(unaCategoria);
         response.redirect("/egresos/" + request.params("id"));
         System.out.println(egreso.getCategorias());
+        return response;
+    }
+
+    public Response eliminarCategoria(Request request, Response response){
+        OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
+        Categoria cat = egreso.getCategoria(new Integer(request.params("id_categoria")));
+        egreso.getCategorias().remove(cat);
         return response;
     }
 

@@ -25,6 +25,46 @@ function includeHTML() {
     }
   }
 }
+
+function eliminarItem(idEgreso, idItem){
+
+  console.log(idEgreso);
+  console.log(idItem);
+  $.ajax({
+      type: "DELETE",
+      url: "/egresos/" + idEgreso + "/items/" + idItem,
+      success: function(result){
+          location.reload(true);
+      }
+  });
+}
+
+function eliminarPresupuesto(idEgreso, idPresupuesto){
+
+  console.log(idEgreso);
+  console.log(idPresupuesto);
+  $.ajax({
+      type: "DELETE",
+      url: "/egresos/" + idEgreso + "/presupuesto/" + idPresupuesto,
+      success: function(result){
+          location.reload(true);
+      }
+  });
+}
+
+function eliminarCategoria(idEgreso, idCategoria){
+
+  console.log(idEgreso);
+  console.log(idCategoria);
+  $.ajax({
+      type: "DELETE",
+      url: "/egresos/" + idEgreso + "/categorias/" + idCategoria,
+      success: function(result){
+          location.reload(true);
+      }
+  });
+}
+
 /*
 const sendBtn = document.querySelector(".send");
 const dropdownMenu = document.querySelector(".select-criterio");

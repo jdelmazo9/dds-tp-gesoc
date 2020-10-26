@@ -3,12 +3,16 @@ package grupo6.dominio.entidades;
 import java.util.ArrayList;
 
 public class Presupuesto {
+    private static int id_count = 0;
+    private int id;
     private ArrayList<Item> items;
     private double valorTotal;
     private Proveedor proveedor;
     private ArrayList<Categoria> categorias;
 
     public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
+        this.id = id_count;
+        id_count += 1;
         this.items = items;
         this.calcular_valor_total();
         this.proveedor = proveedor;
@@ -44,5 +48,9 @@ public class Presupuesto {
     }
 
     public void agregarCategoria(Categoria categoria) { this.categorias.add(categoria); }
+
+	public Integer getId() {
+		return this.id;
+	}
 }
 

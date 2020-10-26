@@ -193,5 +193,40 @@ public class OperacionDeEgreso {
 
         return true;
     }
+
+	public Item buscarItem(Integer entero) {
+        for(Item i : this.items){
+            if( i.getId() == (int)entero){
+                System.out.println(i.getId().toString());
+                return i;
+            }
+            
+        }
+        System.out.println("Estoy Fallando");
+		return null;
+	}
+
+	public Presupuesto getPresupuesto(Integer entero) {
+        for(Presupuesto p : this.presupuestos){
+            if( p.getId() == (int)entero){
+                return p;
+            }
+        }
+        return null;
+        
+    }
+
+	public Categoria getCategoria(Integer entero) {
+        for(Categoria c : this.categorias){
+            if( c.getId() == (int)entero){
+                System.out.println(c.getId().toString());
+
+                return c;
+            }
+        }
+		return null;
+	}
+
 }
+
 

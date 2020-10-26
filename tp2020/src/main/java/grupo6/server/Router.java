@@ -89,8 +89,11 @@ public class Router {
         Spark.get("/egresos/:id", controladorDeEgresos::mostrarEgreso, Router.engine);
         Spark.delete("/egresos/:id", controladorDeEgresos::eliminar);
         Spark.post("/egresos/:id/items", controladorDeEgresos::agregarItem);
+        Spark.delete("/egresos/:id/items/:id_item", controladorDeEgresos::eliminarItem);
         Spark.post("/egresos/:id/categorias", controladorDeEgresos::agregarCategorias);
+        Spark.delete("/egresos/:id/categorias/::id_categoria", controladorDeEgresos::eliminarCategoria);
         Spark.post("/egresos/:id/cargar-json-presupuestos", controladorDeEgresos::cargarPresupuestos);
+        Spark.delete("/egresos/:id/presupuesto/:id_presupuesto", controladorDeEgresos::eliminarPresupuesto);
 
 
         // Ingresos
@@ -104,6 +107,7 @@ public class Router {
         Spark.get("/vinculacion", controladorDeVinculaciones::setUpVinculacion, Router.engine);
         Spark.post("/vinculacion", controladorDeVinculaciones::vincularEgresos);
         Spark.get("/vinculaciones", controladorDeVinculaciones::mostrarVinculaciones, Router.engine);
+        
 
 
         // Criterios

@@ -3,11 +3,16 @@ package grupo6.dominio.entidades;
 import java.util.Objects;
 
 public class Item {
+    // Hardcodeo in id para boton de borrar
+    private static int cant_items = 0;
+    private int id;
     private TipoItem tipo;
     private String descripcion;
     private Double valor;
 
     public Item(TipoItem tipo, String descripcion, Double valor) {
+        this.id = cant_items;
+        cant_items += 1;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.valor = valor;
@@ -50,4 +55,8 @@ public class Item {
     public int hashCode() {
         return Objects.hash(tipo, descripcion);
     }
+
+	public Integer getId() {
+		return this.id;
+	}
 }
