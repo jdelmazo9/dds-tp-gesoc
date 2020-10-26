@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
+import grupo6.dominio.repositorios.RepositorioMediosDePago;
 import grupo6.dominio.repositorios.RepositorioProveedores;
 import grupo6.dominio.repositorios.daos.OperacionDTO;
-import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.FileUploadHandler;
 import spark.ModelAndView;
 import spark.Request;
@@ -26,6 +26,11 @@ public class ControladorDeEgresos {
 
     public RepositorioEgresos getRepositorioEgresos() {
         return repositorioEgresos;
+    }
+
+    public ModelAndView prueba(Request request, Response response) {
+        Map<String, Object> parametros = new HashMap<>();
+        return new ModelAndView(parametros, "egresos/ejemplo.hbs");
     }
 
     public ModelAndView mostrarTodos(Request request, Response response) {
@@ -79,6 +84,7 @@ public class ControladorDeEgresos {
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
+        parametros.put("mediosDePago", RepositorioMediosDePago.getInstancia().getMedioDePagos());
         return new ModelAndView(parametros, "egresos/nuevo.hbs");
     }
 
@@ -94,6 +100,11 @@ public class ControladorDeEgresos {
         if(request.queryParams("proveedor") != null){
             Proveedor proveedor = RepositorioProveedores.getInstancia().buscar(new Integer(request.queryParams("proveedor")));
             egreso.setProveedor(proveedor);
+        }
+        System.out.println(request.queryParams("medioDePago"));
+        if(request.queryParams("medioDePago") != null){
+            MedioDePago medioDePago = RepositorioMediosDePago.getInstancia().buscar(request.queryParams("medioDePago"));
+            egreso.setMedioDePago(medioDePago);
         }
         if(!request.queryParams("fecha").equals("")){
             egreso.setFecha(LocalDate.parse(request.queryParams("fecha"), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
@@ -129,6 +140,7 @@ public class ControladorDeEgresos {
         parametros.put("egreso", this.repositorioEgresos.buscar(Integer.parseInt(request.params("id"))));
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
+        parametros.put("mediosDePago", RepositorioMediosDePago.getInstancia().getMedioDePagos());
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
     }
 

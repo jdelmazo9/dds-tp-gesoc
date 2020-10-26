@@ -5,23 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://kit.fontawesome.com/27517fada0.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="/js/egresos.js"></script>
     <script src="/js/criterios.js"></script>
+    <script src="/js/magic.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" >
     <title>Egresos - Nuevo</title>
 </head>
-<!--
-<header>
-    <img src="/img/untlogo.png" alt="utn logo" class="utnLogo">
-    <div class="diseniologo">
-        <img src="/img/logosolo.png" alt="diseniologo" style="">
-        <p>Diseño de Sistemas</p>
-    </div>
-</header>
--->
 
 <body>
 <header>
@@ -46,9 +41,24 @@
                     {{/each}}
                 </select>
             </div>
+
+            <!--FECHA-->
             <div>
                 <bold style="font-size:14px">Seleccione la fecha del egreso:</bold>
                 <input type="date" name="fecha"  class="input-datos" style="float:right;">
+            </div>
+
+            <!--MEDIO DE PAGO-->
+            <div>
+                <bold style="font-size:14px">Seleccione el método de pago:</bold>
+                <div style="float:right;">
+                <select class="input-select" name="medioDePago" style="float:right;" id="medioDePago">
+                    <option selected disabled>Seleccionar</option>
+                    {{#each mediosDePago}}
+                        <option value="{{id}}" src="{{imagen}}">{{nombre}}</option>
+                    {{/each}}
+                </select>
+                </div>
             </div>
 
             <a href="/egresos" class="btn" style="float:left">Volver</a>

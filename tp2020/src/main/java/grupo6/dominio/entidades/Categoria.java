@@ -1,27 +1,28 @@
 package grupo6.dominio.entidades;
 
-import java.util.ArrayList;
 
+import com.google.gson.annotations.Expose;
+
+import javax.persistence.*;
+
+@Entity
 public class Categoria {
-    private static int id_count = 0;
+    @Id
+    @GeneratedValue
     private int id;
     private String nombre;
-    private transient Criterio criterio;
+    @Hidden
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CriterioID", referencedColumnName = "id")
+    private Criterio criterio;
 
-    public Categoria() {
-        this.id = id_count;
-        id_count +=1;
-    }
+    public Categoria() {}
 
     public Categoria(String nombre) {
-        this.id = id_count;
-        id_count +=1;
         this.nombre = nombre;
     }
 
     public Categoria(String nombre, Criterio criterio) {
-        this.id = id_count;
-        id_count +=1;
         this.nombre = nombre;
         this.criterio = criterio;
         criterio.agregarCategoria(this);

@@ -9,10 +9,12 @@
     <script src="/js/egresos.js"></script>
     <script src="/js/criterios.js"></script>
     <script src="/js/generales.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="icon" href="/img/logosolo.png">
     <link rel="stylesheet" href="/css/usuarios.estilos.css">
     <link rel="stylesheet" href="/css/egresos.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" >
     <title>Egresos - Nuevo</title>
 </head>
 <body>
@@ -58,6 +60,25 @@
                     <bold style="font-size:14px">Seleccione la fecha del egreso:</bold>
                     <input type="date" name="fecha"  class="input-datos" value="{{egreso.fecha}}" style="float:right;">
                 </div>
+
+
+                <!--MEDIO DE PAGO-->
+                <div>
+                    <bold style="font-size:14px">Seleccione el método de pago:</bold>
+                    <div style="float:right;">
+                        <select class="input-select" name="medioDePago" style="float:right;" id="medioDePago">
+                            {{#if egreso.medioDePago}}
+                                <option selected disabled src="{{egreso.medioDePago.imagen}}" value="{{egreso.medioDePago.id}}"> {{egreso.medioDePago.nombre}} </option>
+                            {{else}}
+                                <option selected disabled>Seleccionar</option>
+                            {{/if}}
+                            {{#each mediosDePago}}
+                                <option value="{{id}}" src="{{imagen}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
                 <input type="submit" class="btn" style="float:right;"  value="Guardar">
             </form>
         </div>

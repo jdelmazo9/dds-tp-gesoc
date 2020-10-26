@@ -46,6 +46,13 @@ public class DAOMemoria<T> implements DAO<T> {
     }
 
     @Override
+    public List<T> buscarTodos(BusquedaCondicional condicional) {
+        return (List<T>) this.entidades
+            .stream()
+            .filter(condicional.getCondicionPredicado());
+    }
+
+    @Override
     public void eliminar(Object unObjeto) {
         this.entidades.remove(unObjeto);
     }

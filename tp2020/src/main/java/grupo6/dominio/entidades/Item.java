@@ -1,18 +1,28 @@
 package grupo6.dominio.entidades;
 
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity
+
 public class Item {
-    // Hardcodeo in id para boton de borrar
-    private static int cant_items = 0;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+
+    @Enumerated(EnumType.STRING)
     private TipoItem tipo;
+
     private String descripcion;
     private Double valor;
 
+    public Item() {}
+
     public Item(TipoItem tipo, String descripcion, Double valor) {
-        this.id = cant_items;
-        cant_items += 1;
         this.tipo = tipo;
         this.descripcion = descripcion;
         this.valor = valor;

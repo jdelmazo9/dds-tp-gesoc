@@ -1,3 +1,34 @@
+//$('#medioDePagoDiv').ddslick({
+//    data: ddData,
+//    width: 300,
+//    imagePosition: "left",
+//    selectText: "Seleccione medio de pago",
+//    onSelected: function (data) {
+//        console.log(data);
+//    }
+//});
+
+$(document).ready(function(){
+  $("#medioDePago").select2({
+   templateResult: formatState
+  });
+ });
+
+ function formatState (state) {
+  if (!state.id) { return state.text; }
+  if (state.text === 'Seleccionar') {
+      var $state = $(
+         '<span>' + state.text + ' </span>'
+      );
+  }
+  else{
+      var $state = $(
+       '<span>' + state.text + '<img class="option-img" sytle="display: inline-block; width: 10px; height: 10px; " src="'+state.element.getAttribute("src")+'" />  </span>'
+      );
+  }
+  return $state;
+ }
+
 //
 //function agregarItem() {
 //    var descripcion = document.getElementById("inputDescripcion");

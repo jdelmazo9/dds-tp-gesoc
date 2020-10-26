@@ -2,6 +2,7 @@ package grupo6.spark.utils;
 
 import java.util.ArrayList;
 
+import grupo6.dominio.entidades.BandejaDeMensajes;
 import grupo6.dominio.entidades.ResultadoValidacion;
 
 public class NotificadorValidadorLicitacion {

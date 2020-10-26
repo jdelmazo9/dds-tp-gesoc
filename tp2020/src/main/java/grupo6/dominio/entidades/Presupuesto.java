@@ -1,30 +1,39 @@
 package grupo6.dominio.entidades;
 
-import java.util.ArrayList;
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.hibernate.annotations.JoinFormula;
+import org.hibernate.annotations.Where;
 
-public class Presupuesto {
-    private static int id_count = 0;
-    private int id;
-    private ArrayList<Item> items;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@DiscriminatorValue("Presupuesto")
+public class Presupuesto extends DocumentoItems {
+
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="documentoItemID")
+    private List<Item> items;
     private double valorTotal;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Proveedor proveedor;
+    //@ManyToMany
+    @Transient
     private ArrayList<Categoria> categorias;
 
-    public Presupuesto() {
-        this.id = id_count;
-        id_count += 1;
-    }
+    public Presupuesto(){}
 
     public Presupuesto(ArrayList<Item> items, Proveedor proveedor) {
-        this.id = id_count;
-        id_count += 1;
         this.items = items;
         this.calcular_valor_total();
         this.proveedor = proveedor;
     }
 
     public ArrayList<Item> getItems() {
-        return items;
+        return (ArrayList<Item>) items;
     }
 
     public void setItems(ArrayList<Item> items) {
@@ -54,8 +63,5 @@ public class Presupuesto {
 
     public void agregarCategoria(Categoria categoria) { this.categorias.add(categoria); }
 
-	public Integer getId() {
-		return this.id;
-	}
 }
 

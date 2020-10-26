@@ -1,13 +1,21 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Criterio {
-    int id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
     private String nombre;
+    @OneToOne
     private Criterio criterioPadre;
+    @OneToOne
     private Criterio criterioHijo;
-    private ArrayList<Categoria> categorias;
+    @OneToMany(mappedBy = "criterio",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Categoria> categorias;
 
     public Criterio() {
         categorias = new ArrayList<Categoria>();
@@ -18,10 +26,6 @@ public class Criterio {
         if(categoria.getCriterio()==null){
             categoria.vincularCriterio(this);
         }
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getId() {
@@ -54,7 +58,7 @@ public class Criterio {
     }
 
     public ArrayList<Categoria> getCategorias() {
-        return categorias;
+        return (ArrayList<Categoria>) categorias;
     }
 
     public Criterio getPadre(){return this.criterioPadre; }

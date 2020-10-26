@@ -68,6 +68,8 @@ public class Router {
         }
 
 
+        Spark.get("/prueba", controladorDeEgresos::prueba, Router.engine);
+
         // Welcome to Tomorrowland
 
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
@@ -126,14 +128,15 @@ public class Router {
 
         // Before Checks
 
-        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
-        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
-        Spark.before("/egresos",controladorDeSesion::verificarSesion);
-        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
-        Spark.before("/ingresos",controladorDeSesion::verificarSesion);
-        Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
-        Spark.before("/criterios",controladorDeSesion::verificarSesion);
-        Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
-        Spark.before("/",controladorDeSesion::verificarSesion);
+//        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+//        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
+//        Spark.before("/egresos",controladorDeSesion::verificarSesion);
+//        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
+//        Spark.before("/ingresos",controladorDeSesion::verificarSesion);
+//        Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
+//        Spark.before("/criterios",controladorDeSesion::verificarSesion);
+//        Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
+//        Spark.before("/",controladorDeSesion::verificarSesion);
+
     }
 }
