@@ -3,7 +3,6 @@ package grupo6.dominio.repositorios;
 import grupo6.dominio.entidades.MedioDePago;
 import grupo6.dominio.servicios.AdapterMediosDePago;
 import grupo6.dominio.servicios.AdapterMediosDePagoMP;
-import grupo6.dominio.servicios.MedioDePagoMP;
 
 import java.util.List;
 
@@ -21,6 +20,10 @@ public class RepositorioMediosDePago {
 
     public RepositorioMediosDePago(AdapterMediosDePago adapterMediosDePago){
         this.medioDePagos = adapterMediosDePago.getMediosDePago();
+    }
+
+    public MedioDePago buscar(String id){
+        return this.medioDePagos.stream().filter(e -> e.getId().equals(id)).findFirst().get();
     }
 
     public List<MedioDePago> getMedioDePagos() {
