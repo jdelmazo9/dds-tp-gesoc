@@ -1,14 +1,24 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.*;
+
+@Entity
 public class MedioDePago {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
+    @Enumerated(EnumType.STRING)
     private TipoPago medio;
-    private String id;
+    private String nombreID;
     private String nombre;
     private String imagen;
 
+    public MedioDePago() {}
+
     public MedioDePago(TipoPago medio, String id, String nombre, String imagen) {
         this.medio = medio;
-        this.id = id;
+        this.nombreID = id;
         this.nombre = nombre;
         this.imagen = imagen;
     }
@@ -22,11 +32,11 @@ public class MedioDePago {
     }
 
     public String getId() {
-        return id;
+        return nombreID;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.nombreID = id;
     }
 
     public String getNombre() {

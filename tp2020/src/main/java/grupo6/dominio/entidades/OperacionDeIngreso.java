@@ -1,21 +1,35 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.List;
 
+@Entity
 public class OperacionDeIngreso {
-    private ArrayList<Categoria> categorias;
-    private String desc;
-    private Double monto;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    private static int cantidadIngresos = 0;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Categoria> categorias;
+    private String descripcion;
+
+    @Column(precision=10, scale=2)
+    private Double monto;
+
+    @Column
     private LocalDate fecha;
-    private ArrayList<CriterioAceptacion> criterios;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="ingresoID")
+    private List<CriterioAceptacion> criterios;
+
+    public OperacionDeIngreso(){}
 
     public OperacionDeIngreso(String desc, Double monto){
-        this.id = ++cantidadIngresos;
-        this.desc = desc;
+        this.descripcion = desc;
         this.monto = monto;
         fecha = LocalDate.now();
         categorias = new ArrayList();
@@ -23,8 +37,7 @@ public class OperacionDeIngreso {
     }
 
     public OperacionDeIngreso(String desc, Double monto, LocalDate fecha){
-        this.id = ++cantidadIngresos;
-        this.desc = desc;
+        this.descripcion = desc;
         this.monto = monto;
         this.fecha = fecha;
         categorias = new ArrayList();
@@ -41,8 +54,8 @@ public class OperacionDeIngreso {
         return monto;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public void setFechaStr(String fecha){
@@ -68,7 +81,11 @@ public class OperacionDeIngreso {
     }
 
     public ArrayList<CriterioAceptacion> getCriterios() {
-        return criterios;
+        return (ArrayList<CriterioAceptacion>) criterios;
+    }
+
+    public CriterioAceptacion obtenerCriterioAceptacion(int index){
+        return criterios.get(index);
     }
 
     public void setearCriterioFechaDesdeHasta(LocalDate desde, LocalDate hasta){

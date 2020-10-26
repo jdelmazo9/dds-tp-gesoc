@@ -1,8 +1,21 @@
 package grupo6.dominio.entidades;
 
+import com.google.gson.annotations.Expose;
+
+import javax.persistence.*;
+
+@Entity
 public class Categoria {
+    @Id
+    @GeneratedValue
+    private int id;
     private String nombre;
-    private transient Criterio criterio;
+    @Hidden
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CriterioID", referencedColumnName = "id")
+    private Criterio criterio;
+
+    public Categoria() {}
 
     public Categoria(String nombre) { this.nombre = nombre; }
 

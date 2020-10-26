@@ -1,9 +1,20 @@
 package grupo6.dominio.entidades;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Proveedor {
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int id;
     private String nombre;
     private int nroIdentificacion;
     private String direccionPostal;
+
+    public Proveedor(){}
 
     public Proveedor(String nombre, int nroIdentificacion, String direccionPostal) {
         this.nombre = nombre;

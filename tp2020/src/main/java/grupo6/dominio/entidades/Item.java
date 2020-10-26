@@ -1,11 +1,26 @@
 package grupo6.dominio.entidades;
 
+import org.hibernate.annotations.*;
+
+import javax.persistence.*;
+import javax.persistence.Entity;
 import java.util.Objects;
 
+@Entity
+
 public class Item {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
+
+    @Enumerated(EnumType.STRING)
     private TipoItem tipo;
+
     private String descripcion;
     private Double valor;
+
+    public Item() {}
 
     public Item(TipoItem tipo, String descripcion, Double valor) {
         this.tipo = tipo;

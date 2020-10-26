@@ -1,12 +1,9 @@
 package grupo6.dominio.controladores;
 
 import com.google.gson.Gson;
-import grupo6.dominio.entidades.ResultadoValidacion;
-import grupo6.spark.utils.BandejaDeMensajes;
+import grupo6.dominio.entidades.BandejaDeMensajes;
 import spark.Request;
 import spark.Response;
-
-import java.util.ArrayList;
 
 
 public class ControladorDeValidaciones {
