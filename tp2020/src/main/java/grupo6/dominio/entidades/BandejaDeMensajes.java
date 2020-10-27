@@ -1,4 +1,4 @@
-package grupo6.spark.utils;
+package grupo6.dominio.entidades;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,17 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Lists;
 import grupo6.dominio.entidades.ResultadoValidacion;
 
+import javax.persistence.*;
+
+@Entity
 public class BandejaDeMensajes {
-    private ArrayList<ResultadoValidacion> resultados;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="bandejaMensajesID")
+    private List<ResultadoValidacion> resultados;
 
     public BandejaDeMensajes(){
         resultados = new ArrayList<ResultadoValidacion>();

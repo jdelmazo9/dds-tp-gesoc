@@ -1,6 +1,7 @@
 package grupo6.dominio.entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ValidadorLicitacion {
 
@@ -40,7 +41,7 @@ public abstract class ValidadorLicitacion {
     private Boolean validarCantidad(int cantPresupuestos){
         return cantPresupuestos >= this.cantidadMinimaDePresupuestos;
     }
-    private Boolean validarExistencia(ArrayList<Item> items, ArrayList<Presupuesto> presupuestos){
+    private Boolean validarExistencia(List<Item> items, List<Presupuesto> presupuestos){
         return presupuestos.stream().anyMatch(presu -> presu.getItems().containsAll(items));
     } // Valida que el egreso corresponda a un presupuesto existente
     public abstract Boolean validarCriterio(OperacionDeEgreso operacion);

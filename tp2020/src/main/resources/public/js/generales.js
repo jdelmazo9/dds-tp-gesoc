@@ -45,7 +45,7 @@ function eliminarPresupuesto(idEgreso, idPresupuesto){
   console.log(idPresupuesto);
   $.ajax({
       type: "DELETE",
-      url: "/egresos/" + idEgreso + "/presupuesto/" + idPresupuesto,
+      url: "/egresos/" + idEgreso + "/presupuestos/" + idPresupuesto,
       success: function(result){
           location.reload(true);
       }

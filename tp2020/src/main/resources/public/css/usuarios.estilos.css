@@ -123,8 +123,25 @@ a {
     text-decoration: none;
 }
 
-img:not(.logo) {
+.option-img {
+    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    padding-top: 4%;
+}
+
+img:not(.logo):not(.option-img):not(.medioDePagoLogo) {
     width: 100%;
+}
+
+.medioDePagoLogo{
+    width: 10%;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
+    padding-top: 4%;
+    margin-right: 4%;
 }
 
 #main_container{

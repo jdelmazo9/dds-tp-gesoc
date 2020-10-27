@@ -5,6 +5,7 @@ import grupo6.dominio.entidades.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class VinculadorExterno {
     public ArrayList<Vinculacion> vincular(ArrayList<IngresoDTO> ingresosDTO,
@@ -41,7 +42,7 @@ public class VinculadorExterno {
         return ingresos;
     }
 
-    private ArrayList<CriterioAceptacionEgresos> convertirCriterios(ArrayList<CriterioAceptacion> criterios){
+    private ArrayList<CriterioAceptacionEgresos> convertirCriterios(List<CriterioAceptacion> criterios){
         ArrayList <CriterioAceptacionEgresos> criteriosConv = new ArrayList<>();
         for (CriterioAceptacion c: criterios ) {
             switch (c.getTipoCriterio()){

@@ -1,7 +1,9 @@
 package grupo6.dominio.repositorios;
 
-//import db.EntityManagerHelper;
+import db.EntityManagerHelper;
 import grupo6.dominio.repositorios.daos.DAO;
+import grupo6.dominio.servicios.AdapterMediosDePago;
+
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
@@ -37,7 +39,8 @@ public class Repositorio<T> {
         return this.dao.buscar(id);
     }
 
-//    public CriteriaBuilder criteriaBuilder(){
-//        return EntityManagerHelper.getEntityManager().getCriteriaBuilder();
-//    }
+    public CriteriaBuilder criteriaBuilder(){
+        return EntityManagerHelper.getEntityManager().getCriteriaBuilder();
+    }
+
 }

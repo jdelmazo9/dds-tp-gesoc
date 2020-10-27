@@ -3,6 +3,7 @@ package grupo6.dominio.entidades;
 import grupo6.vinculaciones.VinculadorExterno;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdaptadorVinculadorConcreto implements AdaptadorVinculador {
     private VinculadorExterno vinculadorExterno;
@@ -25,7 +26,7 @@ public class AdaptadorVinculadorConcreto implements AdaptadorVinculador {
         return egresosDTO;
     }
 
-    private ArrayList<IngresoDTO> prepararIngresos(ArrayList<OperacionDeIngreso> ingresos) {
+    private ArrayList<IngresoDTO> prepararIngresos(List<OperacionDeIngreso> ingresos) {
         ArrayList<IngresoDTO> ingresosDTO = new ArrayList<>();
         for (OperacionDeIngreso i : ingresos) {
             ingresosDTO.add(new IngresoDTO(i.getId(), i.getFecha(), i.getMonto(), i.getCriterios()));

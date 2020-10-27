@@ -6,40 +6,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import grupo6.spark.utils.BandejaDeMensajes;
 import grupo6.spark.utils.NotificadorValidadorLicitacion;
 
-public class OperacionDeEgreso {
-    static int operacionesCreadas = 0;
-    private int id;
-    private ArrayList<DocumentoComercial> docsComerciales;
+import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("OperacionDeEgreso")
+public class OperacionDeEgreso extends DocumentoItems {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "documentoItemID")
+    private List<DocumentoComercial> docsComerciales;
+
     private URL docComercialExterno;
+    @ManyToOne
     private Proveedor proveedor;
     private LocalDate fecha;
-    private String fechaStr;
+    @ManyToOne
     private MedioDePago medioDePago;
-    private ArrayList<Item> items;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="documentoItemID")
+    private List<Item> items;
+    @Transient
     private ArrayList<String> detalleItems;
     private Double valorTotal;
-    private ArrayList<Presupuesto> presupuestos;
-
-    private ArrayList<Categoria> categorias;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "operacionDeEgresoID")
+    private List<Presupuesto> presupuestos;
+    @ManyToMany
+    private List<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
-
+    @Transient
     private NotificadorValidadorLicitacion notificador;
+    @Transient
     private ValidadorLicitacion validadorLicitacion;
 
 
 
     public OperacionDeEgreso() {
-        id =  ++operacionesCreadas;
         docsComerciales = new ArrayList<DocumentoComercial>();
         items = new ArrayList<Item>();
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         fecha = LocalDate.now();
-        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
@@ -49,13 +61,11 @@ public class OperacionDeEgreso {
 
     //CONSTRUCTOR PARA TESTS
     public OperacionDeEgreso(LocalDate fecha) {
-        id =  ++operacionesCreadas;
         docsComerciales = new ArrayList<DocumentoComercial>();
         items = new ArrayList<Item>();
         detalleItems = new ArrayList<String>();
         presupuestos = new ArrayList<Presupuesto>();
         this.fecha = fecha;
-        fechaStr = fecha.toString();
         notificador = new NotificadorValidadorLicitacion();
         validadorLicitacion = new ValidadorLicitacionMenorPrecio(); //Por ahora por ser el unico inicializamos uno
         //Calendar today = Calendar.getInstance();
@@ -63,7 +73,7 @@ public class OperacionDeEgreso {
         categorias = new ArrayList<>();
     }
 
-    public ArrayList<DocumentoComercial> getDocsComerciales() {
+    public List<DocumentoComercial> getDocsComerciales() {
         return docsComerciales;
     }
 
@@ -84,12 +94,11 @@ public class OperacionDeEgreso {
     }
 
     public String getFechaStr() {
-        return fechaStr;
+        return fecha.toString();
     }
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
-        fechaStr = fecha.toString();
     }
 
     public URL getDocComercialExterno() {
@@ -104,7 +113,7 @@ public class OperacionDeEgreso {
         this.medioDePago = medioDePago;
     }
 
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
@@ -130,7 +139,7 @@ public class OperacionDeEgreso {
         return valorTotal;
     }
 
-    public ArrayList<Categoria> getCategorias() {
+    public List<Categoria> getCategorias() {
         return categorias;
     }
 
@@ -138,11 +147,11 @@ public class OperacionDeEgreso {
         this.valorTotal = valorTotal;
     }
 
-    public ArrayList<Presupuesto> getPresupuestos() {
+    public List<Presupuesto> getPresupuestos() {
         return presupuestos;
     }
 
-    public void setPresupuestos(ArrayList<Presupuesto> presupuestos) {
+    public void setPresupuestos(List<Presupuesto> presupuestos) {
         this.presupuestos = presupuestos;
     }
 
@@ -173,10 +182,6 @@ public class OperacionDeEgreso {
         return this.validadorLicitacion;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public boolean esDeCategorias(List<String> criterios, List<String> categorias){
 
         for(int i = 0; i < categorias.size(); i++) {
@@ -200,7 +205,7 @@ public class OperacionDeEgreso {
                 System.out.println(i.getId().toString());
                 return i;
             }
-            
+
         }
         System.out.println("Estoy Fallando");
 		return null;
@@ -213,7 +218,7 @@ public class OperacionDeEgreso {
             }
         }
         return null;
-        
+
     }
 
 	public Categoria getCategoria(Integer entero) {
