@@ -85,4 +85,5 @@ public class RepositorioEgresos extends Repositorio<OperacionDeEgreso> {
 //        this.egresos.add(e2);
 //        this.egresos.add(e3);
     }
+
 }

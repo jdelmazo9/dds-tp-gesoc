@@ -21,6 +21,7 @@
         <class>grupo6.dominio.entidades.OperacionDeIngreso</class>
         <class>grupo6.dominio.entidades.ResultadoValidacion</class>
         <class>grupo6.dominio.entidades.BandejaDeMensajes</class>
+        <class>grupo6.dominio.entidades.MedioDePago</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class" />

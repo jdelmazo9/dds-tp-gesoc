@@ -42,4 +42,5 @@ public class Repositorio<T> {
     public CriteriaBuilder criteriaBuilder(){
         return EntityManagerHelper.getEntityManager().getCriteriaBuilder();
     }
+
 }

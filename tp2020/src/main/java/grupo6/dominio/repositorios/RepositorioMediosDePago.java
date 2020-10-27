@@ -27,7 +27,8 @@ public class RepositorioMediosDePago extends Repositorio<MedioDePago> {
 
     public RepositorioMediosDePago(AdapterMediosDePago adapterMediosDePago, DAO<MedioDePago> dao){
         super(dao);
-        this.dao.agregar(adapterMediosDePago.getMediosDePago());
+        for(MedioDePago m: adapterMediosDePago.getMediosDePago())
+            this.dao.agregar(m);
     }
 
 

@@ -28,11 +28,6 @@ public class ControladorDeEgresos {
         return repositorioEgresos;
     }
 
-    public ModelAndView prueba(Request request, Response response) {
-        Map<String, Object> parametros = new HashMap<>();
-        return new ModelAndView(parametros, "egresos/ejemplo.hbs");
-    }
-
     public ModelAndView mostrarTodos(Request request, Response response) {
 //        Map<String, Object> parametros = new HashMap<>();
 //        List<Usuario> usuarios = this.repo.buscarTodos();
@@ -112,6 +107,8 @@ public class ControladorDeEgresos {
 
         if(request.params("id") == null){
             this.repositorioEgresos.agregar(egreso);
+        } else {
+            this.repositorioEgresos.modificar(egreso);
         }
 
         response.redirect("/egresos/" + egreso.getId());
@@ -130,6 +127,7 @@ public class ControladorDeEgresos {
         Item item = egreso.buscarItem(new Integer(request.params("id_item")));
 //        System.out.println(item.getDescripcion());
         egreso.eliminarItem(item);
+        this.repositorioEgresos.modificar(egreso);
 //        System.out.println(egreso.getItems().size());
         return response;
     }
@@ -148,6 +146,7 @@ public class ControladorDeEgresos {
         OperacionDTO egresoTmp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(Integer.parseInt(request.params("id")));
         egreso.setPresupuestos(egresoTmp.getPresupuestos());
+        this.repositorioEgresos.modificar(egreso);
 
 //        for (Presupuesto p: egreso.getPresupuestos()) {
 //            System.out.println(p.getValorTotal());
@@ -163,6 +162,7 @@ public class ControladorDeEgresos {
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
         Presupuesto presu = egreso.getPresupuesto(new Integer(request.params("id_presupuesto")));
         egreso.getPresupuestos().remove(presu);
+        this.repositorioEgresos.modificar(egreso);
         return response;
     }
 
@@ -170,6 +170,7 @@ public class ControladorDeEgresos {
         Item unItem = new Item(TipoItem.valueOf(request.queryParams("Tipo")), request.queryParams("Descripcion"), Double.parseDouble(request.queryParams("Valor")));
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
         egreso.agregarItem(unItem);
+        this.repositorioEgresos.modificar(egreso);
         response.redirect("/egresos/"+request.params("id"));
         return response;
     }
@@ -179,6 +180,7 @@ public class ControladorDeEgresos {
         //        Categoria unaCategoria = new Categoria(request.queryParams("Nombre"), request.queryParams("Criterio"));
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
         egreso.agregarCategoria(unaCategoria);
+        this.repositorioEgresos.modificar(egreso);
         response.redirect("/egresos/" + request.params("id"));
 //        System.out.println(egreso.getCategorias());
         return response;
@@ -188,6 +190,7 @@ public class ControladorDeEgresos {
         OperacionDeEgreso egreso = this.repositorioEgresos.buscar(new Integer(request.params("id")));
         Categoria cat = egreso.getCategoria(new Integer(request.params("id_categoria")));
         egreso.getCategorias().remove(cat);
+        this.repositorioEgresos.modificar(egreso);
         return response;
     }
 
