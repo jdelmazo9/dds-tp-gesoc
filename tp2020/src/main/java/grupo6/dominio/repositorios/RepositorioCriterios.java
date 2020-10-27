@@ -84,6 +84,12 @@ public class RepositorioCriterios extends Repositorio<Criterio> {
         new Categoria("Córdoba", criterioProvincia);
         this.agregar(criterioProvincia);
 
+        Criterio criterioTipoIngreso = new Criterio();
+        criterioTipoIngreso.setNombre("TipoIngreso");
+        //criterioTipoProveedor.setId(0);
+        new Categoria("donacion", criterioTipoIngreso);
+        this.agregar(criterioTipoIngreso);
+
         /*
         //criterio Preferente / Categorias: Si, No
         Criterio criterioTipoProveedor = new Criterio();

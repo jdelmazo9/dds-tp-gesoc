@@ -12,6 +12,7 @@ public class OperacionDeIngreso {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
+//    @ManyToMany(cascade = CascadeType.ALL)
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Categoria> categorias;
     private String descripcion;
@@ -93,5 +94,22 @@ public class OperacionDeIngreso {
         criterio.agregarParametros("fechaDesde", desde);
         criterio.agregarParametros("fechaHasta", hasta);
         criterios.add(criterio);
+    }
+
+    public boolean esDeCategorias(List<String> criterios, List<String> categorias){
+
+        for(int i = 0; i < categorias.size(); i++) {
+            Boolean pertenece = false;
+            for(Categoria c : this.categorias) {
+                if(c.getNombre().equals(categorias.get(i)) && c.getCriterio().getNombre().equals(criterios.get(i))) {
+                    pertenece = true;
+                }
+            }
+            if(!pertenece) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

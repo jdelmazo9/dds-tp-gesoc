@@ -1,6 +1,6 @@
 package grupo6.dominio.controladores;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioEgresos;
@@ -12,6 +12,8 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -70,7 +72,15 @@ public class ControladorDeEgresos {
         else{
             egresos = repositorioEgresos.obtenerTodos(criterios, categorias);
         }
-        String json = new Gson().toJson(egresos);
+        for (OperacionDeEgreso e: egresos ) {
+            System.out.println(e.getId());
+        }
+//        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        GsonBuilder builder = new GsonBuilder();
+        builder.setExclusionStrategies( new HiddenAnnotationExclusionStrategy() );
+        Gson gson = builder.setDateFormat(DateFormat.FULL, DateFormat.FULL).create();
+        String json = gson.toJson(egresos);
+        System.out.println(json);
         response.type("application/json");
         return json;
     }

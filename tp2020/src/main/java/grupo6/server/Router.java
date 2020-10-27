@@ -67,9 +67,6 @@ public class Router {
             e.printStackTrace();
         }
 
-
-        Spark.get("/prueba", controladorDeEgresos::prueba, Router.engine);
-
         // Welcome to Tomorrowland
 
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
@@ -119,11 +116,12 @@ public class Router {
 
         // Api
 
-        Spark.before("/api/egresos",controladorDeSesion::verificarSesion);
+//        Spark.before("/api/egresos",controladorDeSesion::verificarSesion);
         Spark.get("/api/egresos", controladorDeEgresos::obtenerTodos);
         Spark.post("/api/egresos/:id/validacion", controladorDeEgresos::nuevaValidacion);
         Spark.get("/api/egresos/:id/validacion", controladorDeEgresos::obtenerValidaciones);
         Spark.get("/api/egresos/validacion", controladorDeValidaciones::obtenerValidaciones);
+        Spark.get("/api/ingresos", controladorDeIngresos::obtenerTodos);
 
 
         // Before Checks
