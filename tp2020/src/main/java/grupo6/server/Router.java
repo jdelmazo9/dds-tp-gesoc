@@ -68,8 +68,6 @@ public class Router {
         }
 
 
-        Spark.get("/prueba", controladorDeEgresos::prueba, Router.engine);
-
         // Welcome to Tomorrowland
 
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
