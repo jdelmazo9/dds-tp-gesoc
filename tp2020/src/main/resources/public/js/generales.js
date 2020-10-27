@@ -65,13 +65,21 @@ function eliminarCategoria(idEgreso, idCategoria){
   });
 }
 
-/*
-const sendBtn = document.querySelector(".send");
-const dropdownMenu = document.querySelector(".select-criterio");
-dropdownMenu.addEventListener("change", ()=>{
-  sendBtn.removeAttribute("disabled");
-})*/
+function backEgresos(){
+  console.log(document.getElementById('items-list').getElementsByTagName('li').length);
+  if(document.getElementById('items-list').getElementsByTagName('li').length > 0){
+    location.replace('/egresos');
+  }
+  
+}
 
+/*
+const sendBtn = document.getElementsByClassName("btn-item");
+const dropdownMenu = document.getElementById('items-list').length;
+if(dropdownMenu >= 1){
+  ()=>{sendBtn.removeAttribute("disabled")};
+};
+*/
 function DoNav(url) {
  document.location.href = url;
 }
