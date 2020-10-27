@@ -97,10 +97,10 @@
                         <option value="Articulo">Articulo</option>
                         <option value="Servicio">Servicio</option>
                     </select>
-                    <input type="submit" class="btn"  value="Cargar Item" style="float:right;">
+                    <input type="submit" class="btn"  value="Cargar Item" style="float:right;" >
                 </div>
             </form>
-            <ul class="ul-without-space">
+            <ul class="ul-items" id="items-list">
                 <div class="scrollable">
                     {{#each egreso.items}}
                         <li >{{descripcion}} ${{valor}} {{tipo}} <a onclick="eliminarItem({{egreso.id}}, {{id}})"><i class="fas fa-times"></i></a></li>
@@ -162,10 +162,13 @@
             </div>
         </div>
 
+
         <!--BOTONES-->
+
         <div>
-            <a href="/egresos" class="btn" style="float:right">Volver</a>
+            <button class="btn-item" style="float:right" onclick="backEgresos()">Guardar</button>
         </div>
+        
     </div>
 </div>
 
