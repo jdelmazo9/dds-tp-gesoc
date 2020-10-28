@@ -13,7 +13,7 @@ public class OperacionDeIngreso {
     private int id;
 
 //    @ManyToMany(cascade = CascadeType.ALL)
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Categoria> categorias;
     private String descripcion;
 

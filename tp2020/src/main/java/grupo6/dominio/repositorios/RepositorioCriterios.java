@@ -90,6 +90,8 @@ public class RepositorioCriterios extends Repositorio<Criterio> {
         new Categoria("donacion", criterioTipoIngreso);
         this.agregar(criterioTipoIngreso);
 
+        System.out.println("listooooooooo");
+
         /*
         //criterio Preferente / Categorias: Si, No
         Criterio criterioTipoProveedor = new Criterio();

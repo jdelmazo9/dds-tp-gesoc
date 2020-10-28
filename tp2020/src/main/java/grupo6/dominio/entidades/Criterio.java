@@ -14,7 +14,8 @@ public class Criterio {
     private Criterio criterioPadre;
     @OneToOne
     private Criterio criterioHijo;
-    @OneToMany(mappedBy = "criterio",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="criterio_id")
     private List<Categoria> categorias;
 
     public Criterio() {

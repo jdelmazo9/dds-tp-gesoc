@@ -62,6 +62,7 @@ public class RepositorioEgresos extends Repositorio<OperacionDeEgreso> {
     }
 
     public OperacionDeEgreso buscar(int id){
+        System.out.println("Deberia estar buscando");
         //return this.egresos.stream().filter(e -> e.getId() == id).findFirst().get();
         return this.dao.buscar(id);
     }

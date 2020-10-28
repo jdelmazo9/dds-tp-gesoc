@@ -12,8 +12,9 @@ public class Categoria {
     private int id;
     private String nombre;
     @Hidden
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "CriterioID", referencedColumnName = "id")
+//    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
+//    @JoinColumn(name = "CriterioID", referencedColumnName = "id")
     private Criterio criterio;
 
     public Categoria() {}
