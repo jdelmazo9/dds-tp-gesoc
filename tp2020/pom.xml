@@ -178,7 +178,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>Server</mainClass>
+                            <mainClass>grupo6\server\Server</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

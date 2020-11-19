@@ -12,7 +12,7 @@ public class Server {
     public static void main(String[] args) {
         //Spark.port(9000);
         Spark.port(getHerokuAssignedPort());
-        overridePersistence();
+        //overridePersistence(); Comenté esto porque me rompía
         Router.init();
         DebugScreen.enableDebugScreen();
     }
@@ -31,18 +31,19 @@ public class Server {
         for (String envName : env.keySet()) {
             if (envName.contains("USER_DB")) {
                 configOverrides.put("hibernate.connection.username", env.get(envName));
+                System.out.println(env.get(envName));
             }
             if (envName.contains("PASS_DB")) {
                 configOverrides.put("hibernate.connection.password", env.get(envName));
+                System.out.println(env.get(envName));
             }
             if (envName.contains("URL_DB")) {
                 configOverrides.put("hibernate.connection.url", env.get(envName));
+                System.out.println(env.get(envName));
             }
             // You can put more code in here to populate configOverrides...
         }
-
         EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("default", configOverrides);
-
     }
 }
