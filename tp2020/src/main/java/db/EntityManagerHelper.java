@@ -25,6 +25,7 @@ public class EntityManagerHelper {
     public static EntityManager getEntityManager() {
         EntityManager manager = threadLocal.get();
         if (manager == null || !manager.isOpen()) {
+//            System.out.println("Abriendo entity manager");
             manager = emf.createEntityManager();
             threadLocal.set(manager);
         }
@@ -33,8 +34,11 @@ public class EntityManagerHelper {
 
     public static void closeEntityManager() {
         EntityManager em = threadLocal.get();
-        threadLocal.set(null);
-        em.close();
+        if (em != null && em.isOpen()) {
+//            System.out.println("Cerrando entity manager");
+            em.close();
+            threadLocal.set(null);
+        }
     }
 
     public static void beginTransaction() {
@@ -69,6 +73,14 @@ public class EntityManagerHelper {
 
     public static void persist(Object o){
         entityManager().persist(o);
+    }
+
+    public static void merge(Object o){
+        entityManager().merge(o);
+    }
+
+    public static void delete(Object o){
+        entityManager().remove(o);
     }
 
     public static void withTransaction(Runnable action) {

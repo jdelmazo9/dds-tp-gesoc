@@ -35,7 +35,7 @@ public class OperacionDeEgreso extends DocumentoItems {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "operacionDeEgresoID")
     private List<Presupuesto> presupuestos;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Categoria> categorias;
 
     // private ValidadorLicitacion validadorLicitacion
