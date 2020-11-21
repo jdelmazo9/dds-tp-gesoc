@@ -95,18 +95,18 @@ public class PersistenceTest {
         this.entityManager.getTransaction().commit();
     }
 
-    @Test
-    public void testCargaIngresos() {
-        this.entityManager = entityManagerFactory.createEntityManager();
-        //Crear una casa con un cliente SQL
-        OperacionDeIngreso o1 = this.entityManager.find(OperacionDeIngreso.class,1);
-        OperacionDeIngreso o2 = this.entityManager.find(OperacionDeIngreso.class,2);
-
-        //Imprimirla por pantalla
-        System.out.println(o1.getDescripcion());
-        System.out.println(o2.getDescripcion());
-        System.out.println(o2.obtenerCriterioAceptacion(0).getParametro("fechaDesde"));
-        System.out.println(o2.obtenerCriterioAceptacion(0).getParametro("fechaHasta"));
-    }
+//    @Test
+//    public void testCargaIngresos() {
+//        this.entityManager = entityManagerFactory.createEntityManager();
+//        //Crear una casa con un cliente SQL
+//        OperacionDeIngreso o1 = this.entityManager.find(OperacionDeIngreso.class,1);
+//        OperacionDeIngreso o2 = this.entityManager.find(OperacionDeIngreso.class,2);
+//
+//        //Imprimirla por pantalla
+//        System.out.println(o1.getDescripcion());
+//        System.out.println(o2.getDescripcion());
+//        System.out.println(o2.obtenerCriterioAceptacion(0).getParametro("fechaDesde"));
+//        System.out.println(o2.obtenerCriterioAceptacion(0).getParametro("fechaHasta"));
+//    }
 
 }

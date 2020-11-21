@@ -1,0 +1,20 @@
+
+Pendientes para entrega final
+
+  Nuevo:
+  MATI * Verificar relacion usuario-organizacion (Crear egresos consistentes a la organización que pertenece el usuario operador) **Tratamos de zafarlo**
+
+importantes + a -:
+  ZUCCO + JERO * Levantar BD Mongo y registrar todas las tx (Consultar registros de auditoría de las operaciones ABM realizadas hasta el momento)
+  KIMON * Persistir usuarios y transformar repoUsuarios para que use los DAO + Revisar sesiones
+  KIMON * Verificar rol de usuario para transacciones (verificar sesion deberia verificar que hay usuario y, segun el tipo de usuario, permitir o no la operacion)
+  LUCO * Modificar logica de inicio y confirmacion de tx de BD, deberia haber una unica tx por operacion del controlador
+  MANU * Heroku: ver response time x error (expected 4 bytes, founded 0)
+  JERO * Generar script de carga inicial de datos (sql o java) + Sacar el create-drop del persistence.xml (usar variable de entorno LOAD_DEMO_DATA para saber si cargar o no la data para la demo en un metodo java porque con sql no sabemos como garcha hashear la contrasenia)
+  LUCO * Actualizar diagrama de clases
+  MANU * Actualizar DER
+
+pelotudeces - a +:
+  ZUCCO * Arreglar importacion de presupuestos por JSON
+  ZUCCO * Corregir resolucion imagenes de proveedores
+  JERO * Cambiar nombre a clase de calculo de tipo de empresa (dice hardcod, poner inMemory)

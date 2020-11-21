@@ -29,6 +29,7 @@ public class Usuario extends EntidadPersistente {
         this.nombre = nombre;
         this.rol = rol;
         this.setContrasenia(contrasenia);
+        System.out.println(this.nombre+". Mi contrasenia es: "+ this.contraseniaHash);
         this.bandejaDeMensajes = new BandejaDeMensajes();
     }
 

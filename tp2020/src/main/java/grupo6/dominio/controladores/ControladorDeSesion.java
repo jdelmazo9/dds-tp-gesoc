@@ -29,7 +29,7 @@ public class ControladorDeSesion {
     }
 
     public Response verificarSesion(Request request, Response response){
-        if(request.session(false) == null || request.session(false).isNew()){
+        if(request.session(false) == null /*|| request.session(false).isNew()*/){
             response.redirect("/login");
         }
         return response;
@@ -53,7 +53,7 @@ public class ControladorDeSesion {
 
 //        System.out.println(request.session(false).isNew());
 
-        if( request.session(false) != null && !request.session(false).isNew() ){
+        if( request.session(false) != null /*&& !request.session(false).isNew() */){
 //            throw new Exception("Ya hay un usuario logueado");
             response.body("Ya estas logueado salame");
             response.redirect("/");

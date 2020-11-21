@@ -22,13 +22,17 @@ class UsuarioTests {
     void setUp() throws Exception {
         regex = new ValidacionRegEx();
         longi = new ValidacionLongitud(4);
-        user = new Usuario("Carlos", "asdas1Adasd#",RolUsuario.ADMIN);
+        user = new Usuario("Carlos", "admin123",RolUsuario.ADMIN);
         controlador_segu = new ControladorDeSeguridad(regex, longi);
         controlador_usuario = new ControladorDeUsuarios(controlador_segu);
         controlador_sesion = new ControladorDeSesion(controlador_usuario);
-        controlador_usuario.agregarUsuario(user.getNombre(), "asdas1Adasd#", user.getRol());
+        controlador_usuario.agregarUsuario(user.getNombre(), "admin123", user.getRol());
     }
 
+    @Test
+    void nada() {
+
+    }
 //    @Test
 //    void LogInTest() throws Exception {
 //        assertThrows(ContraseniaInvalidaException.class, () -> {
