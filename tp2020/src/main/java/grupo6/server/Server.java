@@ -12,7 +12,7 @@ public class Server {
     public static void main(String[] args) {
         //Spark.port(9000);
         Spark.port(getHerokuAssignedPort());
-        //overridePersistence(); Comenté esto porque me rompía
+//        overridePersistence();// Comenté esto porque me rompía
         Router.init();
         DebugScreen.enableDebugScreen();
     }
@@ -25,25 +25,4 @@ public class Server {
         return 9000; //return default port if heroku-port isn't set (i.e. on localhost)
     }
 
-    static void overridePersistence() {
-        Map<String, String> env = System.getenv();
-        Map<String, Object> configOverrides = new HashMap<String, Object>();
-        for (String envName : env.keySet()) {
-            if (envName.contains("USER_DB")) {
-                configOverrides.put("hibernate.connection.username", env.get(envName));
-                System.out.println(env.get(envName));
-            }
-            if (envName.contains("PASS_DB")) {
-                configOverrides.put("hibernate.connection.password", env.get(envName));
-                System.out.println(env.get(envName));
-            }
-            if (envName.contains("URL_DB")) {
-                configOverrides.put("hibernate.connection.url", env.get(envName));
-                System.out.println(env.get(envName));
-            }
-            // You can put more code in here to populate configOverrides...
-        }
-        EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("default", configOverrides);
-    }
 }

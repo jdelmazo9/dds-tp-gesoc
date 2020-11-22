@@ -27,9 +27,14 @@
             <property name="hibernate.archive.autodetection" value="class" />
 
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com/heroku_ae4f74793cc188f" />
-            <property name="hibernate.connection.username" value="b368e0e7937e7a" />
-            <property name="hibernate.connection.password" value="549b45b9" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3333/dds" />
+            <property name="hibernate.connection.username" value="root" />
+            <property name="hibernate.connection.password" value="admin" />
+
+<!--            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />-->
+<!--            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com/heroku_ae4f74793cc188f" />-->
+<!--            <property name="hibernate.connection.username" value="b368e0e7937e7a" />-->
+<!--            <property name="hibernate.connection.password" value="549b45b9" />-->
 <!--            Le puse los valores manuales, deberían ir con las variables de entorno-->
 
 

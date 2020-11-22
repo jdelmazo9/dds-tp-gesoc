@@ -1,6 +1,8 @@
 package db;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class EntityManagerHelper {
@@ -9,9 +11,38 @@ public class EntityManagerHelper {
 
     private static ThreadLocal<EntityManager> threadLocal;
 
+
+    static EntityManagerFactory overridePersistence() {
+        Map<String, String> env = System.getenv();
+        Map<String, Object> configOverrides = new HashMap<String, Object>();
+        configOverrides = Persistence.createEntityManagerFactory("db").getProperties();
+        System.out.println("ENV VARS: "+env.toString());
+        for (String envName : env.keySet()) {
+            if (envName.contains("USER_DB")) {
+                configOverrides.put("hibernate.connection.username", env.get(envName));
+                System.out.println(env.get(envName));
+            }
+            if (envName.contains("PASS_DB")) {
+                configOverrides.put("hibernate.connection.password", env.get(envName));
+                System.out.println(env.get(envName));
+            }
+            if (envName.contains("URL_DB")) {
+                configOverrides.put("hibernate.connection.url", env.get(envName));
+                System.out.println(env.get(envName));
+            }
+            // You can put more code in here to populate configOverrides...
+        }
+        if(!configOverrides.isEmpty()) {
+            System.out.println("Trueeeeeeeeeeeeasdsd");
+            return Persistence.createEntityManagerFactory("db", configOverrides);
+        }
+        return Persistence.createEntityManagerFactory("db");
+    }
+
     static {
         try {
-            emf = Persistence.createEntityManagerFactory("db");
+//            emf = Persistence.createEntityManagerFactory("db");
+            emf = overridePersistence();
             threadLocal = new ThreadLocal<>();
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,4 +131,25 @@ public class EntityManagerHelper {
             throw e;
         }
     }
+
+//    private static Map<Object, Object> replaceWithEnvironmentVariableValues(Map<String, String> props) {
+//        Map<Object, Object> overrideProps = new HashMap<>();
+//        for (Map.Entry<String, String> entry : props.entrySet()) {
+//            String key = entry.getKey();
+//            String value = entry.getValue();
+//            boolean overridden = false;
+//            if (containsVariable(key)) {
+//                key = replaceWithVariableValue(key);
+//                overridden = true;
+//            }
+//            if (containsVariable(value)) {
+//                value = replaceWithVariableValue(value);
+//                overridden = true;
+//            }
+//            if (overridden) {
+//                overrideProps.put(key, value);
+//            }
+//        }
+//        return overrideProps;
+//    }
 }

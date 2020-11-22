@@ -2,6 +2,7 @@ package grupo6.dominio.controladores;
 
 import com.google.gson.*;
 import db.EntityManagerHelper;
+import grupo6.bitacoraOperaciones.ServicioRegistroOperaciones;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.*;
 import grupo6.dominio.repositorios.daos.OperacionDTO;
@@ -119,6 +120,9 @@ public class ControladorDeEgresos {
             RepositorioEgresos.getInstancia().modificar(egreso);
         }
         response.redirect("/egresos/" + egreso.getId());
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+//        ServicioRegistroOperaciones.getInstancia().registrarOperacion(new ControladorDeSesion(). request.session().attribute("id"));
         return response;
     }
 
