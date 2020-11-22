@@ -54,23 +54,4 @@ public class RepositorioIngresos extends Repositorio<OperacionDeIngreso> {
         return listaIngresos.stream().filter(i -> i.esDeCategorias(criterios, categorias)).collect(Collectors.toList());
     }
 
-
-    public void cargarDatosTest() {
-        //INSTANCIO OPERACIONES DE INGRESO
-        OperacionDeIngreso i1, i2, i3;
-        Categoria donacion = RepositorioCriterios.getInstancia().buscar("TipoIngreso").buscar("donacion");
-        i1 = new OperacionDeIngreso("Donacion 1", 3500d, LocalDate.parse("2018-02-27"));
-        i1.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
-        i1.agregarCategoria(donacion);
-        i2 = new OperacionDeIngreso("Donacion 2", 4000d, LocalDate.parse("2018-02-22"));
-        i2.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
-        i2.agregarCategoria(donacion);
-        i3 = new OperacionDeIngreso("Operacion 3", 2500d, LocalDate.parse("2018-02-23"));
-        i3.agregarCriterio(new CriterioAceptacion(TipoCriterio.SIN_RESTRICCION));
-
-        this.agregar(i1);
-        this.agregar(i2);
-        this.agregar(i3);
-    }
-
 }

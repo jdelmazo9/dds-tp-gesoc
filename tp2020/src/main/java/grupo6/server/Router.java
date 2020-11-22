@@ -5,6 +5,7 @@ package grupo6.server;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
 
+import grupo6.dominio.cargaDataInicial.CargaInicialBD;
 import grupo6.dominio.controladores.*;
 import grupo6.dominio.entidades.AdaptadorVinculadorConcreto;
 
@@ -40,36 +41,22 @@ public class Router {
     }
 
     private static void configure(){
-        ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionRegEx(), new ValidacionLongitud(5));
+        ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionLongitud(5), new ValidacionLongitud(5));
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeCriterios controladorDeCriterios = new ControladorDeCriterios();
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
-
-
         ControladorDeVinculaciones controladorDeVinculaciones = new ControladorDeVinculaciones();
-
         ControladorDeIngresos controladorDeIngresos = new ControladorDeIngresos();
-        RepositorioCriterios repositorioCriterios = RepositorioCriterios.getInstancia();
-        repositorioCriterios.cargarCriteriosTest();
-
         ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
-        RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
-        repositorioProveedores.cargarProveedoresTest();
 
-        RepositorioEgresos.getInstancia().cargarDatosTest();
-        RepositorioIngresos.getInstancia().cargarDatosTest();
 
-        try {
-            controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
-            controladorDeUsuarios.agregarUsuario("api_user", "api123456", RolUsuario.ESTANDAR);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CargaInicialBD.cargaInicial();
 
-        // Welcome to Tomorrowland
+        // Welcome
 
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
+        Spark.get("/admin", controladorDeSesion::inicioAdmin, Router.engine);
 
 
         // Sesion
@@ -135,6 +122,7 @@ public class Router {
         Spark.before("/criterios",controladorDeSesion::verificarSesion);
         Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
         Spark.before("/",controladorDeSesion::verificarSesion);
+        Spark.before("/admin",controladorDeSesion::verificarSesionAdmin);
 
     }
 }

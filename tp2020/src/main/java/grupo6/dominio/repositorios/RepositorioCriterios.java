@@ -65,40 +65,4 @@ public class RepositorioCriterios extends Repositorio<Criterio> {
         return this.dao.buscar(id);
     }
 
-    public void cargarCriteriosTest(){
-        //criterio TipoProveedor / Categorias: Nacional, Internacional
-        Criterio criterioTipoProveedor = new Criterio();
-        criterioTipoProveedor.setNombre("TipoProveedor");
-        //criterioTipoProveedor.setId(0);
-        new Categoria("Nacional", criterioTipoProveedor);
-        new Categoria("Internacional", criterioTipoProveedor);
-        this.agregar(criterioTipoProveedor);
-        System.out.println("agregue los criterios");
-
-        //criterio Provincia / Categorias: Buenos Aires, Entre Ríos, Córdoba
-        Criterio criterioProvincia = new Criterio();
-        criterioProvincia.setNombre("Provincia");
-        //criterioProvincia.setId(1);
-        new Categoria("Buenos Aires", criterioProvincia);
-        new Categoria("Entre Ríos", criterioProvincia);
-        new Categoria("Córdoba", criterioProvincia);
-        this.agregar(criterioProvincia);
-
-        Criterio criterioTipoIngreso = new Criterio();
-        criterioTipoIngreso.setNombre("TipoIngreso");
-        //criterioTipoProveedor.setId(0);
-        new Categoria("donacion", criterioTipoIngreso);
-        this.agregar(criterioTipoIngreso);
-
-        System.out.println("listooooooooo");
-
-        /*
-        //criterio Preferente / Categorias: Si, No
-        Criterio criterioTipoProveedor = new Criterio();
-        criterioTipoProveedor.setNombre("TipoProveedor");
-        new Categoria("Nacional", criterioTipoProveedor);
-        new Categoria("Internacional", criterioTipoProveedor);
-        this.criterios.add(criterioTipoProveedor);
-         */
-    }
 }
