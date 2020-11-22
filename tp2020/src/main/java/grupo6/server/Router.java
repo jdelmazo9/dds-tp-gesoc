@@ -5,6 +5,7 @@ package grupo6.server;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
 
+import grupo6.dominio.cargaDataInicial.CargaInicialBD;
 import grupo6.dominio.controladores.*;
 import grupo6.dominio.entidades.AdaptadorVinculadorConcreto;
 
@@ -45,27 +46,12 @@ public class Router {
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeCriterios controladorDeCriterios = new ControladorDeCriterios();
         ControladorDeEgresos controladorDeEgresos = new ControladorDeEgresos();
-
-
         ControladorDeVinculaciones controladorDeVinculaciones = new ControladorDeVinculaciones();
-
         ControladorDeIngresos controladorDeIngresos = new ControladorDeIngresos();
-        RepositorioCriterios repositorioCriterios = RepositorioCriterios.getInstancia();
-        repositorioCriterios.cargarCriteriosTest();
-
         ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
-        RepositorioProveedores repositorioProveedores = RepositorioProveedores.getInstancia();
-        repositorioProveedores.cargarProveedoresTest();
 
-        RepositorioEgresos.getInstancia().cargarDatosTest();
-        RepositorioIngresos.getInstancia().cargarDatosTest();
 
-        try {
-            controladorDeUsuarios.agregarUsuario("admin", "admin123", RolUsuario.ADMIN);
-            controladorDeUsuarios.agregarUsuario("api_user", "api123456", RolUsuario.ESTANDAR);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CargaInicialBD.cargaInicial();
 
         // Welcome
 
