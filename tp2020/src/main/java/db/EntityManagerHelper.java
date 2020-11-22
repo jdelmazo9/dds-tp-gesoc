@@ -8,8 +8,8 @@ public class EntityManagerHelper {
     static EntityManagerFactory overridePersistence() {
         String persistence_unit_name = System.getenv().get("PERSISTENCE_UNIT_NAME");
         System.out.println("persistence_unit_name: "+ persistence_unit_name);
-        if(persistence_unit_name != null && persistence_unit_name.equals("db-cloud")){
-            return Persistence.createEntityManagerFactory("db-cloud");
+        if(persistence_unit_name != null){
+            return Persistence.createEntityManagerFactory(persistence_unit_name);
         }
         return Persistence.createEntityManagerFactory("db-local");
 
