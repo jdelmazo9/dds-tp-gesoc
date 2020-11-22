@@ -50,8 +50,9 @@ public class Router {
         ControladorDeIngresos controladorDeIngresos = new ControladorDeIngresos();
         ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
 
-
-        CargaInicialBD.cargaInicial();
+        String ejecutarCargaInicial = System.getenv("LOAD_DEMO_DATA");
+        if(ejecutarCargaInicial == null || ejecutarCargaInicial == "TRUE")
+            CargaInicialBD.cargaInicial();
 
         // Welcome
 
