@@ -69,9 +69,9 @@
         <properties>
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com/heroku_ae4f74793cc188f" />
-            <property name="hibernate.connection.username" value="b368e0e7937e7a" />
-            <property name="hibernate.connection.password" value="549b45b9" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://us-cdbr-east-02.cleardb.com/heroku_dd67b8a6a0c747a" />
+            <property name="hibernate.connection.username" value="b7f62198f02e58" />
+            <property name="hibernate.connection.password" value="d7b070be" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
