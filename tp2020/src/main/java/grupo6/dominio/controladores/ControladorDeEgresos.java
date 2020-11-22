@@ -152,7 +152,7 @@ public class ControladorDeEgresos {
     public Response cargarPresupuestos(Request request, Response response){
         OperacionDTO egresoTmp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id")));
-        egreso.setPresupuestos(egresoTmp.getPresupuestos());
+        egreso.addPresupuestos(egresoTmp.getPresupuestos());
         RepositorioEgresos.getInstancia().modificar(egreso);
 
 //        for (Presupuesto p: egreso.getPresupuestos()) {

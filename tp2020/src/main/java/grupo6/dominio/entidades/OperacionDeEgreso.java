@@ -151,8 +151,12 @@ public class OperacionDeEgreso extends DocumentoItems {
         return presupuestos;
     }
 
-    public void setPresupuestos(List<Presupuesto> presupuestos) {
-        this.presupuestos = presupuestos;
+//    public void setPresupuestos(List<Presupuesto> presupuestos) {
+//        this.presupuestos = presupuestos;
+//    }
+
+    public void addPresupuestos(List<Presupuesto> presupuestos) {
+        this.presupuestos.addAll(presupuestos);
     }
 
     public void adjuntar(DocumentoComercial documento){this.docsComerciales.add(documento); }
