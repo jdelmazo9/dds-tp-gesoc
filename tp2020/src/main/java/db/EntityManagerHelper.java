@@ -1,43 +1,53 @@
 package db;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class EntityManagerHelper {
 
+    static EntityManagerFactory overridePersistence() {
+        String persistence_unit_name = System.getenv().get("PERSISTENCE_UNIT_NAME");
+        System.out.println("persistence_unit_name: "+ persistence_unit_name);
+        if(persistence_unit_name != null && persistence_unit_name.equals("db-cloud")){
+            return Persistence.createEntityManagerFactory("db-cloud");
+        }
+        return Persistence.createEntityManagerFactory("db-local");
+
+//
+//        boolean cambiamo_algo = false;
+//        Map<String, String> env = System.getenv();
+//        Map<String, Object> configOverrides = new HashMap<String, Object>();
+//        configOverrides = Persistence.createEntityManagerFactory("db").getProperties();
+//        System.out.println("ENV VARS: "+env.toString());
+//        for (String envName : env.keySet()) {
+//            if (envName.contains("USER_DB")) {
+//                cambiamo_algo = true;
+//                configOverrides.put("hibernate.connection.username", env.get(envName));
+//                System.out.println(env.get(envName));
+//            }
+//            if (envName.contains("PASS_DB")) {
+//                cambiamo_algo = true;
+//                configOverrides.put("hibernate.connection.password", env.get(envName));
+//                System.out.println(env.get(envName));
+//            }
+//            if (envName.contains("URL_DB")) {
+//                cambiamo_algo = true;
+//                configOverrides.put("hibernate.connection.url", env.get(envName));
+//                System.out.println(env.get(envName));
+//            }
+//            // You can put more code in here to populate configOverrides...
+//        }
+//        if(cambiamo_algo) {
+//            System.out.println("Trueeeeeeeeeeeeasdsd");
+//            return Persistence.createEntityManagerFactory("db", configOverrides);
+//        }
+//        System.out.println("No entro por ahi, debeeria andar");
+//        return Persistence.createEntityManagerFactory("db");
+    }
+
     private static EntityManagerFactory emf;
 
     private static ThreadLocal<EntityManager> threadLocal;
-
-
-    static EntityManagerFactory overridePersistence() {
-        Map<String, String> env = System.getenv();
-        Map<String, Object> configOverrides = new HashMap<String, Object>();
-        configOverrides = Persistence.createEntityManagerFactory("db").getProperties();
-        System.out.println("ENV VARS: "+env.toString());
-        for (String envName : env.keySet()) {
-            if (envName.contains("USER_DB")) {
-                configOverrides.put("hibernate.connection.username", env.get(envName));
-                System.out.println(env.get(envName));
-            }
-            if (envName.contains("PASS_DB")) {
-                configOverrides.put("hibernate.connection.password", env.get(envName));
-                System.out.println(env.get(envName));
-            }
-            if (envName.contains("URL_DB")) {
-                configOverrides.put("hibernate.connection.url", env.get(envName));
-                System.out.println(env.get(envName));
-            }
-            // You can put more code in here to populate configOverrides...
-        }
-        if(!configOverrides.isEmpty()) {
-            System.out.println("Trueeeeeeeeeeeeasdsd");
-            return Persistence.createEntityManagerFactory("db", configOverrides);
-        }
-        return Persistence.createEntityManagerFactory("db");
-    }
 
     static {
         try {
