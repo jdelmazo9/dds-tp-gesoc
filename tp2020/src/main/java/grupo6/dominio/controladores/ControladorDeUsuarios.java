@@ -6,6 +6,7 @@ package grupo6.dominio.controladores;
 import java.util.Set;
 import java.util.HashSet;
 import grupo6.seguridad.Excepciones.*;
+import grupo6.dominio.repositorios.RepositorioDeUsuarios;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.Usuario;
 
@@ -18,12 +19,18 @@ public class ControladorDeUsuarios {
     }
 
     public void agregarUsuario(String nombre, String contrasenia, RolUsuario rol) throws Exception {
-        if(existeUsuario(nombre)){
+        
+        if(RepositorioDeUsuarios.getInstancia().existe(nombre, contrasenia)){
             throw new NombreRepetidoException( "Ya existe un usuario con el nombre seleccionado" );
         }
-        controladorDeSeguridad.validarUsuario(nombre); //@todo hacemos que lancen excepciones y las propagamos?
+        /*controladorDeSeguridad.validarUsuario(nombre); //@todo hacemos que lancen excepciones y las propagamos?
         controladorDeSeguridad.validarContrasenia(contrasenia); //@todo hacemos que lancen excepciones y las propagamos?
-        usuarios.add(new Usuario(nombre, contrasenia, rol));
+        */
+        Usuario user = new Usuario(nombre, contrasenia, rol);
+        RepositorioDeUsuarios.getInstancia().agregar(user);
+        
+        //usuarios.add(new Usuario(nombre, contrasenia, rol));
+        
     }
 
     public void sacarUsuario(Usuario usuario, String contrasenia) throws ContraseniaInvalidaException {
@@ -32,8 +39,10 @@ public class ControladorDeUsuarios {
     }
 
     private boolean existeUsuario(String nombre){
+
+
         return usuarios.stream().anyMatch(usuario -> usuario.getNombre().equals(nombre));
-    }
+    } 
 
     public Usuario getUsuario(String nombre) throws UsuarioInexistenteException {
         if(existeUsuario(nombre)){
@@ -46,13 +55,22 @@ public class ControladorDeUsuarios {
     }
 
     public boolean  validarUsuarioContrasenia(String nombre, String contrasenia){
+        Usuario user;
         boolean resultado;
-        try {
-            resultado = this.getUsuario(nombre).validarConstrasenia(contrasenia);
-        } catch (UsuarioInexistenteException | ContraseniaInvalidaException e) {
-            System.out.println(e);
+        user = RepositorioDeUsuarios.getInstancia().buscarUsuario(nombre, contrasenia);
+        if(user != null){
+            try {
+                 resultado = user.validarConstrasenia(contrasenia);
+            } catch (ContraseniaInvalidaException e) {
+                System.out.println(e);
+                resultado = false;
+            }
+        }else{
+            System.out.println("Usuario Incorrecto");
             resultado = false;
         }
+            
+        
         return resultado;
     }
 }

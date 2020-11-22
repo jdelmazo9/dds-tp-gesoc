@@ -40,9 +40,4 @@ public class RepositorioProveedores extends Repositorio<Proveedor> {
         return this.dao.buscar(id);
     }
 
-    public void cargarProveedoresTest(){
-        this.agregar(new Proveedor("Coto", 1, "Calle Falsa 123"));
-        this.agregar(new Proveedor("Disco", 2, "Siempre Muerta 69"));
-        this.agregar(new Proveedor("My Crosoft", 3, "Wachin Ton 433"));
-    }
 }

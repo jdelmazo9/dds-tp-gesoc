@@ -67,24 +67,4 @@ public class RepositorioEgresos extends Repositorio<OperacionDeEgreso> {
         return this.dao.buscar(id);
     }
 
-    public void cargarDatosTest() {
-        //INSTANCIO OPERACIONES DE INGRESO
-        OperacionDeEgreso e1, e2, e3;
-        e1 = new OperacionDeEgreso(LocalDate.parse("2018-03-28"));
-        e2 = new OperacionDeEgreso(LocalDate.parse("2018-03-30"));
-        e3 = new OperacionDeEgreso(LocalDate.parse("2018-03-29"));
-
-        e1.agregarItem(new Item(TipoItem.Articulo, "Microondas marca Samsung", 1200.0));
-        e2.agregarItem(new Item(TipoItem.Articulo, "Heladera marca Hp", 1700.00));
-        e3.agregarItem(new Item(TipoItem.Articulo, "Lavarropas marca Hp", 1800.00));
-
-        this.dao.agregar(e1);
-        this.dao.agregar(e2);
-        this.dao.agregar(e3);
-
-//        this.egresos.add(e1);
-//        this.egresos.add(e2);
-//        this.egresos.add(e3);
-    }
-
 }
