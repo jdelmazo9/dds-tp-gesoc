@@ -1,5 +1,7 @@
 package grupo6.dominio.controladores;
 
+import grupo6.dominio.repositorios.RepositorioDeUsuarios;
+import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.Usuario;
 
 import java.time.LocalTime;
@@ -28,15 +30,37 @@ public class ControladorDeSesion {
         return new ModelAndView(parametros,"welcome.hbs");
     }
 
+    public ModelAndView inicioAdmin(Request request, Response response){
+        //        System.out.println((char[]) request.session().attribute("id"));
+        
+                Map<String, Object> parametros = new HashMap<>();
+                return new ModelAndView(parametros,"admin.hbs");
+            }
+
     public Response verificarSesion(Request request, Response response){
-        if(request.session(false) == null || request.session(false).isNew()){
+        if(request.session(false) == null){
             response.redirect("/login");
+        }
+        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
+            System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
+            response.redirect("/admin");
+        }
+        return response;
+    }
+
+    public Response verificarSesionAdmin(Request request, Response response){
+        if(request.session(false) == null){
+            response.redirect("/login");
+        }
+        else if (usuarioActivo.getRol() != RolUsuario.ADMIN){
+            System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
+            response.redirect("/");
         }
         return response;
     }
 
     public ModelAndView nuevaSesion(Request request, Response response){
-        if( request.session(false) != null && !request.session(false).isNew() ){
+        if( request.session(false) != null ){
 //            throw new Exception("Ya hay un usuario logueado");
             response.body("Ya estas logueado salame");
             response.redirect("/");
@@ -53,7 +77,7 @@ public class ControladorDeSesion {
 
 //        System.out.println(request.session(false).isNew());
 
-        if( request.session(false) != null && !request.session(false).isNew() ){
+        if( request.session(false) != null ){
 //            throw new Exception("Ya hay un usuario logueado");
             response.body("Ya estas logueado salame");
             response.redirect("/");
@@ -66,7 +90,7 @@ public class ControladorDeSesion {
             System.out.println("lo estoy haciendo");
 
             request.session(true);
-            usuarioActivo = controladorDeUsuarios.getUsuario(nombre);
+            usuarioActivo = RepositorioDeUsuarios.getInstancia().buscarUsuario(nombre, contrasenia);
 
             request.session().attribute("id", usuarioActivo.getId());
 //            System.out.println((String)request.session().attribute("id"));
@@ -96,7 +120,7 @@ public class ControladorDeSesion {
     public Response logOut(Request request, Response response){
 //        System.out.println((String) request.session(false).attribute("id"));
 
-        if(request.session(false) != null && !request.session(false).isNew()) {
+        if(request.session(false) != null) {
             horaFinSesion = LocalTime.now();
 //            hayUsuarioLogueado = false;
             request.session(false).invalidate();

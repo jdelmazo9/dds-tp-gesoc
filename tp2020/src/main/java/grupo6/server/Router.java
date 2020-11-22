@@ -40,7 +40,7 @@ public class Router {
     }
 
     private static void configure(){
-        ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionRegEx(), new ValidacionLongitud(5));
+        ControladorDeSeguridad controladorDeSeguridad = new ControladorDeSeguridad(new ValidacionLongitud(5), new ValidacionLongitud(5));
         ControladorDeUsuarios controladorDeUsuarios = new ControladorDeUsuarios(controladorDeSeguridad);
         ControladorDeSesion controladorDeSesion = new ControladorDeSesion(controladorDeUsuarios);
         ControladorDeCriterios controladorDeCriterios = new ControladorDeCriterios();
@@ -67,9 +67,10 @@ public class Router {
             e.printStackTrace();
         }
 
-        // Welcome to Tomorrowland
+        // Welcome
 
         Spark.get("/", controladorDeSesion::inicio, Router.engine);
+        Spark.get("/admin", controladorDeSesion::inicioAdmin, Router.engine);
 
 
         // Sesion
@@ -126,15 +127,16 @@ public class Router {
 
         // Before Checks
 
-//        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
-//        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
-//        Spark.before("/egresos",controladorDeSesion::verificarSesion);
-//        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
-//        Spark.before("/ingresos",controladorDeSesion::verificarSesion);
-//        Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
-//        Spark.before("/criterios",controladorDeSesion::verificarSesion);
-//        Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
-//        Spark.before("/",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculacion",controladorDeSesion::verificarSesion);
+        Spark.before("/vinculaciones",controladorDeSesion::verificarSesion);
+        Spark.before("/egresos",controladorDeSesion::verificarSesion);
+        Spark.before("/egresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/ingresos",controladorDeSesion::verificarSesion);
+        Spark.before("/ingresos/*",controladorDeSesion::verificarSesion);
+        Spark.before("/criterios",controladorDeSesion::verificarSesion);
+        Spark.before("/criterios/*",controladorDeSesion::verificarSesion);
+        Spark.before("/",controladorDeSesion::verificarSesion);
+        Spark.before("/admin",controladorDeSesion::verificarSesionAdmin);
 
     }
 }

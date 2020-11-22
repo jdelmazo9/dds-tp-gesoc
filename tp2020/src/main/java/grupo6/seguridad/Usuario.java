@@ -22,8 +22,10 @@ public class Usuario extends EntidadPersistente {
     @Enumerated(EnumType.STRING)
     private RolUsuario rol;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private BandejaDeMensajes bandejaDeMensajes;
+
+    public Usuario(){}
 
     public Usuario(String nombre, String contrasenia, RolUsuario rol){
         this.nombre = nombre;
@@ -33,7 +35,7 @@ public class Usuario extends EntidadPersistente {
     }
 
     public void setContrasenia(String contrasenia){
-        contraseniaHash = BCrypt.hashpw(contrasenia, BCrypt.gensalt());
+        this.contraseniaHash = BCrypt.hashpw(contrasenia, BCrypt.gensalt(12));
     }
 
     public String getNombre() {
