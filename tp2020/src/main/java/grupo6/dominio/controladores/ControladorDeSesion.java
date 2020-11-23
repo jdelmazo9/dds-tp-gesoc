@@ -42,17 +42,20 @@ public class ControladorDeSesion {
             }
 
     public Response verificarSesion(Request request, Response response){
-        if(request.session(false) == null /*|| request.session(false).isNew()*/){
+        if( request.session(false) == null /*|| request.session(false).isNew()*/){
+            System.out.println("La sesion no existe, te mando al login");
             response.redirect("/login");
             return response;
         }
 
         Sesion sesion = request.session().attribute("sesion");
         if(sesion == null){
+            System.out.println("La sesion no fue creada correctamente, te mando al login");
             request.session(false).invalidate();
             response.redirect("/login");
             return response;
         }
+        System.out.println("La sesion esta ok. Es del usuario: " + sesion.getUsuario().getNombre());
 //        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
 //        else if (sesiones.get(request.session().attribute("id")).getUsuario().getRol() == RolUsuario.ADMIN){
         if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
@@ -69,6 +72,7 @@ public class ControladorDeSesion {
         }
         Sesion sesion = request.session().attribute("sesion");
         if(sesion == null){
+            System.out.println("Verificar sesion admin. Estoy por invalidar la sesion");
             request.session(false).invalidate();
             response.redirect("/login");
             return response;
@@ -111,10 +115,13 @@ public class ControladorDeSesion {
         else{
             System.out.println("lo estoy haciendo");
 
-            request.session(true);
+//            request.session(true);
             Usuario usuario = RepositorioDeUsuarios.getInstancia().buscarUsuario(nombre, contrasenia);
-
-            request.session().attribute("sesion", new Sesion(usuario));
+            Session spark_session = request.session(true);
+            System.out.println("Sesion creada: " + spark_session.id());
+            System.out.println("Sesion creada: " + request.session(false).id());
+            spark_session.attribute("sesion", new Sesion(usuario));
+            System.out.println("Asignados datos de usuario: " + usuario.getNombre());
 //            request.session().attribute("id", usuarioActivo.getId());
 //            System.out.println((String)request.session().attribute("id"));
 
@@ -144,6 +151,7 @@ public class ControladorDeSesion {
 //        System.out.println((String) request.session(false).attribute("id"));
 
         if(request.session(false) != null) {
+            System.out.println("Logout. Se va a invalidar la sesion");
             Sesion sesion = request.session().attribute("sesion");
             sesion.setHoraFinSesion(LocalTime.now());
 //            horaFinSesion = LocalTime.now();

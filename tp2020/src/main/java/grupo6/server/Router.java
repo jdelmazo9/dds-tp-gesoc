@@ -53,8 +53,9 @@ public class Router {
         ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
 
         String ejecutarCargaInicial = System.getenv("LOAD_DEMO_DATA");
-        if(ejecutarCargaInicial == null || ejecutarCargaInicial == "TRUE")
+        if(ejecutarCargaInicial == null || ejecutarCargaInicial.equals("TRUE")) {
             CargaInicialBD.cargaInicial();
+        }
 
         // Welcome
 
