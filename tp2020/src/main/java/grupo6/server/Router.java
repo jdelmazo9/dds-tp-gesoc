@@ -5,6 +5,8 @@ package grupo6.server;
 //import domain.controllers.UsuarioRestControllerEjemplo;
 //import domain.middleware.AuthMiddleware;
 
+import grupo6.bitacoraOperaciones.ServicioRegistroOperaciones;
+import grupo6.bitacoraOperaciones.TipoOperacion;
 import grupo6.dominio.cargaDataInicial.CargaInicialBD;
 import grupo6.dominio.controladores.*;
 import grupo6.dominio.entidades.AdaptadorVinculadorConcreto;

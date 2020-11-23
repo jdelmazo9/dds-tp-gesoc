@@ -14,16 +14,18 @@ public class Operacion {
     String user;
     String entidad;
     TipoOperacion tipo_operacion;
+    Integer entidad_id;
     String description;
     LocalDate timestamp;
 
     public Operacion() {}
 
-    public Operacion(String user, String entidad, String desc, TipoOperacion tipo){
+    public Operacion(String user, String entidad, TipoOperacion tipo, Integer id, String desc){
         this.user = user;
         description = desc;
         this.entidad = entidad;
         timestamp = LocalDate.now();
         tipo_operacion = tipo;
+        entidad_id = id;
     }
 }

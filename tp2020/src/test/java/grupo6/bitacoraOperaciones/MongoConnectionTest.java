@@ -17,11 +17,11 @@ public class MongoConnectionTest {
 //        datastore.ensureIndexes();
 //    }
 //
-//    @Test
-//    void persistenceTest(){
-//        ServicioRegistroOperaciones.getInstancia().registrarOperacion("mzuc","ingresos", "2", TipoOperacion.CREATE);
+    @Test
+    void persistenceTest(){
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion("mzuc","ingresos", TipoOperacion.CREATE, 1);
 //        ServicioRegistroOperaciones.getInstancia().registrarOperacion("mzuc","ingresos", "3", TipoOperacion.DELETE);
-//    }
+    }
 
     @Test
     void obtenerTodosTodos(){

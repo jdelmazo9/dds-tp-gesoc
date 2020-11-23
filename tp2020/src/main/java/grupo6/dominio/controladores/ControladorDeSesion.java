@@ -1,5 +1,6 @@
 package grupo6.dominio.controladores;
 
+import grupo6.dominio.entidades.Sesion;
 import grupo6.dominio.repositorios.RepositorioDeUsuarios;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.Usuario;
@@ -11,16 +12,19 @@ import java.util.Map;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import spark.Session;
 
 public class ControladorDeSesion {
-    private Usuario usuarioActivo;
-    private LocalTime horaInicioSesion = null;
-    private LocalTime horaFinSesion = null;
+    Map<Integer, Sesion> sesiones ;
+//    private Usuario usuarioActivo;
+//    private LocalTime horaInicioSesion = null;
+//    private LocalTime horaFinSesion = null;
 //    private boolean hayUsuarioLogueado = false;
     private ControladorDeUsuarios controladorDeUsuarios; //@todo tiene un controlador de usuarios o lo hacemos standalone?
 
     public ControladorDeSesion(ControladorDeUsuarios cont){
         this.controladorDeUsuarios = cont;
+        sesiones = new HashMap<>();
     }
 
     public ModelAndView inicio(Request request, Response response){
@@ -38,11 +42,15 @@ public class ControladorDeSesion {
             }
 
     public Response verificarSesion(Request request, Response response){
-
         if(request.session(false) == null /*|| request.session(false).isNew()*/){
             response.redirect("/login");
+            return response;
         }
-        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
+
+        Sesion sesion = request.session().attribute("sesion");
+//        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
+//        else if (sesiones.get(request.session().attribute("id")).getUsuario().getRol() == RolUsuario.ADMIN){
+        if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
             System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
             response.redirect("/admin");
         }
@@ -52,8 +60,10 @@ public class ControladorDeSesion {
     public Response verificarSesionAdmin(Request request, Response response){
         if(request.session(false) == null){
             response.redirect("/login");
+            return response;
         }
-        else if (usuarioActivo.getRol() != RolUsuario.ADMIN){
+        Sesion sesion = request.session().attribute("sesion");
+        if (sesion.getUsuario().getRol() != RolUsuario.ADMIN){
             System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
             response.redirect("/");
         }
@@ -92,12 +102,13 @@ public class ControladorDeSesion {
             System.out.println("lo estoy haciendo");
 
             request.session(true);
-            usuarioActivo = RepositorioDeUsuarios.getInstancia().buscarUsuario(nombre, contrasenia);
+            Usuario usuario = RepositorioDeUsuarios.getInstancia().buscarUsuario(nombre, contrasenia);
 
-            request.session().attribute("id", usuarioActivo.getId());
+            request.session().attribute("sesion", new Sesion(usuario));
+//            request.session().attribute("id", usuarioActivo.getId());
 //            System.out.println((String)request.session().attribute("id"));
 
-            horaInicioSesion = LocalTime.now();
+//            horaInicioSesion = LocalTime.now();
             response.redirect("/");
 //            hayUsuarioLogueado = true;
         }
@@ -123,7 +134,9 @@ public class ControladorDeSesion {
 //        System.out.println((String) request.session(false).attribute("id"));
 
         if(request.session(false) != null) {
-            horaFinSesion = LocalTime.now();
+            Sesion sesion = request.session().attribute("sesion");
+            sesion.setHoraFinSesion(LocalTime.now());
+//            horaFinSesion = LocalTime.now();
 //            hayUsuarioLogueado = false;
             request.session(false).invalidate();
         }
@@ -142,15 +155,15 @@ public class ControladorDeSesion {
 //        return this.hayUsuarioLogueado;
 //    }
 
-    public Usuario getUsuarioActivo(){
-        return usuarioActivo;
-    }
-
-    public LocalTime getHoraInicioDeSesion(){
-        return horaInicioSesion;
-    }
-
-    public LocalTime getHoraFinDeSesion(){
-        return horaFinSesion;
-    }
+//    public Usuario getUsuarioActivo(){
+//        return usuarioActivo;
+//    }
+//
+//    public LocalTime getHoraInicioDeSesion(){
+//        return horaInicioSesion;
+//    }
+//
+//    public LocalTime getHoraFinDeSesion(){
+//        return horaFinSesion;
+//    }
 }

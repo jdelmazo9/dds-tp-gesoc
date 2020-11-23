@@ -1,1 +1,1 @@
-web: java -cp target/classes/;target/dependency/* grupo6.server.Server 
+web: java -cp target/classes/;target/dependency/* grupo6.server.Server

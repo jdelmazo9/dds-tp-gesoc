@@ -3,6 +3,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import db.EntityManagerHelper;
 import grupo6.dominio.entidades.*;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.Usuario;
@@ -24,7 +25,8 @@ public class PersistenceTest {
 
     @BeforeClass
     public static void setUpClass() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("db");
+        entityManagerFactory = EntityManagerHelper.getEntityManager().getEntityManagerFactory();
+//        entityManagerFactory = Persistence.createEntityManagerFactory("db");
         //hbm2ddl.auto - create | update | validate | create-drop
 
     }

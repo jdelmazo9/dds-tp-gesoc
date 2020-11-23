@@ -6,8 +6,6 @@ import dev.morphia.Datastore;
 import dev.morphia.Morphia;
 import org.bson.Document;
 
-import javax.print.Doc;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -30,8 +28,9 @@ public class ServicioRegistroOperaciones {
         datastore = Morphia.createDatastore(mongoClient, "bitacora_operaciones");
     }
 
-    public void registrarOperacion(String user, String entidad, String desc, TipoOperacion tipoOperacion){
-        datastore.save(new Operacion(user,entidad,desc,tipoOperacion));
+    public void registrarOperacion(String user, String entidad, TipoOperacion tipoOperacion, Integer entidad_id){
+        String desc = tipoOperacion.name() + " sobre " + entidad + " de id " + entidad_id + " realizada por " + user;
+        datastore.save(new Operacion(user, entidad, tipoOperacion, entidad_id, desc));
     }
 
     public String obtenerOperaciones() {

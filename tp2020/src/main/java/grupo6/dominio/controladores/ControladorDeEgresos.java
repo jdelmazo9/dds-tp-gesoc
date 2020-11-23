@@ -3,6 +3,7 @@ package grupo6.dominio.controladores;
 import com.google.gson.*;
 import db.EntityManagerHelper;
 import grupo6.bitacoraOperaciones.ServicioRegistroOperaciones;
+import grupo6.bitacoraOperaciones.TipoOperacion;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.*;
 import grupo6.dominio.repositorios.daos.OperacionDTO;
@@ -94,11 +95,14 @@ public class ControladorDeEgresos {
 
     public Response guardarEgreso(Request request, Response response){
         OperacionDeEgreso egreso;
+        TipoOperacion tipo;
         if(request.params("id") == null){
             egreso = new OperacionDeEgreso();
+            tipo = TipoOperacion.CREATE;
         }
         else{
             egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
+            tipo = TipoOperacion.UPDATE;
         }
 //        asignarAtributosA(usuario, request);
         if(request.queryParams("proveedor") != null){
@@ -122,13 +126,28 @@ public class ControladorDeEgresos {
         response.redirect("/egresos/" + egreso.getId());
 
         // Guardo la modificacion hecha en la bitacora de operaciones
-//        ServicioRegistroOperaciones.getInstancia().registrarOperacion(new ControladorDeSesion(). request.session().attribute("id"));
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            tipo,
+            egreso.getId()
+        );
         return response;
     }
 
     public Response eliminar(Request request, Response response){
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
         RepositorioEgresos.getInstancia().eliminar(egreso);
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.DELETE,
+            egreso.getId()
+        );
         return response;
     }
 
@@ -139,6 +158,21 @@ public class ControladorDeEgresos {
 //        System.out.println(item.getDescripcion());
         egreso.eliminarItem(item);
         RepositorioEgresos.getInstancia().modificar(egreso);
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.UPDATE,
+            egreso.getId()
+        );
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "items",
+            TipoOperacion.DELETE,
+            item.getId()
+        );
 //        System.out.println(egreso.getItems().size());
         return response;
     }
@@ -166,6 +200,24 @@ public class ControladorDeEgresos {
 //        }
 
         response.redirect("/egresos/"+request.params("id"));
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.UPDATE,
+            egreso.getId()
+        );
+        for (Presupuesto p: egreso.getPresupuestos()) {
+            ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+                sesion.getUsuario().getNombre(),
+                "presupuestos",
+                TipoOperacion.CREATE,
+                p.getId()
+            );
+        }
+
         return response;
     }
 
@@ -174,6 +226,22 @@ public class ControladorDeEgresos {
         Presupuesto presu = egreso.getPresupuesto(new Integer(request.params("id_presupuesto")));
         egreso.getPresupuestos().remove(presu);
         RepositorioEgresos.getInstancia().modificar(egreso);
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.UPDATE,
+            egreso.getId()
+        );
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "presupuestos",
+            TipoOperacion.DELETE,
+            presu.getId()
+        );
+
         return response;
     }
 
@@ -183,6 +251,21 @@ public class ControladorDeEgresos {
         egreso.agregarItem(unItem);
         RepositorioEgresos.getInstancia().modificar(egreso);
         response.redirect("/egresos/"+request.params("id"));
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.UPDATE,
+            egreso.getId()
+        );
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "items",
+            TipoOperacion.CREATE,
+            unItem.getId()
+        );
         return response;
     }
 
@@ -194,6 +277,15 @@ public class ControladorDeEgresos {
         RepositorioEgresos.getInstancia().modificar(egreso);
         response.redirect("/egresos/" + request.params("id"));
 //        System.out.println(egreso.getCategorias());
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.UPDATE,
+            egreso.getId()
+        );
         return response;
     }
 
@@ -202,6 +294,15 @@ public class ControladorDeEgresos {
         Categoria cat = egreso.getCategoria(new Integer(request.params("id_categoria")));
         egreso.getCategorias().remove(cat);
         RepositorioEgresos.getInstancia().modificar(egreso);
+
+        // Guardo la modificacion hecha en la bitacora de operaciones
+        Sesion sesion = request.session().attribute("sesion");
+        ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+            sesion.getUsuario().getNombre(),
+            "egresos",
+            TipoOperacion.UPDATE,
+            egreso.getId()
+        );
         return response;
     }
 
