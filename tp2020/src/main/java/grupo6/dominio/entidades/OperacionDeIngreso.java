@@ -20,7 +20,7 @@ public class OperacionDeIngreso {
     @Column(precision=10, scale=2)
     private Double monto;
 
-    @Column
+//    @Column
     private LocalDate fecha;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)

@@ -48,6 +48,11 @@ public class ControladorDeSesion {
         }
 
         Sesion sesion = request.session().attribute("sesion");
+        if(sesion == null){
+            request.session(false).invalidate();
+            response.redirect("/login");
+            return response;
+        }
 //        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
 //        else if (sesiones.get(request.session().attribute("id")).getUsuario().getRol() == RolUsuario.ADMIN){
         if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
@@ -63,6 +68,11 @@ public class ControladorDeSesion {
             return response;
         }
         Sesion sesion = request.session().attribute("sesion");
+        if(sesion == null){
+            request.session(false).invalidate();
+            response.redirect("/login");
+            return response;
+        }
         if (sesion.getUsuario().getRol() != RolUsuario.ADMIN){
             System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
             response.redirect("/");

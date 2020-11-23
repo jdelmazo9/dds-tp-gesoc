@@ -75,7 +75,41 @@
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
             <property name="use_sql_comments" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+
+        </properties>
+
+    </persistence-unit>
+
+    <persistence-unit name="db-postgres" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <class>grupo6.seguridad.Usuario</class>
+        <class>grupo6.dominio.entidades.Presupuesto</class>
+        <class>grupo6.dominio.entidades.Item</class>
+        <class>grupo6.dominio.entidades.OperacionDeEgreso</class>
+        <class>grupo6.dominio.entidades.Categoria</class>
+        <class>grupo6.dominio.entidades.Proveedor</class>
+        <class>grupo6.dominio.entidades.DocumentoItems</class>
+        <class>grupo6.dominio.entidades.DocumentoComercial</class>
+        <class>grupo6.dominio.entidades.Criterio</class>
+        <class>grupo6.dominio.entidades.CriterioAceptacion</class>
+        <class>grupo6.dominio.entidades.OperacionDeIngreso</class>
+        <class>grupo6.dominio.entidades.ResultadoValidacion</class>
+        <class>grupo6.dominio.entidades.BandejaDeMensajes</class>
+        <class>grupo6.dominio.entidades.MedioDePago</class>
+
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="hibernate.connection.url" value="jdbc:postgresql://ec2-35-168-77-215.compute-1.amazonaws.com:5432/d9lo6m2iubprve" /> <!-- BD Mane -->
+            <property name="hibernate.connection.username" value="gvpxavyqmwttda" /> <!-- DB User -->
+            <property name="hibernate.connection.password" value="5ec3ce40b2c1e10e1134ce607c5c2fdcb65255b541c07b54a347d6229b2dbdc4" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="use_sql_comments" value="true" />
+            <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 
         </properties>
 

@@ -22,15 +22,19 @@ public class ServicioRegistroOperaciones {
     }
 
     private ServicioRegistroOperaciones(){
-        mongoClient = MongoClients.create(
-            "mongodb+srv://admin:Y7vxjFD6TCG7v4V@dds-gesoc.njuxr.mongodb.net/admin?retryWrites=true&w=majority"
-        );
-        datastore = Morphia.createDatastore(mongoClient, "bitacora_operaciones");
+//        System.out.println("CREANDOOOO");
+//        mongoClient = MongoClients.create(
+//            "mongodb+srv://admin:Y7vxjFD6TCG7v4V@dds-gesoc.njuxr.mongodb.net/admin?retryWrites=true&w=majority"
+//        );
+//        System.out.println("LISTO EL MONGO, Y MORPHIA QUEEEEEE?");
+//        datastore = Morphia.createDatastore(mongoClient, "bitacora_operaciones");
+//        System.out.println("LISTO EL MONGO, PELADA LA BD MYSQL");
     }
 
     public void registrarOperacion(String user, String entidad, TipoOperacion tipoOperacion, Integer entidad_id){
-        String desc = tipoOperacion.name() + " sobre " + entidad + " de id " + entidad_id + " realizada por " + user;
-        datastore.save(new Operacion(user, entidad, tipoOperacion, entidad_id, desc));
+//        System.out.println("REGISTRANDO OPERACION EN BITACORA");
+//        String desc = tipoOperacion.name() + " sobre " + entidad + " de id " + entidad_id + " realizada por " + user;
+//        datastore.save(new Operacion(user, entidad, tipoOperacion, entidad_id, desc));
     }
 
     public String obtenerOperaciones() {
