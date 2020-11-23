@@ -40,13 +40,13 @@ public class ControladorDeIngresos {
         OperacionDTO temp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
 //        OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id")));
 //        egreso.setPresupuestos(egresoTmp.getPresupuestos());
+        Sesion sesion = request.session().attribute("sesion");
         for(OperacionDeIngreso i: temp.getIngresos()){
             RepositorioIngresos.getInstancia().agregar(i);
 //            System.out.println(i.getFecha());
 //            System.out.println(i.getFechaStr());
 
             // Guardo la modificacion hecha en la bitacora de operaciones
-            Sesion sesion = request.session().attribute("sesion");
             ServicioRegistroOperaciones.getInstancia().registrarOperacion(
                 sesion.getUsuario().getNombre(),
                 "ingresos",
