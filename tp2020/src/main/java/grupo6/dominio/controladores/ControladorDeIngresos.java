@@ -2,8 +2,11 @@ package grupo6.dominio.controladores;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import grupo6.bitacoraOperaciones.ServicioRegistroOperaciones;
+import grupo6.bitacoraOperaciones.TipoOperacion;
 import grupo6.dominio.entidades.HiddenAnnotationExclusionStrategy;
 import grupo6.dominio.entidades.OperacionDeIngreso;
+import grupo6.dominio.entidades.Sesion;
 import grupo6.dominio.repositorios.RepositorioCriterios;
 import grupo6.dominio.repositorios.RepositorioIngresos;
 import grupo6.dominio.repositorios.daos.OperacionDTO;
@@ -41,6 +44,15 @@ public class ControladorDeIngresos {
             RepositorioIngresos.getInstancia().agregar(i);
 //            System.out.println(i.getFecha());
 //            System.out.println(i.getFechaStr());
+
+            // Guardo la modificacion hecha en la bitacora de operaciones
+            Sesion sesion = request.session().attribute("sesion");
+            ServicioRegistroOperaciones.getInstancia().registrarOperacion(
+                sesion.getUsuario().getNombre(),
+                "ingresos",
+                TipoOperacion.CREATE,
+                i.getId()
+            );
         }
         response.redirect("/ingresos");
         return response;
