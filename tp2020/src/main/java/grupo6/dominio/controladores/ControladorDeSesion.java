@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import grupo6.server.JedisHandler;
+//import grupo6.server.JedisHandler;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -43,41 +43,41 @@ public class ControladorDeSesion {
     }
 
     public Response verificarSesion(Request request, Response response){
-        Sesion sesion = JedisHandler.getSesion();
-        if(sesion == null) {
-            System.out.println("La sesion no existe, te mando al login");
-            response.redirect("/login");
-            return response;
-        }
-
-        if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
-            System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
-            response.redirect("/admin");
-        }
-
-        return response;
-
-//        if( request.session(false) == null /*|| request.session(false).isNew()*/){
+//        Sesion sesion = JedisHandler.getSesion();
+//        if(sesion == null) {
 //            System.out.println("La sesion no existe, te mando al login");
 //            response.redirect("/login");
 //            return response;
 //        }
 //
-//        Sesion sesion = request.session().attribute("sesion");
-//        if(sesion == null){
-//            System.out.println("La sesion no fue creada correctamente, te mando al login");
-//            request.session(false).invalidate();
-//            response.redirect("/login");
-//            return response;
-//        }
-//        System.out.println("La sesion esta ok. Es del usuario: " + sesion.getUsuario().getNombre());
-////        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
-////        else if (sesiones.get(request.session().attribute("id")).getUsuario().getRol() == RolUsuario.ADMIN){
 //        if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
 //            System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
 //            response.redirect("/admin");
 //        }
+//
 //        return response;
+
+        if( request.session(false) == null /*|| request.session(false).isNew()*/){
+            System.out.println("La sesion no existe, te mando al login");
+            response.redirect("/login");
+            return response;
+        }
+
+        Sesion sesion = request.session().attribute("sesion");
+        if(sesion == null){
+            System.out.println("La sesion no fue creada correctamente, te mando al login");
+            request.session(false).invalidate();
+            response.redirect("/login");
+            return response;
+        }
+        System.out.println("La sesion esta ok. Es del usuario: " + sesion.getUsuario().getNombre());
+//        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
+//        else if (sesiones.get(request.session().attribute("id")).getUsuario().getRol() == RolUsuario.ADMIN){
+        if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
+            System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
+            response.redirect("/admin");
+        }
+        return response;
     }
 
     public Response verificarSesionAdmin(Request request, Response response){
@@ -118,7 +118,7 @@ public class ControladorDeSesion {
 //        System.out.println(request.session(false).isNew());
 
 
-        if( request.session(false) != null && JedisHandler.getSesion() != null/*&& !request.session(false).isNew() */){
+        if( request.session(false) != null /* && JedisHandler.getSesion() != null*//*&& !request.session(false).isNew() */){
 //            throw new Exception("Ya hay un usuario logueado");
             response.body("Ya estas logueado salame");
             response.redirect("/");
@@ -132,14 +132,16 @@ public class ControladorDeSesion {
 
 //            request.session(true);
             Usuario usuario = RepositorioDeUsuarios.getInstancia().buscarUsuario(nombre, contrasenia);
+
+            request.cookies().put("tuvieja", "1234567890");
             Session spark_session = request.session(true);
             System.out.println("Sesion creada: " + spark_session.id());
             System.out.println("Sesion creada: " + request.session(false).id());
             spark_session.attribute("sesion", new Sesion(usuario));
             System.out.println("Asignados datos de usuario: " + usuario.getNombre());
 
-            // Jedis
-            JedisHandler.setSesion(new Sesion(usuario));
+//            // Jedis
+//            JedisHandler.setSesion(new Sesion(usuario));
 
 
 //            Sesion sesion = new Sesion(usuario);
@@ -181,8 +183,8 @@ public class ControladorDeSesion {
             sesion.setHoraFinSesion(LocalTime.now());
 
 
-            // Jedis
-            JedisHandler.closeSesion();
+//            // Jedis
+//            JedisHandler.closeSesion();
 
 //            horaFinSesion = LocalTime.now();
 //            hayUsuarioLogueado = false;

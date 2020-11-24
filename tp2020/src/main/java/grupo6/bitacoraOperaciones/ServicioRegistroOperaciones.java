@@ -49,7 +49,7 @@ public class ServicioRegistroOperaciones {
 
     public String obtenerOperaciones(TipoOperacion tipo) {
         Document query = new Document();
-        query.append("tipo_operacion", tipo);
+        query.append("tipo_operacion", tipo.label);
         return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).spliterator(), false)
             .map(Document::toJson)
             .collect(Collectors.joining(", ", "[", "]"));
@@ -57,7 +57,7 @@ public class ServicioRegistroOperaciones {
 
     public String obtenerOperaciones(String entidad, TipoOperacion tipo) {
         Document query = new Document();
-        query.append("tipo_operacion", tipo);
+        query.append("tipo_operacion", tipo.label);
         query.append("entidad", entidad);
         return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).spliterator(), false)
             .map(Document::toJson)

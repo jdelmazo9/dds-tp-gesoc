@@ -51,6 +51,7 @@ public class Router {
         ControladorDeVinculaciones controladorDeVinculaciones = new ControladorDeVinculaciones();
         ControladorDeIngresos controladorDeIngresos = new ControladorDeIngresos();
         ControladorDeValidaciones controladorDeValidaciones = ControladorDeValidaciones.getInstancia();
+        ControladorDeOperaciones controladorDeOperaciones = new ControladorDeOperaciones();
 
         String ejecutarCargaInicial = System.getenv("LOAD_DEMO_DATA");
         if(ejecutarCargaInicial == null || ejecutarCargaInicial.equals("TRUE")) {
@@ -113,6 +114,7 @@ public class Router {
         Spark.get("/api/egresos/:id/validacion", controladorDeEgresos::obtenerValidaciones);
         Spark.get("/api/egresos/validacion", controladorDeValidaciones::obtenerValidaciones);
         Spark.get("/api/ingresos", controladorDeIngresos::obtenerTodos);
+        Spark.get("/api/bitacora_operaciones", controladorDeOperaciones::obtenerOperaciones);
 
 
         // Before Checks

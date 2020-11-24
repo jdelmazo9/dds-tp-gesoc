@@ -2,6 +2,9 @@ package grupo6.bitacoraOperaciones;
 
 import org.junit.jupiter.api.Test;
 
+import static grupo6.bitacoraOperaciones.TipoOperacion.valueOfLabel;
+import static org.junit.Assert.assertEquals;
+
 public class MongoConnectionTest {
 
 //    Datastore datastore;
@@ -41,6 +44,11 @@ public class MongoConnectionTest {
     @Test
     void obtenerTodosLosEgresosCreados(){
         System.out.println(ServicioRegistroOperaciones.getInstancia().obtenerOperaciones("ingresos", TipoOperacion.CREATE));
+    }
+
+    @Test
+    void enummmmm(){
+        assertEquals(TipoOperacion.CREATE, TipoOperacion.valueOfLabel("CREATE"));
     }
 
 //    @AfterAll
