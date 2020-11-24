@@ -1,16 +1,12 @@
 {
   presupuestos: [
     {
-      items: [{tipo: "Articulo", descripcion: "coca", valor: 100.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 500.0 } ],
+      items: [{tipo: "Articulo", descripcion: "coca", valor: 250.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 450.0 } ],
       proveedor: {nombre: "Coto", nroIdentificacion: 1}
     },
     {
-      items: [{tipo: "Articulo", descripcion: "coca", valor: 150.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 475.0 } ],
+      items: [{tipo: "Articulo", descripcion: "coca", valor: 350.0 }, {tipo: "Articulo", descripcion: "fernet 750cc", valor: 475.0 } ],
       proveedor: {nombre: "Disco", nroIdentificacion: 2}
-    },
-    {
-      items: [{tipo: "Articulo", descripcion: "aaaa", valor: 150.0 }, {tipo: "Articulo", descripcion: "nnn", valor: 475.0 } ],
-      proveedor: {nombre: "My Crosoft", nroIdentificacion: 3}
     }
   ]
 }

@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ControladorDeEgresos {
 
@@ -198,7 +199,19 @@ public class ControladorDeEgresos {
     public Response cargarPresupuestos(Request request, Response response){
         OperacionDTO egresoTmp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id")));
-        egreso.addPresupuestos(egresoTmp.getPresupuestos());
+
+        for (Presupuesto p: egresoTmp.getPresupuestos()) {
+            Proveedor proveedor = RepositorioProveedores.getInstancia().buscarProveedor(p.getProveedor().getNroIdentificacion());
+            if(proveedor == null) {
+                System.out.println("El proveedor no existe");
+            }
+            p.setProveedor(proveedor);
+        }
+
+        egreso.addPresupuestos(
+            egresoTmp.getPresupuestos().stream().
+                filter(presupuesto -> presupuesto.getProveedor() != null).collect(Collectors.toList()));
+//        egreso.addPresupuestos(egresoTmp.getPresupuestos());
         RepositorioEgresos.getInstancia().modificar(egreso);
 
 //        for (Presupuesto p: egreso.getPresupuestos()) {
