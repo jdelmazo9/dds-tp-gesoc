@@ -11,9 +11,9 @@ import javax.persistence.*;
 @Entity
 public class Usuario extends EntidadPersistente {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
+//    @Id
+//    @GeneratedValue(strategy=GenerationType.IDENTITY)
+//    private int id;
 
     private String nombre;
 
