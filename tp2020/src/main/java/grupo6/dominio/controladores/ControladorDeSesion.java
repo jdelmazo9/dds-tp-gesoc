@@ -1,5 +1,6 @@
 package grupo6.dominio.controladores;
 
+import db.EntityManagerHelper;
 import grupo6.dominio.entidades.Sesion;
 import grupo6.dominio.repositorios.RepositorioDeUsuarios;
 import grupo6.seguridad.RolUsuario;
@@ -43,17 +44,6 @@ public class ControladorDeSesion {
     }
 
     public Response verificarSesion(Request request, Response response){
-//            System.out.println("La sesion no existe, te mando al login");
-//            response.redirect("/login");
-//            return response;
-//        }
-//
-//        if(sesion.getUsuario().getRol() == RolUsuario.ADMIN){
-//            System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
-//            response.redirect("/admin");
-//        }
-//
-//        return response;
 
         if( request.session(false) == null /*|| request.session(false).isNew()*/){
             System.out.println("La sesion no existe, te mando al login");
@@ -68,6 +58,7 @@ public class ControladorDeSesion {
             response.redirect("/login");
             return response;
         }
+        EntityManagerHelper.beginTransaction();
         System.out.println("La sesion esta ok. Es del usuario: " + sesion.getUsuario().getNombre());
 //        else if (usuarioActivo.getRol() == RolUsuario.ADMIN){
 //        else if (sesiones.get(request.session().attribute("id")).getUsuario().getRol() == RolUsuario.ADMIN){
@@ -75,6 +66,7 @@ public class ControladorDeSesion {
             System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
             response.redirect("/admin");
         }
+        EntityManagerHelper.commit();
         return response;
     }
 
@@ -90,10 +82,12 @@ public class ControladorDeSesion {
             response.redirect("/login");
             return response;
         }
+        EntityManagerHelper.beginTransaction();
         if (sesion.getUsuario().getRol() != RolUsuario.ADMIN){
             System.out.println("Su Rol de usuario no tiene acceso a esta ruta.");
             response.redirect("/");
         }
+        EntityManagerHelper.commit();
         return response;
     }
 
@@ -115,9 +109,10 @@ public class ControladorDeSesion {
 
 //        System.out.println(request.session(false).isNew());
 
+        EntityManagerHelper.beginTransaction();
 
         if( request.session(false) != null /* && JedisHandler.getSesion() != null*//*&& !request.session(false).isNew() */){
-//            throw new Exception("Ya hay un usuario logueado");
+            //            throw new Exception("Ya hay un usuario logueado");
             response.body("Ya estas logueado salame");
             response.redirect("/");
         }
@@ -154,7 +149,7 @@ public class ControladorDeSesion {
 
             response.redirect("/");
         }
-
+        EntityManagerHelper.commit();
         return response;
     }
 

@@ -63,6 +63,7 @@ public class ControladorDeEgresos {
     }
 
     public String obtenerTodos(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         List<String> criterios = new ArrayList();
         List<String> categorias = new ArrayList();
         if(request.queryParamsValues("categoria") != null) {
@@ -86,6 +87,8 @@ public class ControladorDeEgresos {
         String json = gson.toJson(egresos);
         System.out.println(json);
         response.type("application/json");
+        EntityManagerHelper.commit();
+
         return json;
     }
 
@@ -101,6 +104,7 @@ public class ControladorDeEgresos {
     }
 
     public Response guardarEgreso(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDeEgreso egreso;
         TipoOperacion tipo;
         if(request.params("id") == null){
@@ -140,10 +144,13 @@ public class ControladorDeEgresos {
             tipo,
             egreso.getId()
         );
+        EntityManagerHelper.commit();
         return response;
+
     }
 
     public Response eliminar(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
         RepositorioEgresos.getInstancia().eliminar(egreso);
 
@@ -155,10 +162,12 @@ public class ControladorDeEgresos {
             TipoOperacion.DELETE,
             egreso.getId()
         );
+        EntityManagerHelper.commit();
         return response;
     }
 
     public Response eliminarItem(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
 //        System.out.println(egreso.getItems().size());
         Item item = egreso.buscarItem(new Integer(request.params("id_item")));
@@ -181,6 +190,7 @@ public class ControladorDeEgresos {
             item.getId()
         );
 //        System.out.println(egreso.getItems().size());
+        EntityManagerHelper.commit();
         return response;
     }
 
@@ -197,6 +207,7 @@ public class ControladorDeEgresos {
     }
 
     public Response cargarPresupuestos(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDTO egresoTmp = FileUploadHandler.readJsonTo(request, "fileToUpload", OperacionDTO.class);
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id")));
 
@@ -238,11 +249,13 @@ public class ControladorDeEgresos {
                 p.getId()
             );
         }
+        EntityManagerHelper.commit();
 
         return response;
     }
 
     public Response eliminarPresupuesto(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
         Presupuesto presu = egreso.getPresupuesto(new Integer(request.params("id_presupuesto")));
         egreso.getPresupuestos().remove(presu);
@@ -262,11 +275,13 @@ public class ControladorDeEgresos {
             TipoOperacion.DELETE,
             presu.getId()
         );
+        EntityManagerHelper.commit();
 
         return response;
     }
 
     public Response agregarItem(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         Item unItem = new Item(TipoItem.valueOf(request.queryParams("Tipo")), request.queryParams("Descripcion"), Double.parseDouble(request.queryParams("Valor")));
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
         egreso.agregarItem(unItem);
@@ -287,10 +302,12 @@ public class ControladorDeEgresos {
             TipoOperacion.CREATE,
             unItem.getId()
         );
+        EntityManagerHelper.commit();
         return response;
     }
 
     public Response agregarCategorias(Request request, Response response) {
+        EntityManagerHelper.beginTransaction();
         Categoria unaCategoria = RepositorioCriterios.getInstancia().buscar(request.queryParams("criterio")).buscar(request.queryParams("categoria"));
         //        Categoria unaCategoria = new Categoria(request.queryParams("Nombre"), request.queryParams("Criterio"));
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
@@ -307,10 +324,12 @@ public class ControladorDeEgresos {
             TipoOperacion.UPDATE,
             egreso.getId()
         );
+        EntityManagerHelper.commit();
         return response;
     }
 
     public Response eliminarCategoria(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(new Integer(request.params("id")));
         Categoria cat = egreso.getCategoria(new Integer(request.params("id_categoria")));
         egreso.getCategorias().remove(cat);
@@ -324,22 +343,27 @@ public class ControladorDeEgresos {
             TipoOperacion.UPDATE,
             egreso.getId()
         );
+        EntityManagerHelper.commit();
         return response;
     }
 
     public String nuevaValidacion(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         OperacionDeEgreso egreso = RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id")));
         egreso.suscribirComoRevisor(ControladorDeValidaciones.getInstancia().getBandejaDeMensajes());
         egreso.validarLicitacion();
         response.status(201);
         response.type("text/xml");
         response.body("Validacion creada. Consulte las validaciones del egreso para obtener el resultado");
+        EntityManagerHelper.commit();
         return response.body();
     }
 
     public String obtenerValidaciones(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         String json = ControladorDeValidaciones.getInstancia().obtenerValidacionesEgreso(Integer.parseInt(request.params("id")));
         response.type("application/json");
+        EntityManagerHelper.commit();
         return json;
     }
 }

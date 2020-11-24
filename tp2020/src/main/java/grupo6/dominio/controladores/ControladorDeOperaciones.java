@@ -2,6 +2,7 @@ package grupo6.dominio.controladores;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import db.EntityManagerHelper;
 import grupo6.bitacoraOperaciones.ServicioRegistroOperaciones;
 import grupo6.bitacoraOperaciones.TipoOperacion;
 import grupo6.dominio.entidades.HiddenAnnotationExclusionStrategy;
@@ -16,23 +17,25 @@ import java.util.List;
 
 public class ControladorDeOperaciones {
     public String obtenerOperaciones(Request request, Response response){
-
+        EntityManagerHelper.beginTransaction();
         String entidad = request.queryParams("entidad");
         String tipo = request.queryParams("tipo");
 
         System.out.println("TIPOOOOO: "+tipo);
         response.type("application/json");
-
+        String operaciones = null;
         if(entidad != null){
             if(tipo != null){
-                return ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad, TipoOperacion.valueOfLabel(tipo));
+                operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad, TipoOperacion.valueOfLabel(tipo));
             }
-            return ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad);
+            else
+            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad);
         }
-        if(tipo != null){
-            return ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(TipoOperacion.valueOfLabel(tipo));
+        else if(tipo != null){
+            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(TipoOperacion.valueOfLabel(tipo));
         }
         response.status(400);
-        return null;
+        EntityManagerHelper.commit();
+        return operaciones;
     }
 }
