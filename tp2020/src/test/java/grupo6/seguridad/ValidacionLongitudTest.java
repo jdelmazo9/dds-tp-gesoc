@@ -21,4 +21,6 @@ class ValidacionLongitudTest {
         assertTrue(minLongVal.validar("as da"), "La contraseña es valida");
         assertFalse(minLongVal.validar("asad"), "La contraseña debe contener al menos 5 caracteres");
     }
+
 }
+

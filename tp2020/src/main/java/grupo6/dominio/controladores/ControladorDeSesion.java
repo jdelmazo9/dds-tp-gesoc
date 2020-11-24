@@ -43,6 +43,7 @@ public class ControladorDeSesion {
     }
 
     public Response verificarSesion(Request request, Response response){
+        
         Sesion sesion = JedisHandler.getSesion();
         if(sesion == null) {
             System.out.println("La sesion no existe, te mando al login");

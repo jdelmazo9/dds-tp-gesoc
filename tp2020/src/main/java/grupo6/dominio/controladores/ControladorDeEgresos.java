@@ -35,6 +35,7 @@ public class ControladorDeEgresos {
 //        List<Usuario> usuarios = this.repo.buscarTodos();
 //        parametros.put("usuarios", usuarios);
 //        asignarUsuarioSiEstaLogueado(request, parametros);
+        EntityManagerHelper.beginTransaction();
 
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionDeEgreso> egresos;
@@ -55,6 +56,8 @@ public class ControladorDeEgresos {
         parametros.put("egresos", egresos);
         parametros.put("criterios", RepositorioCriterios.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
+        EntityManagerHelper.commit();
+
         return new ModelAndView(parametros, "egresos/indice.hbs");
     }
 
@@ -86,10 +89,13 @@ public class ControladorDeEgresos {
     }
 
     public ModelAndView crearEgreso(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         parametros.put("mediosDePago", RepositorioMediosDePago.getInstancia().getMedioDePagos());
+        EntityManagerHelper.commit();
+
         return new ModelAndView(parametros, "egresos/nuevo.hbs");
     }
 
@@ -179,11 +185,13 @@ public class ControladorDeEgresos {
 
 
     public ModelAndView mostrarEgreso(Request request, Response response) {
+        EntityManagerHelper.beginTransaction();
         Map<String, Object> parametros = new HashMap<>();
         parametros.put("egreso", RepositorioEgresos.getInstancia().buscar(Integer.parseInt(request.params("id"))));
         parametros.put("proveedores",RepositorioProveedores.getInstancia().obtenerTodos());
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
         parametros.put("mediosDePago", RepositorioMediosDePago.getInstancia().getMedioDePagos());
+        EntityManagerHelper.commit();
         return new ModelAndView(parametros, "egresos/mostrar.hbs");
     }
 

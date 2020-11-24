@@ -31,9 +31,9 @@ public class DAOHibernate<T> implements DAO<T> {
     @Override
     public T buscar(int id) {
         EntityManagerHelper.getEntityManager().clear();
-        EntityManagerHelper.beginTransaction();
+//        EntityManagerHelper.beginTransaction();
         T result = EntityManagerHelper.getEntityManager().find(type, id);
-        EntityManagerHelper.commit();
+//        EntityManagerHelper.commit();
 //        EntityManagerHelper.closeEntityManager();
         return result;
     }
@@ -55,9 +55,9 @@ public class DAOHibernate<T> implements DAO<T> {
     @Override
     public void agregar(Object unObjeto) {
         EntityManagerHelper.getEntityManager();
-        EntityManagerHelper.beginTransaction();
+//        EntityManagerHelper.beginTransaction();
         EntityManagerHelper.persist(unObjeto);
-        EntityManagerHelper.commit();
+//        EntityManagerHelper.commit();
 //        EntityManagerHelper.closeEntityManager();
 //        EntityManager em = EntityManagerHelper.getEntityManager();
 //        em.getTransaction().begin();
@@ -70,9 +70,9 @@ public class DAOHibernate<T> implements DAO<T> {
 
     @Override
     public void modificar(Object unObjeto) {
-        EntityManagerHelper.beginTransaction();
+//        EntityManagerHelper.beginTransaction();
         EntityManagerHelper.merge(unObjeto);
-        EntityManagerHelper.commit();
+//        EntityManagerHelper.commit();
 //        EntityManagerHelper.closeEntityManager();
 //        EntityManager em = EntityManagerHelper.getEntityManager();
 //        em.getTransaction().begin();
@@ -85,9 +85,9 @@ public class DAOHibernate<T> implements DAO<T> {
 
     @Override
     public void eliminar(Object unObjeto) {
-        EntityManagerHelper.beginTransaction();
+//        EntityManagerHelper.beginTransaction();
         EntityManagerHelper.delete(unObjeto);
-        EntityManagerHelper.commit();
+//        EntityManagerHelper.commit();
 //        EntityManagerHelper.closeEntityManager();
 //        EntityManager em = EntityManagerHelper.getEntityManager();
 //        em.getTransaction().begin();

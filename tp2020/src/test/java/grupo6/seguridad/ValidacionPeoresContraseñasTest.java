@@ -20,4 +20,7 @@ class ValidacionPeoresContraseñasTest {
         assertFalse(validacionPeoresContraseñas.validar("987654"), "La contraseña se encuentra en el top 10k de peores contraseñas");
         assertTrue(validacionPeoresContraseñas.validar("midn$ght"), "La contraseña es valida");
     }
+
+
 }
+

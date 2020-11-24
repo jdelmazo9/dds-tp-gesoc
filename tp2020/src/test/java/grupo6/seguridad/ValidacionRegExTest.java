@@ -21,6 +21,9 @@ class ValidacionRegExTest {
         assertFalse(regexVal.validar("asda s1Adasd"), "La contraseña no puede contener espacios");
         assertTrue(regexVal.validar("asdas1Adasd#"), "La contraseña es valida");
         assertTrue(regexVal.validar("12AA$12aa"), "La contraseña es valida");
+
     }
 
+
 }
+

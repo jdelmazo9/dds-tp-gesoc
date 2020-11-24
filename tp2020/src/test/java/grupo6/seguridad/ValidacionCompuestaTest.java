@@ -22,4 +22,8 @@ class ValidacionCompuestaTest {
         assertFalse(validacionCompuesta.validar("magic"), "La contraseña no cumple con ningun criterio");
         assertTrue(validacionCompuesta.validar("$magic12MAGIC12$"), "La contraseña cumple con todos los criterios");
     }
+
 }
+
+
+

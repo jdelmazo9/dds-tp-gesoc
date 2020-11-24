@@ -1,5 +1,6 @@
 package grupo6.dominio.cargaDataInicial;
 
+import db.EntityManagerHelper;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.*;
 import grupo6.seguridad.RolUsuario;
@@ -10,11 +11,14 @@ import java.time.LocalDate;
 public class CargaInicialBD {
 
     public static void cargaInicial() {
+        EntityManagerHelper.beginTransaction();
         cargaUsuarios();
         cargaCriterios();
         cargaEgresos();
         cargaIngresos();
         cargaProveedores();
+        EntityManagerHelper.commit();
+
     }
 
     private static void cargaCriterios(){

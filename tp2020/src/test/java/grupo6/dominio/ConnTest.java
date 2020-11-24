@@ -25,7 +25,7 @@
 //    public void testConn() throws Exception {
 //        final String DB_CONNECTION = "jdbc:mysql://localhost:3306/dds";
 //        final String DB_USER = "root";
-//        final String DB_PASSWORD = "100296";
+//        final String DB_PASSWORD = "admin";
 //        Connection dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,	DB_PASSWORD);
 //
 //        Statement statement = dbConnection.createStatement();

@@ -2,6 +2,7 @@ package grupo6.dominio.controladores;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import db.EntityManagerHelper;
 import grupo6.bitacoraOperaciones.ServicioRegistroOperaciones;
 import grupo6.bitacoraOperaciones.TipoOperacion;
 import grupo6.dominio.entidades.HiddenAnnotationExclusionStrategy;
@@ -59,6 +60,7 @@ public class ControladorDeIngresos {
     }
 
     public ModelAndView mostrarTodos(Request request, Response response) {
+        EntityManagerHelper.beginTransaction();
         Map<String, Object> parametros = new HashMap<>();
         List<OperacionDeIngreso> ingresos;
 
@@ -82,11 +84,12 @@ public class ControladorDeIngresos {
         parametros.put("repoCriterios", RepositorioCriterios.getInstancia());
 
         ;
-
+        EntityManagerHelper.commit();
         return new ModelAndView(parametros, "ingresos/indice.hbs");
     }
 
     public String obtenerTodos(Request request, Response response){
+        EntityManagerHelper.beginTransaction();
         List<String> criterios = new ArrayList();
         List<String> categorias = new ArrayList();
         if(request.queryParamsValues("categoria") != null) {
@@ -109,6 +112,8 @@ public class ControladorDeIngresos {
         String json = gson.toJson(ingresos);
         response.type("application/json");
         System.out.println(json);
+        EntityManagerHelper.commit();
+
         return json;
     }
 }
