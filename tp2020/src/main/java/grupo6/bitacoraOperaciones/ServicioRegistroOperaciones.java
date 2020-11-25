@@ -13,6 +13,7 @@ public class ServicioRegistroOperaciones {
     Datastore datastore;
     static MongoClient mongoClient;
     static ServicioRegistroOperaciones instancia = null;
+    static Integer tamanio_pagina = 30;
 
     public static ServicioRegistroOperaciones getInstancia() {
         if(instancia == null){
@@ -41,33 +42,58 @@ public class ServicioRegistroOperaciones {
         datastore.save(new Operacion(user, entidad, tipoOperacion, entidad_id, desc));
     }
 
+//    public String obtenerOperaciones() {
+//        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find().spliterator(), false)
+//            .map(Document::toJson)
+//            .collect(Collectors.joining(", ", "[", "]"));
+//    }
+
     public String obtenerOperaciones() {
-        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find().spliterator(), false)
+        return obtenerOperaciones(1);
+    }
+
+    public String obtenerOperaciones(Integer pagina) {
+        return StreamSupport.stream(
+                datastore.getDatabase().getCollection("Operaciones").find().limit(tamanio_pagina).skip((pagina-1)*tamanio_pagina).spliterator(), false)
             .map(Document::toJson)
             .collect(Collectors.joining(", ", "[", "]"));
     }
 
-    public String obtenerOperaciones(TipoOperacion tipo) {
+    public String obtenerOperaciones(TipoOperacion tipo){
+        return obtenerOperaciones(tipo,1);
+    }
+
+    public String obtenerOperaciones(TipoOperacion tipo, Integer pagina) {
         Document query = new Document();
         query.append("tipo_operacion", tipo.label);
-        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).spliterator(), false)
+        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).limit(tamanio_pagina).skip((pagina-1)*tamanio_pagina).spliterator(), false)
             .map(Document::toJson)
             .collect(Collectors.joining(", ", "[", "]"));
     }
 
-    public String obtenerOperaciones(String entidad, TipoOperacion tipo) {
+    public String obtenerOperaciones(String entidad, TipoOperacion tipo){
+        return obtenerOperaciones(entidad, tipo,1);
+    }
+
+
+    public String obtenerOperaciones(String entidad, TipoOperacion tipo, Integer pagina) {
         Document query = new Document();
         query.append("tipo_operacion", tipo.label);
         query.append("entidad", entidad);
-        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).spliterator(), false)
+        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).limit(tamanio_pagina).skip((pagina-1)*tamanio_pagina).spliterator(), false)
             .map(Document::toJson)
             .collect(Collectors.joining(", ", "[", "]"));
     }
+
 
     public String obtenerOperaciones(String entidad) {
+        return obtenerOperaciones(entidad,1);
+    }
+
+    public String obtenerOperaciones(String entidad, Integer pagina) {
         Document query = new Document();
         query.append("entidad", entidad);
-        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).spliterator(), false)
+        return StreamSupport.stream(datastore.getDatabase().getCollection("Operaciones").find(query).limit(tamanio_pagina).skip((pagina-1)*tamanio_pagina).spliterator(), false)
             .map(Document::toJson)
             .collect(Collectors.joining(", ", "[", "]"));
     }

@@ -97,4 +97,8 @@ public class DAOHibernate<T> implements DAO<T> {
 //        EntityManagerHelper.getEntityManager().remove(unObjeto);
 //        EntityManagerHelper.getEntityManager().getTransaction().commit();
     }
+
+//    public void eliminarTodos(){
+//        EntityManagerHelper.
+//    }
 }

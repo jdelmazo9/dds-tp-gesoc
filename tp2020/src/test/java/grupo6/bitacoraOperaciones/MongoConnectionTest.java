@@ -1,6 +1,10 @@
 package grupo6.bitacoraOperaciones;
 
+import org.bson.Document;
 import org.junit.jupiter.api.Test;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static grupo6.bitacoraOperaciones.TipoOperacion.valueOfLabel;
 import static org.junit.Assert.assertEquals;
@@ -29,6 +33,19 @@ public class MongoConnectionTest {
     @Test
     void obtenerTodosTodos(){
         System.out.println(ServicioRegistroOperaciones.getInstancia().obtenerOperaciones());
+    }
+
+    @Test
+    void paginacionTest(){
+        System.out.println(
+            StreamSupport.stream(
+            ServicioRegistroOperaciones.
+                getInstancia().datastore.
+                    getDatabase().
+                        getCollection("Operaciones").find().limit(30).skip(30).spliterator(),
+                false).map(Document::toJson)
+                .collect(Collectors.joining(", ", "[", "]"))
+        );
     }
 
     @Test

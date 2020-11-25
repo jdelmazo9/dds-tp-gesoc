@@ -20,15 +20,13 @@ public class RepositorioMediosDePago extends Repositorio<MedioDePago> {
 
     public static RepositorioMediosDePago getInstancia(){
         if(yoMismo == null){
-            yoMismo = new RepositorioMediosDePago(new AdapterMediosDePagoMP(), new DAOHibernate<>(MedioDePago.class));
+            yoMismo = new RepositorioMediosDePago(new DAOHibernate<>(MedioDePago.class));
         }
         return yoMismo;
     }
 
-    public RepositorioMediosDePago(AdapterMediosDePago adapterMediosDePago, DAO<MedioDePago> dao){
+    public RepositorioMediosDePago(DAO<MedioDePago> dao){
         super(dao);
-        for(MedioDePago m: adapterMediosDePago.getMediosDePago())
-            this.dao.agregar(m);
     }
 
 

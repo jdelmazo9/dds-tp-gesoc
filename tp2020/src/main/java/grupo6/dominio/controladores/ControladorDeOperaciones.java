@@ -20,21 +20,31 @@ public class ControladorDeOperaciones {
         EntityManagerHelper.beginTransaction();
         String entidad = request.queryParams("entidad");
         String tipo = request.queryParams("tipo");
+        Integer pagina;
 
-        System.out.println("TIPOOOOO: "+tipo);
+        if(request.queryParams("pagina") == null){
+            pagina = 1;
+        }
+        else{
+            pagina = new Integer(request.queryParams("pagina"));
+        }
+
         response.type("application/json");
         String operaciones = null;
         if(entidad != null){
-            if(tipo != null){
-                operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad, TipoOperacion.valueOfLabel(tipo));
+            if(TipoOperacion.valueOfLabel(tipo) != null){
+                operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad, TipoOperacion.valueOfLabel(tipo),pagina);
             }
             else
-            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad);
+            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(entidad, pagina);
         }
-        else if(tipo != null){
-            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(TipoOperacion.valueOfLabel(tipo));
+        else if(TipoOperacion.valueOfLabel(tipo) != null){
+            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(TipoOperacion.valueOfLabel(tipo), pagina);
         }
-        response.status(400);
+        else{
+            operaciones = ServicioRegistroOperaciones.getInstancia().obtenerOperaciones(pagina);
+        }
+//        response.status(400);
         EntityManagerHelper.commit();
         return operaciones;
     }

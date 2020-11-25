@@ -3,6 +3,7 @@ package grupo6.dominio.cargaDataInicial;
 import db.EntityManagerHelper;
 import grupo6.dominio.entidades.*;
 import grupo6.dominio.repositorios.*;
+import grupo6.dominio.servicios.AdapterMediosDePagoMP;
 import grupo6.seguridad.RolUsuario;
 import grupo6.seguridad.Usuario;
 
@@ -17,8 +18,15 @@ public class CargaInicialBD {
         cargaEgresos();
         cargaIngresos();
         cargaProveedores();
+        cargaMediosDePago();
         EntityManagerHelper.commit();
+    }
 
+    private static void cargaMediosDePago(){
+        RepositorioMediosDePago repositorioMediosDePago = RepositorioMediosDePago.getInstancia();
+        for(MedioDePago m: new AdapterMediosDePagoMP().getMediosDePago()) {
+            repositorioMediosDePago.agregar(m);
+        }
     }
 
     private static void cargaCriterios(){
@@ -91,6 +99,7 @@ public class CargaInicialBD {
     private static void cargaUsuarios() {
         RepositorioDeUsuarios repoUsuarios = RepositorioDeUsuarios.getInstancia();
         repoUsuarios.agregar(new Usuario("admin","admin123",RolUsuario.ADMIN));
+        repoUsuarios.agregar(new Usuario("operador","operador456",RolUsuario.ESTANDAR));
         repoUsuarios.agregar(new Usuario("api_user", "api123456", RolUsuario.ESTANDAR));
     }
 
