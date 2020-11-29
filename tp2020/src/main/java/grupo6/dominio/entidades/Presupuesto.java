@@ -12,7 +12,8 @@ public class Presupuesto extends DocumentoItems {
     @JoinColumn(name="documentoItemID")
     private List<Item> items;
     private double valorTotal;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne
     private Proveedor proveedor;
     //@ManyToMany
     @Transient
