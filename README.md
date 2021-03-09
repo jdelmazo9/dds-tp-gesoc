@@ -1,5 +1,7 @@
 # TP DDS Gesoc - Grupo 6
 
+*Aclaración: Este trabajo fue un proyecto educativo, el scope se fue modificando a lo largo del año de cursada.
+
 Link a la página: https://dds-gesoc.herokuapp.com/
 
 Credenciales:
